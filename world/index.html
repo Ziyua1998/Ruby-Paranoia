@@ -193,7 +193,7 @@ async function initWorldMap(){
   const img=document.getElementById('saitama-map');
   if(!img)return;
   try{
-    const urls=['/assets/saitama-map-part-1.txt','/assets/saitama-map-part-2.txt','/assets/saitama-map-part-3.txt','/assets/saitama-map-part-4.txt'];
+    const urls=['/assets/saitama-lossless-part-01.txt','/assets/saitama-lossless-part-02.txt','/assets/saitama-lossless-part-03.txt','/assets/saitama-lossless-part-04.txt','/assets/saitama-lossless-part-05.txt','/assets/saitama-lossless-part-06.txt','/assets/saitama-lossless-part-07.txt','/assets/saitama-lossless-part-08.txt','/assets/saitama-lossless-part-09.txt','/assets/saitama-lossless-part-10.txt','/assets/saitama-lossless-part-11.txt','/assets/saitama-lossless-part-12.txt','/assets/saitama-lossless-part-13.txt','/assets/saitama-lossless-part-14.txt','/assets/saitama-lossless-part-15.txt','/assets/saitama-lossless-part-16.txt','/assets/saitama-lossless-part-17.txt','/assets/saitama-lossless-part-18.txt','/assets/saitama-lossless-part-19.txt','/assets/saitama-lossless-part-20.txt'];
     const parts=await Promise.all(urls.map(async u=>{const r=await fetch(u,{cache:'force-cache'});if(!r.ok)throw new Error('map asset '+u);return r.text()}));
     img.src='data:image/webp;base64,'+parts.join('').replace(/\s/g,'');
   }catch(e){

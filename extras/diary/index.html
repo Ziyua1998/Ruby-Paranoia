@@ -23,8 +23,8 @@ radial-gradient(circle at 12% 85%,rgba(232,160,43,.07),transparent 20%)}
 .diary-hint{position:fixed;right:18px;top:18px;z-index:500;color:#7c6940;font-size:10px;letter-spacing:.12em}
 .stage{position:relative;z-index:2;width:min(1080px,96vw);height:min(720px,calc(100svh - 62px));display:grid;place-items:center;perspective:2400px;filter:drop-shadow(0 28px 34px #000e)}
 .book{position:relative;width:min(1000px,92vw);height:min(690px,calc(100svh - 82px));transform-style:preserve-3d;touch-action:pan-y;transition:width .45s ease}
-.book.closed{width:min(500px,92vw)}
-.sheet{position:absolute;top:0;right:0;width:50%;height:100%;transform-origin:left center;transform-style:preserve-3d;transition:transform 900ms cubic-bezier(.2,.7,.2,1);will-change:transform}
+.book.closed{width:min(500px,92vw)}.book.closed .sheet{width:100%}
+.sheet{position:absolute;top:0;right:0;width:50%;height:100%;transform-origin:left center;transform-style:preserve-3d;transition:transform 900ms cubic-bezier(.2,.7,.2,1),width .45s ease;will-change:transform}
 .sheet.flipped{transform:rotateY(-180deg)}
 .sheet.dragging{transition:none}
 .face{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform-style:preserve-3d}

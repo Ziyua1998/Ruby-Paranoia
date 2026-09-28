@@ -105,6 +105,39 @@ linear-gradient(105deg,#030202,#3b0810 38%,#160508 70%,#030202);border:4px solid
   .diary-book:not(.closed){width:min(500px,94vw)}
 }
 
+
+/* --- interactive Saitama continent map --- */
+.world-map-section{width:min(1380px,calc(100% - 40px));margin:0 auto 100px}
+.world-map-head{text-align:center;margin-bottom:26px}
+.world-map-head .eyebrow{margin-bottom:8px}
+.world-map-head h2{margin:0;color:#efd477;font-size:clamp(28px,4vw,44px);letter-spacing:.12em}
+.world-map-head p{margin:12px auto 0;color:#8f805c;font-size:12px;line-height:1.8}
+.world-map-frame{position:relative;border:1px solid rgba(227,189,84,.34);padding:10px;background:#080506;box-shadow:0 30px 60px #0009,inset 0 0 32px #000}
+.world-map-frame:before,.world-map-frame:after{content:"";position:absolute;width:38px;height:38px;z-index:4;pointer-events:none}
+.world-map-frame:before{left:-7px;top:-7px;border-left:1px solid #8d6a27;border-top:1px solid #8d6a27}
+.world-map-frame:after{right:-7px;bottom:-7px;border-right:1px solid #8d6a27;border-bottom:1px solid #8d6a27}
+.world-map{display:block;width:100%;height:auto;filter:saturate(.88) contrast(1.03) brightness(.92)}
+.map-hotspot{position:absolute;z-index:8;width:30px;height:30px;margin:-15px 0 0 -15px;padding:0;border:0;background:transparent;cursor:crosshair}
+.map-hotspot .map-dot{position:absolute;left:50%;top:50%;width:9px;height:9px;translate:-50% -50%;border:2px solid #5e1018;border-radius:50%;background:#e8d294;box-shadow:0 0 0 3px rgba(90,13,23,.16),0 0 12px rgba(109,10,22,.16);transition:.18s}
+.map-hotspot:hover .map-dot,.map-hotspot:focus .map-dot{width:13px;height:13px;background:#8f1020;border-color:#f0d273;box-shadow:0 0 0 5px rgba(132,11,27,.18),0 0 18px rgba(132,11,27,.35)}
+.map-hotspot:focus{outline:none}
+.map-tip{position:absolute;left:18px;bottom:18px;width:260px;padding:14px 16px;text-align:left;pointer-events:none;opacity:0;visibility:hidden;transform:translateY(8px);transition:.18s;border:1px solid rgba(227,189,84,.34);background:rgba(10,5,6,.88);backdrop-filter:blur(8px);box-shadow:0 14px 30px #0008;color:#c9bb91}
+.map-tip strong{display:block;margin-bottom:6px;color:#f0d478;font-size:15px;letter-spacing:.08em}
+.map-tip em{display:block;margin-bottom:7px;color:#a61a2d;font:9px var(--roman);font-style:normal;letter-spacing:.14em}
+.map-tip span{display:block;font-size:12px;line-height:1.7}
+.map-hotspot:hover .map-tip,.map-hotspot:focus .map-tip{opacity:1;visibility:visible;transform:translateY(0)}
+.map-hotspot.edge-right .map-tip{left:auto;right:18px}
+.map-hotspot.edge-top .map-tip{bottom:auto;top:18px}
+.map-legend{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:14px;color:#756847;font-size:10px}
+.map-legend b{color:#a41629;font-weight:400}
+@media(max-width:760px){
+  .world-map-section{width:calc(100% - 20px)}
+  .world-map-frame{overflow-x:auto;padding:6px}
+  .world-map-wrap{position:relative;min-width:900px}
+  .map-tip{width:230px}
+  .world-map-head p{padding:0 14px}
+}
+
 </style>
 </head>
 <body><div id="app"></div>
@@ -126,7 +159,32 @@ function navLink(to,label){return `<a href="${to}" class="${path===to?'active':'
 function shell(content){return `<div class="site"><header class="topbar"><a class="brand" href="/"><strong>Ruby Paranoia</strong><small>深红偏执 · Zenobia</small></a><nav class="nav">${navLink('/','首页')}${navLink('/world/','世界观')}${navLink('/media/','歌曲·视频')}${navLink('/extras/','番外')}</nav><div class="actions"><button class="icon-btn" data-share aria-label="分享">↗</button><button class="icon-btn menu-btn" data-menu aria-label="菜单">☰</button></div><nav class="mobile-nav" hidden>${navLink('/','首页')}${navLink('/world/','世界观')}${navLink('/media/','歌曲·视频')}${navLink('/extras/','番外')}</nav></header><main class="main">${content}</main><footer class="footer"><span>RUBY PARANOIA · Zenobia</span><span>Fanwork / One Punch Man fanfiction</span></footer></div>`}
 function home(){return `<section class="hero"><div class="hero-architecture"><i></i><i></i><i></i></div><div class="hero-copy"><div class="eyebrow">A GOTHIC FANWORK BY ZENOBIA</div><h1><span>Ruby</span><span>Paranoia</span></h1><h2>深红偏执</h2><div class="rule"></div><p>这是一个围绕吸血鬼、猎人、记忆、控制与选择展开的 One Punch Man 同人故事。</p><div class="hero-meta"><span>AMAI MASK × ZOMBIEMAN</span><b>◆</b><span>ONGOING</span></div><a class="enter-link" href="#archive">ENTER THE ARCHIVE <span>↓</span></a></div><figure class="hero-cover"><div class="book-frame"><div class="cover-art"><span class="cover-by">By Zenobia</span><div class="cover-title">Ruby<br>Paranoia</div><div class="cover-sword"><i></i></div><div class="cover-bats"><b></b><b></b><b></b></div><span class="cover-sub">AMAI MASK × ZOMBIEMAN<br>ONE PUNCH MAN FANBOOK</span></div></div><figcaption>BOOK DESIGN · ZENOBIA</figcaption></figure></section><section class="manifesto"><div class="manifesto-mark">✦</div><p>“红宝石”既是记忆的残片，也是无法被安静埋葬的偏执。这里收录正文之外的世界设定、音乐影像与番外档案。</p></section><section class="section" id="archive"><div class="section-title"><span>ARCHIVE INDEX</span><h2>作品档案</h2><p>Choose a sealed file</p></div><div class="portal-grid"><a class="card" href="/world/"><span class="n">01</span><div class="sigil">♜</div><small>WORLD ARCHIVE</small><h3>世界观设定</h3><p>血族秩序、人类势力与既有规则档案。</p><span class="go">阅览档案 →</span></a><a class="card" href="/media/"><span class="n">02</span><div class="sigil">◉</div><small>MEDIA VAULT</small><h3>歌曲 / 视频</h3><p>与作品相关的声音与影像陈列。</p><span class="go">阅览档案 →</span></a><a class="card" href="/extras/"><span class="n">03</span><div class="sigil">✒</div><small>EXTRA FILES</small><h3>附录与番外</h3><p>主线之外，被封存的故事与私人记录。</p><span class="go">阅览档案 →</span></a><a class="card" href="/extras/diary/"><span class="n">04</span><div class="sigil">▣</div><small>PRIVATE DIARY</small><h3>甜公日记</h3><p>翻阅甜公留下的羊皮纸日记。</p><span class="go">阅览档案 →</span></a></div></section><section class="book-object"><div class="book-object-copy"><span>PHYSICAL EDITION CONCEPT</span><h2>像一本被遗忘在古堡里的书。</h2><p>网页视觉从小说封面延伸：黑色作为空间，深红作为血液与执念，暗金作为烛火、旧金属与纸张边缘的光。</p></div><div class="book-object-visual"><div class="mock-book mock-book-back"><span>RUBY PARANOIA</span></div><div class="mock-book mock-book-spine"><span>Ruby Paranoia</span></div><div class="mock-book mock-book-front"><span class="tiny">BY ZENOBIA</span><strong>Ruby<br>Paranoia</strong></div></div></section>`}
 function archiveHero(kicker,title,desc){return `<section class="archive-hero"><i class="arch a"></i><i class="arch b"></i><i class="arch c"></i><header class="page-title"><div class="eyebrow">${kicker}</div><h1>${title}</h1><p>${desc}</p></header></section>`}
-function world(){const rows=[["I","♛","血族秩序","血族社会存在“长亲—后裔—血仆”等关系结构。","不同血族对人类立场并不一致：有力量统治派，也有强调力量与责任对应、维持族群平衡的一派。甜美公爵处在两者之间，认为利用人类可以接受，但必须受到约束。"],["II","⛨","人类势力","人类侧存在教会、骑士团、血猎／猎人组织等力量。","这些势力与血族彼此对立，却也并非铁板一块。"],["III","✦","初拥与后裔","“初拥”会把人类转化为血族后裔。","66号是甜美公爵第一个成功完成初拥并存活的人类，并保留了日光耐受与强自愈等异常特性。"],["IV","◆","血液与生存","血族获取血液的方式包括收买血仆、圈养人畜、外出捕猎，以及介入人类战争。",""],["V","♜","权力结构","血族协会由玛考伊建立，本部位于 V 市。","协会通过议会协调血族精英，并输出可能影响人类命运的决策。"]];return `${archiveHero("WORLD DOSSIER · ZENOBIA","世界观设定","现阶段已确认的秩序、阵营与生存法则。")}<div class="archive-band"><span>ARCHIVE NO. 01</span><b>◆</b><span>VAMPIRE SOCIETY</span><b>◆</b><span>ONGOING RECORD</span></div><article class="page"><div class="dossiers">${rows.map(r=>`<section class="dossier"><header><span>${r[0]}</span><span>${r[1]}</span></header><h2>${r[2]}</h2><p>${r[3]}</p>${r[4]?`<p>${r[4]}</p>`:''}</section>`).join('')}</div><p class="note">以正文为准，后续随连载更新。</p></article>`}
+function world(){
+ const rows=[["I","♛","血族秩序","血族社会存在“长亲—后裔—血仆”等关系结构。","不同血族对人类立场并不一致：有力量统治派，也有强调力量与责任对应、维持族群平衡的一派。甜美公爵处在两者之间，认为利用人类可以接受，但必须受到约束。"],["II","⛨","人类势力","人类侧存在教会、骑士团、血猎／猎人组织等力量。","这些势力与血族彼此对立，却也并非铁板一块。"],["III","✦","初拥与后裔","“初拥”会把人类转化为血族后裔。","66号是甜美公爵第一个成功完成初拥并存活的人类，并保留了日光耐受与强自愈等异常特性。"],["IV","◆","血液与生存","血族获取血液的方式包括收买血仆、圈养人畜、外出捕猎，以及介入人类战争。",""],["V","♜","权力结构","血族协会由玛考伊建立，本部位于 V 市。","协会通过议会协调血族精英，并输出可能影响人类命运的决策。"]];
+ const spots=[
+  ["暗夜协会","NIGHT ASSOCIATION",41.4,17.1,"赛克斯领导的暗夜势力。它掌握甜公真实身份与恶魔力量的线索，并成为后期调查突破口。",""],
+  ["修道院","MONASTERY",40.4,30.0,"甜公重伤后曾躲入偏远修道院；这里也连接他与埼玉相遇的后续线。",""],
+  ["研究所","RESEARCH FACILITY",27.3,40.6,"地图中的研究设施。当前连载版本尚未在这里展开独立的主线事件。",""],
+  ["血族协会","VAMPIRE ASSOCIATION",18.3,48.7,"玛考伊建立的血族权力中枢。66号与甜公都被卷入议会、庭审与商业合作案的博弈。",""],
+  ["剧院","THEATRE",30.4,49.2,"阿麦·马斯克在人类社会最重要的舞台与掩护。维比佳莎、骑士团调查和《歌剧魅影》都与此地相连。",""],
+  ["锻造铺","FORGE",38.8,50.3,"童帝与波弗伊相关的工坊。66号曾在这里疗伤，并取得银线、圣水银弹等猎杀甜公的装备。",""],
+  ["市中心教堂","CENTRAL CHURCH",32.5,54.3,"教会势力的重要据点。66号被拘押后，从教堂地下通道与排水系统寻找脱狱路线。",""],
+  ["巴德家","BAD'S HOME",36.8,62.4,"金属球棒巴德的私人据点。当前正文更多通过人物关系提及，尚未形成独立大型事件。",""],
+  ["酒馆","TAVERN",43.9,57.3,"66号在人类社会的熟人活动地之一。玛考伊曾以A市酒馆朋友的安全来要挟66号。",""],
+  ["猎人组织总部","HUNTER HQ",47.9,48.5,"66号作为“僵尸男”时所属的猎人体系核心地点，连接他原本的职业身份与血猎任务。",""],
+  ["中央广场","CENTRAL SQUARE",48.4,60.6,"公开处刑与群众事件的舞台之一，66号在教会与人类社会冲突升级时被卷入其中。",""],
+  ["吹雪组总部","FUBUKI GROUP HQ",55.4,64.0,"吹雪及其组织的据点。当前版本主要作为人物势力地图标记，总部内部剧情尚未展开。",""],
+  ["僵尸男的家","ZOMBIEMAN'S HOME",55.4,36.0,"僵尸男在人类社会的旧居，象征他被初拥前作为猎人与普通人的生活身份。","edge-top"],
+  ["撒旦教据点","SATANIC CULT",60.9,60.2,"66号曾闯入献祭现场救下孩子；这里也与大蛇、撒旦以及甜公获得恶魔力量的根源相连。",""],
+  ["牧场","FARM",67.3,53.9,"39号经营的新聚居地。离开城堡的血仆与战争流民在这里建立生活，后来成为66号追查甜公线索的重要落脚点。",""],
+  ["骑士团驻点","KNIGHTS' OUTPOST",68.5,66.3,"布鲁、居合等骑士团成员的行动据点。他们在此与教会代表商议追捕甜公，并推进对66号的调查。",""],
+  ["监狱","PRISON",79.0,38.0,"66号被银链拘押、反复审讯的地方。甜公在外制造骚乱后，66号靠自己夺钥匙并从地下路线脱逃。","edge-right"],
+  ["废弃遗址","ABANDONED RUINS",22.4,70.3,"地图中的荒废地点。当前正文尚未为此处展开独立主线事件，保留为后续世界设定入口。",""],
+  ["古堡","DUKE'S CASTLE",39.9,76.7,"甜美公爵的领地与主线核心舞台：66号初战、初拥、同居、权力拉扯以及刺杀都在这里发生。","edge-top"],
+  ["山巅旧教堂","OLD HILL CHURCH",50.6,76.7,"66号与甜公关系的重要转折地。废弃祭坛上的亲吻，让两人的关系从单纯追猎进入更复杂的纠缠。","edge-top"]
+ ];
+ return `${archiveHero("WORLD DOSSIER · ZENOBIA","世界观设定","现阶段已确认的秩序、阵营与生存法则。")}<div class="archive-band"><span>ARCHIVE NO. 01</span><b>◆</b><span>VAMPIRE SOCIETY</span><b>◆</b><span>ONGOING RECORD</span></div><article class="page"><div class="dossiers">${rows.map(r=>`<section class="dossier"><header><span>${r[0]}</span><span>${r[1]}</span></header><h2>${r[2]}</h2><p>${r[3]}</p>${r[4]?`<p>${r[4]}</p>`:''}</section>`).join('')}</div><p class="note">以正文为准，后续随连载更新。</p></article><section class="world-map-section"><header class="world-map-head"><div class="eyebrow">GEOGRAPHICAL ARCHIVE · SAITAMA CONTINENT</div><h2>埼玉大陆地图</h2><p>将鼠标移到地图上的地点标记，或在移动设备上点击标记，可查看当前连载版本中与该地点关联的人物和事件。</p></header><div class="world-map-frame"><div class="world-map-wrap"><img class="world-map" src="/assets/saitama-continent-map.webp" alt="埼玉大陆地图">${spots.map(s=>`<button class="map-hotspot ${s[5]||''}" style="left:${s[2]}%;top:${s[3]}%" aria-label="${s[0]}" tabindex="0"><i class="map-dot"></i><span class="map-tip"><em>${s[1]}</em><strong>${s[0]}</strong><span>${s[4]}</span></span></button>`).join('')}</div></div><div class="map-legend"><span><b>●</b> 剧情地点</span><span>悬停 / 点击查看档案</span><span>文字仅对应当前连载版本</span></div></section>`;
+}
 function media(){return `${archiveHero("SOUND & VISION · ZENOBIA","歌曲 / 视频","声音与影像将在此处依次归档。")}<div class="archive-band"><span>ARCHIVE NO. 02</span><b>◆</b><span>AUDIO / FILM</span><b>◆</b><span>SEALED MATERIAL</span></div><div class="page"><div class="media-grid"><section class="media-box"><div class="media-art">◉</div><div><span>SECTION I · AUDIO</span><h2>歌曲</h2><p>档案尚未公开。未来将在这里陈列与作品相关的歌曲、主题曲与音频。</p><small>COMING SOON</small></div></section><section class="media-box"><div class="media-art film">▤</div><div><span>SECTION II · FILM</span><h2>视频</h2><p>影像卷宗仍在封存。未来可直接嵌入 Bilibili / YouTube 等公开视频。</p><small>COMING SOON</small></div></section></div></div>`}
 function extras(){return `${archiveHero("APPENDICES · ZENOBIA","附录与番外档案","主线之外，仍被纸页与封蜡保存的记录。")}<div class="archive-band"><span>ARCHIVE NO. 03</span><b>◆</b><span>PRIVATE RECORDS</span><b>◆</b><span>APPENDICES</span></div><div class="page"><div class="extras"><a class="extra featured" href="/extras/diary/"><span class="idx">EX — 01</span><span class="extra-diary-book"></span><div><small>可阅览档案</small><h2>甜公的日记</h2><p>以可翻阅的中世纪羊皮纸日记形式呈现的私人记录。支持鼠标拖拽页角、点击翻页、方向键与移动端滑动。</p></div><span class="state">开启日记 →</span></a><article class="extra"><span class="idx">EX — 02</span><span class="glyph">⚿</span><div><small>番外档案</small><h2>井中的新娘</h2><p>一段发生在主线之前的旧事，关于被凝视、被安排的人生，与一次拒绝。</p></div><span class="state">封存</span></article><article class="extra muted"><span class="idx">EX — ··</span><span class="glyph">◌</span><div><small>待归档</small><h2>更多番外</h2><p>将随连载补充。</p></div></article></div></div>`}
 function diary(){return `<main class="diary-shell season-summer"><a class="diary-return" href="/extras/">← 返回番外</a><div class="diary-hint">拖动页角翻页 · ← →</div><section class="diary-stage"><div id="diary-book" class="diary-book"><div class="diary-cover" data-density="hard"><div class="diary-cover-inner"><small>PRIVATE RECORD · ZENOBIA</small><h1>甜公的日记</h1><div class="diary-ruby"></div></div></div></div></section><p class="page-status">封面</p></main>`}

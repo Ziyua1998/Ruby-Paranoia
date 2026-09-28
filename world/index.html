@@ -81,10 +81,33 @@ linear-gradient(105deg,#030202,#3b0810 38%,#160508 70%,#030202);border:4px solid
 .page-status{position:relative;z-index:2;margin:0;color:#8a7952;font:9px var(--roman);letter-spacing:.14em}
 @media(max-width:850px){.diary-stage{width:min(520px,94vw);height:min(700px,calc(100svh - 66px))}.diary-paper{padding:42px 34px 34px}.diary-text p{font-size:14px;line-height:1.85}.diary-hint{display:none}}
 
+
+/* --- self-contained physical book engine (no external JS dependency) --- */
+.diary-stage{position:relative;z-index:2;width:min(1080px,95vw);height:min(720px,calc(100svh - 64px));display:grid;place-items:center;perspective:2400px;filter:drop-shadow(0 30px 34px #000e)}
+.diary-book{position:relative;width:min(1000px,92vw);height:min(690px,calc(100svh - 82px));transform-style:preserve-3d;transition:width .5s ease;touch-action:pan-y}
+.diary-book.closed{width:min(500px,92vw)}
+.diary-sheet{position:absolute;top:0;right:0;width:50%;height:100%;transform-origin:left center;transform-style:preserve-3d;transition:transform 900ms cubic-bezier(.2,.7,.2,1);will-change:transform}
+.diary-sheet.flipped{transform:rotateY(-180deg)}
+.diary-sheet.dragging{transition:none}
+.diary-face{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform-style:preserve-3d}
+.diary-face.back{transform:rotateY(180deg)}
+.diary-face.front:after,.diary-face.back:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.0;transition:opacity .2s}
+.diary-sheet.dragging .diary-face.front:after,.diary-sheet.dragging .diary-face.back:after{opacity:1;background:linear-gradient(90deg,transparent 45%,rgba(0,0,0,.24) 100%)}
+.diary-face.diary-cover,.diary-face.diary-back{border:4px solid #020202}
+.diary-face.diary-page{border-block:1px solid rgba(83,52,20,.55)}
+.diary-face.back.diary-page:after{background:linear-gradient(90deg,rgba(40,20,12,.24),transparent 28%)}
+.diary-corner{position:absolute;z-index:80;width:42px;height:42px;bottom:0;opacity:.18;pointer-events:none}
+.diary-corner.right{right:0;background:linear-gradient(135deg,transparent 49%,#e4c36a 50%)}
+.diary-corner.left{left:0;background:linear-gradient(225deg,transparent 49%,#e4c36a 50%)}
+@media(max-width:850px){
+  .diary-book{width:min(500px,94vw);height:min(690px,calc(100svh - 82px))}
+  .diary-sheet{width:100%;right:0}
+  .diary-book:not(.closed){width:min(500px,94vw)}
+}
+
 </style>
 </head>
 <body><div id="app"></div>
-<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
 <script>
 const entries=[
 ["■年6月6日",["命运将一个拥有红宝石般眼眸的猎人送至我面前。他的血液出乎意料地难以入口，不过，那顽强的自愈之力，以及「小刀」前所未有的悸动，都昭示了他的不同寻常。","姑且尝试一次“初拥”的仪式吧。","或许，我终于能够塑造出自己一直寻找的某种可能。","就称他为“66号”。"]],
@@ -114,81 +137,43 @@ function initDiary(){
   const book=document.getElementById('diary-book');
   const status=document.querySelector('.page-status');
   if(!book)return;
-  if(!window.St||!window.St.PageFlip){status.textContent='翻页组件加载失败，请刷新页面';return}
 
-  // Measure the actual rendered text at the logical PageFlip page size.
+  // 1) Paginate the diary using the actual rendered handwriting font and page height.
   const measure=document.createElement('div');
   measure.className='diary-page right diary-measure';
   measure.innerHTML='<div class="paper-grain"></div><article class="diary-paper"><div class="diary-flow"></div></article>';
   document.body.appendChild(measure);
   const measureFlow=measure.querySelector('.diary-flow');
   const measurePaper=measure.querySelector('.diary-paper');
+  const fits=html=>{measureFlow.innerHTML=html;return measurePaper.scrollHeight<=measurePaper.clientHeight+1};
 
-  const fits=(html)=>{
-    measureFlow.innerHTML=html;
-    return measurePaper.scrollHeight<=measurePaper.clientHeight+1;
-  };
-
-  const pages=[];
+  const pageHTML=[];
   let blocks=[];
-  const flush=()=>{
-    if(blocks.length){pages.push(blocks.join(''));blocks=[]}
-  };
-  const tryAdd=(html)=>{
-    const candidate=blocks.concat(html).join('');
-    if(fits(candidate)){blocks.push(html);return true}
-    return false;
-  };
+  const flush=()=>{if(blocks.length){pageHTML.push(blocks.join(''));blocks=[]}};
+  const tryAdd=html=>{const candidate=blocks.concat(html).join('');if(fits(candidate)){blocks.push(html);return true}return false};
 
-  // Add a paragraph, splitting only when the remaining physical space truly requires it.
-  const addParagraph=(text)=>{
+  const addParagraph=(raw)=>{
+    let text=raw;
     const whole='<p>'+text+'</p>';
     if(tryAdd(whole))return;
-    if(blocks.length) {
-      // First try to use the remainder of the current page instead of wasting it.
-      let chars=Array.from(text), lo=1, hi=chars.length, best=0;
-      while(lo<=hi){
-        const mid=(lo+hi)>>1;
-        const html='<p>'+chars.slice(0,mid).join('')+'</p>';
-        if(fits(blocks.concat(html).join(''))){best=mid;lo=mid+1}else hi=mid-1;
-      }
+    if(blocks.length){
+      const chars=Array.from(text);let lo=1,hi=chars.length,best=0;
+      while(lo<=hi){const mid=(lo+hi)>>1;const h='<p>'+chars.slice(0,mid).join('')+'</p>';if(fits(blocks.concat(h).join(''))){best=mid;lo=mid+1}else hi=mid-1}
       if(best>0){
-        // Prefer a natural punctuation break near the measured boundary.
-        let cut=best;
-        const probe=chars.slice(Math.max(0,Math.floor(best*.62)),best).join('');
-        const matches=[...probe.matchAll(/[，。！？；、…]/g)];
-        if(matches.length){
-          const base=Math.max(0,Math.floor(best*.62));
-          cut=base+matches[matches.length-1].index+1;
-        }
-        blocks.push('<p>'+chars.slice(0,cut).join('')+'</p>');
-        flush();
-        text=chars.slice(cut).join('');
-      }else{
-        flush();
-      }
+        let cut=best;const from=Math.max(0,Math.floor(best*.68));const probe=chars.slice(from,best).join('');
+        const m=[...probe.matchAll(/[，。！？；、…]/g)];if(m.length)cut=from+m[m.length-1].index+1;
+        blocks.push('<p>'+chars.slice(0,cut).join('')+'</p>');flush();text=chars.slice(cut).join('');
+      }else flush();
     }
     while(text){
       const chars=Array.from(text);
-      const full='<p class="continued">'+text+'</p>';
-      if(tryAdd(full))break;
+      if(tryAdd('<p class="continued">'+text+'</p>'))break;
       let lo=1,hi=chars.length,best=0;
-      while(lo<=hi){
-        const mid=(lo+hi)>>1;
-        const html='<p class="continued">'+chars.slice(0,mid).join('')+'</p>';
-        if(fits(blocks.concat(html).join(''))){best=mid;lo=mid+1}else hi=mid-1;
-      }
+      while(lo<=hi){const mid=(lo+hi)>>1;const h='<p class="continued">'+chars.slice(0,mid).join('')+'</p>';if(fits(blocks.concat(h).join(''))){best=mid;lo=mid+1}else hi=mid-1}
       if(best<=0){flush();continue}
-      let cut=best;
-      const probe=chars.slice(Math.max(0,Math.floor(best*.62)),best).join('');
-      const matches=[...probe.matchAll(/[，。！？；、…]/g)];
-      if(matches.length){
-        const base=Math.max(0,Math.floor(best*.62));
-        cut=base+matches[matches.length-1].index+1;
-      }
-      blocks.push('<p class="continued">'+chars.slice(0,cut).join('')+'</p>');
-      flush();
-      text=chars.slice(cut).join('');
+      let cut=best;const from=Math.max(0,Math.floor(best*.68));const probe=chars.slice(from,best).join('');
+      const m=[...probe.matchAll(/[，。！？；、…]/g)];if(m.length)cut=from+m[m.length-1].index+1;
+      blocks.push('<p class="continued">'+chars.slice(0,cut).join('')+'</p>');flush();text=chars.slice(cut).join('');
     }
   };
 
@@ -196,69 +181,106 @@ function initDiary(){
     const heading='<h2 class="diary-date">＜'+date+'＞</h2>';
     const first=paras[0]||'';
     const firstGroup=heading+(first?'<p>'+first+'</p>':'');
-    // Keep a date with its opening paragraph; if they do not fit together, start them on the next page.
-    if(!tryAdd(firstGroup)){
-      flush();
-      if(!tryAdd(firstGroup)){
-        blocks.push(heading);
-        if(first)addParagraph(first);
-      }
-    }
+    if(!tryAdd(firstGroup)){flush();if(!tryAdd(firstGroup)){blocks.push(heading);if(first)addParagraph(first)}}
     for(let i=1;i<paras.length;i++)addParagraph(paras[i]);
   });
-  flush();
-  measure.remove();
+  flush();measure.remove();
 
-  const contentCount=pages.length;
-  pages.forEach((html,i)=>{
-    const page=document.createElement('div');
-    page.className='diary-page '+(i%2===0?'left':'right');
-    const ratio=i/Math.max(1,contentCount-1);
-    page.dataset.season=ratio>.82?'winter':ratio>.48?'autumn':ratio>.26?'late-summer':'summer';
-    page.innerHTML='<div class="paper-grain"></div><article class="diary-paper"><div class="diary-flow">'+html+'</div></article><span class="folio">'+(i+1)+'</span>';
-    book.appendChild(page);
-  });
+  // 2) Turn the resulting physical pages into right-hand "sheets":
+  // cover(front) / p1(back), then p2(front)/p3(back), etc.
+  const physical=pageHTML.map((html,i)=>({
+    html,number:i+1,blank:false,
+    season:(i/Math.max(1,pageHTML.length-1))>.82?'winter':(i/Math.max(1,pageHTML.length-1))>.48?'autumn':(i/Math.max(1,pageHTML.length-1))>.26?'late-summer':'summer'
+  }));
+  if(physical.length%2===1)physical.push({html:'',number:null,blank:true,season:'winter'});
+  physical.push({html:'',number:null,blank:true,season:'winter'},{html:'',number:null,blank:true,season:'winter'});
 
-  // Guarantee a full blank spread after the last written page.
-  let logicalCount=contentCount;
-  if(logicalCount%2===1){
-    const filler=document.createElement('div');
-    filler.className='diary-page right diary-blank';
-    filler.dataset.season='winter';
-    filler.innerHTML='<div class="paper-grain"></div><article class="diary-paper"></article>';
-    book.appendChild(filler);
-    logicalCount++;
-  }
-  for(let i=0;i<2;i++){
-    const blank=document.createElement('div');
-    blank.className='diary-page '+(i===0?'left':'right')+' diary-blank';
-    blank.dataset.season='winter';
-    blank.innerHTML='<div class="paper-grain"></div><article class="diary-paper"></article>';
-    book.appendChild(blank);
-  }
-  const back=document.createElement('div');
-  back.className='diary-back';
-  back.dataset.density='hard';
-  book.appendChild(back);
-
-  const pageFlip=new window.St.PageFlip(book,{
-    width:500,height:690,size:'stretch',minWidth:315,maxWidth:500,minHeight:435,maxHeight:690,
-    showCover:true,usePortrait:true,mobileScrollSupport:true,drawShadow:true,maxShadowOpacity:.82,
-    flippingTime:1050,useMouseEvents:true,swipeDistance:24,showPageCorners:true,autoSize:true,startZIndex:10
-  });
-  pageFlip.loadFromHTML(book.children);
-
-  const update=(idx)=>{
-    if(idx===0){status.textContent='封面';shell.className='diary-shell season-summer';return}
-    const node=book.children[idx];
-    if(node?.classList.contains('diary-back')){status.textContent='封底';shell.className='diary-shell season-winter';return}
-    if(node?.classList.contains('diary-blank')){status.textContent='空白页';shell.className='diary-shell season-winter';return}
-    const season=node?.dataset.season||'summer';
-    shell.className='diary-shell season-'+season;
-    status.textContent=Math.min(idx,contentCount)+' / '+contentCount;
+  const face=(p,side,back=false)=>{
+    if(!p)return '<div class="diary-face '+(back?'back ':'front ')+'diary-page diary-blank"></div>';
+    const cls='diary-face '+(back?'back ':'front ')+'diary-page '+side+(p.blank?' diary-blank':'');
+    return '<div class="'+cls+'" data-season="'+p.season+'"><div class="paper-grain"></div><article class="diary-paper">'+(p.html?'<div class="diary-flow">'+p.html+'</div>':'')+'</article>'+(p.number?'<span class="folio">'+p.number+'</span>':'')+'</div>';
   };
-  pageFlip.on('flip',e=>update(e.data));
-  window.addEventListener('keydown',e=>{if(e.key==='ArrowRight')pageFlip.flipNext();if(e.key==='ArrowLeft')pageFlip.flipPrev()});
-  update(0);
+
+  book.innerHTML='';
+  const coverSheet=document.createElement('div');
+  coverSheet.className='diary-sheet';
+  coverSheet.innerHTML='<div class="diary-face front diary-cover"><div class="diary-cover-inner"><small>PRIVATE RECORD · ZENOBIA</small><h1>甜美公爵的<br>私人日记</h1><div class="diary-ruby"></div></div></div>'+face(physical[0],'left',true)+'<i class="diary-corner right"></i>';
+  book.appendChild(coverSheet);
+
+  for(let i=1;i<physical.length;i+=2){
+    const sheet=document.createElement('div');
+    sheet.className='diary-sheet';
+    sheet.innerHTML=face(physical[i],'right',false)+face(physical[i+1],'left',true)+'<i class="diary-corner right"></i><i class="diary-corner left"></i>';
+    book.appendChild(sheet);
+  }
+
+  const sheets=[...book.querySelectorAll('.diary-sheet')];
+  let cur=0,dragging=false,dragSheet=null,startX=0,startSide='',moved=0;
+  const spreadFor=()=>{
+    if(cur===0)return {label:'封面',season:'summer'};
+    const leftNo=(cur-1)*2+1,rightNo=leftNo+1;
+    if(leftNo>pageHTML.length)return {label:'空白页',season:'winter'};
+    const p=physical[Math.min(leftNo-1,physical.length-1)];
+    return {label:Math.min(rightNo,pageHTML.length)+' / '+pageHTML.length,season:p?.season||'summer'};
+  };
+  const render=()=>{
+    sheets.forEach((s,i)=>{
+      const flipped=i<cur;
+      s.classList.toggle('flipped',flipped);
+      if(!s.classList.contains('dragging'))s.style.transform=flipped?'rotateY(-180deg)':'rotateY(0deg)';
+      s.style.zIndex=flipped?String(i+1):String(sheets.length-i);
+    });
+    book.classList.toggle('closed',cur===0);
+    const info=spreadFor();status.textContent=info.label;shell.className='diary-shell season-'+info.season;
+  };
+  const next=()=>{if(cur<sheets.length){cur++;render()}};
+  const prev=()=>{if(cur>0){cur--;render()}};
+
+  const pointX=e=>e.touches?e.touches[0].clientX:e.clientX;
+  const down=e=>{
+    const r=book.getBoundingClientRect(),x=pointX(e)-r.left;
+    startX=pointX(e);moved=0;
+    const mobile=matchMedia('(max-width:850px)').matches;
+    const rightHalf=mobile?x>r.width*.35:x>r.width/2;
+    if(rightHalf&&cur<sheets.length){dragSheet=sheets[cur];startSide='next'}
+    else if(!rightHalf&&cur>0){dragSheet=sheets[cur-1];startSide='prev'}
+    else return;
+    dragging=true;dragSheet.classList.add('dragging');dragSheet.style.zIndex=String(sheets.length+10);
+    if(e.pointerId!=null)book.setPointerCapture?.(e.pointerId);
+  };
+  const move=e=>{
+    if(!dragging||!dragSheet)return;
+    const dx=pointX(e)-startX;moved=Math.max(moved,Math.abs(dx));
+    const w=book.getBoundingClientRect().width*(matchMedia('(max-width:850px)').matches?1:.5);
+    if(startSide==='next'){
+      const angle=Math.max(-180,Math.min(0,(dx/w)*180));
+      dragSheet.style.transform='rotateY('+angle+'deg)';
+    }else{
+      const angle=-180+Math.max(0,Math.min(180,(dx/w)*180));
+      dragSheet.style.transform='rotateY('+angle+'deg)';
+    }
+    e.preventDefault?.();
+  };
+  const up=e=>{
+    if(!dragging||!dragSheet)return;
+    const dx=(e.changedTouches?e.changedTouches[0].clientX:e.clientX)-startX;
+    const threshold=book.getBoundingClientRect().width*(matchMedia('(max-width:850px)').matches?.16:.10);
+    dragSheet.classList.remove('dragging');dragSheet.style.transform='';
+    if(startSide==='next'&&dx<-threshold)cur=Math.min(sheets.length,cur+1);
+    else if(startSide==='prev'&&dx>threshold)cur=Math.max(0,cur-1);
+    dragging=false;dragSheet=null;render();
+  };
+
+  book.addEventListener('pointerdown',down);
+  book.addEventListener('pointermove',move);
+  book.addEventListener('pointerup',up);
+  book.addEventListener('pointercancel',up);
+  book.addEventListener('click',e=>{
+    if(moved>10)return;
+    const r=book.getBoundingClientRect(),x=e.clientX-r.left;
+    if(matchMedia('(max-width:850px)').matches||x>r.width/2)next();else prev();
+  });
+  window.addEventListener('keydown',e=>{if(e.key==='ArrowRight')next();if(e.key==='ArrowLeft')prev()});
+  render();
 }
 </script></body></html>

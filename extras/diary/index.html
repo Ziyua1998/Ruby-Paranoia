@@ -54,7 +54,7 @@ linear-gradient(105deg,#030202,#3b0810 38%,#160508 70%,#030202);border:4px solid
 .corner{position:absolute;z-index:50;width:42px;height:42px;bottom:0;opacity:.16;pointer-events:none}
 .corner.right{right:0;background:linear-gradient(135deg,transparent 49%,#e3bd54 50%)}
 .corner.left{left:0;background:linear-gradient(225deg,transparent 49%,#e3bd54 50%)}
-.status{position:relative;z-index:3;margin:0;color:#8b7951;font-size:10px;letter-spacing:.12em}
+.doodle-page .paper{display:grid;place-items:center;padding:34px}.doodle{width:min(78%,360px);max-height:82%;object-fit:contain;mix-blend-mode:multiply;filter:grayscale(1) contrast(.88) opacity(.78);transform:rotate(-1.5deg);box-shadow:none}.doodle-note{position:absolute;right:44px;bottom:42px;color:#6b5534;font:400 16px var(--hand);transform:rotate(-4deg);opacity:.7}.status{position:relative;z-index:3;margin:0;color:#8b7951;font-size:10px;letter-spacing:.12em}
 .measure{position:absolute!important;left:-99999px!important;top:0!important;width:500px!important;height:690px!important;visibility:hidden!important;pointer-events:none!important}
 @media(max-width:850px){
   .book{width:min(500px,94vw);height:min(690px,calc(100svh - 82px))}
@@ -120,9 +120,9 @@ async function init(){
 
  const physical=pages.map((html,i)=>({html,num:i+1,blank:false}));
  if(physical.length%2===1)physical.push({html:'',num:null,blank:true});
- physical.push({html:'',num:null,blank:true},{html:'',num:null,blank:true});
+ physical.push({html:'',num:null,blank:false,doodle:true},{html:'',num:null,blank:true});
 
- const face=(p,back=false)=>'<div class="face '+(back?'back ':'front ')+'page'+(p&&p.blank?' blank':'')+'"><article class="paper">'+(p&&p.html?'<div class="flow">'+p.html+'</div>':'')+'</article>'+(p&&p.num?'<span class="folio">'+p.num+'</span>':'')+'</div>';
+ const face=(p,back=false)=>'<div class="face '+(back?'back ':'front ')+'page'+(p&&p.blank?' blank':'')+(p&&p.doodle?' doodle-page':'')+'"><article class="paper">'+(p&&p.doodle?'<img class="doodle" src="'+doodle+'" alt="铅笔涂鸦"><span class="doodle-note">……随手画的。</span>':(p&&p.html?'<div class="flow">'+p.html+'</div>':''))+'</article>'+(p&&p.num?'<span class="folio">'+p.num+'</span>':'')+'</div>';
  book.innerHTML='';
  const first=document.createElement('div');first.className='sheet';
  first.innerHTML='<div class="face front cover"><div class="cover-inner"><small>PRIVATE RECORD · ZENOBIA</small><h1>甜公的日记</h1><div class="ruby"></div></div></div>'+face(physical[0],true)+'<i class="corner right"></i>';book.appendChild(first);

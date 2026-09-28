@@ -3,88 +3,77 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#090506">
+<title>甜美公爵的私人日记 — RUBY PARANOIA · Zenobia</title>
+<meta name="description" content="RUBY PARANOIA 番外：甜美公爵的私人日记">
 <meta name="author" content="Zenobia">
-<meta name="description" content="RUBY PARANOIA（深红偏执）—— Zenobia 的 One Punch Man 同人作品站。">
-<meta property="og:title" content="RUBY PARANOIA（深红偏执）— Zenobia">
-<meta property="og:description" content="吸血鬼、猎人、记忆、控制与选择。Zenobia 的 One Punch Man 同人作品站。">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://ruby-paranoia.vercel.app/">
-<meta name="twitter:card" content="summary">
-<title>RUBY PARANOIA（深红偏执）— Zenobia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;500;600;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--black:#050405;--black2:#0a0607;--red:#650813;--red2:#930b1a;--red3:#c20d1f;--scarlet:#e31526;--gold:#e3bd54;--gold2:#b88c28;--paper:#ddc58b;--ink:#2d1714;--line:rgba(227,189,84,.22);--serif:"Noto Serif SC","Songti SC",SimSun,serif;--roman:"Cinzel",Georgia,serif;--blackletter:"UnifrakturMaguntia",serif;--hand:"Ma Shan Zheng","STKaiti","KaiTi",cursive}
-*{box-sizing:border-box}html{scroll-behavior:smooth}html,body{margin:0;min-height:100%;background:var(--black);color:#d8ccaa;font-family:var(--serif)}body{background:radial-gradient(circle at 50% -10%,rgba(138,0,20,.18),transparent 36%),var(--black)}a{color:inherit;text-decoration:none}button{font:inherit}.site{min-height:100vh;display:flex;flex-direction:column;position:relative;isolation:isolate}.site:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;background:linear-gradient(90deg,transparent 49.8%,rgba(184,140,40,.04) 50%,transparent 50.2%),repeating-linear-gradient(0deg,transparent 0 7px,rgba(255,255,255,.012) 8px 9px)}.topbar{position:sticky;top:0;z-index:50;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:28px;padding:12px clamp(18px,4vw,64px);background:rgba(6,4,5,.97);border-bottom:1px solid var(--line);box-shadow:0 12px 30px #0009}.brand{display:flex;flex-direction:column;color:var(--red3);letter-spacing:.08em}.brand strong{font-family:var(--blackletter);font-size:27px;font-weight:400;line-height:.9}.brand small{font-family:var(--roman);font-size:8px;color:var(--gold);letter-spacing:.18em;margin-top:5px}.nav{display:flex;gap:34px;font-size:13px;letter-spacing:.12em}.nav a{position:relative;color:#c6b98f;padding:17px 0}.nav a:hover,.nav a.active{color:var(--gold)}.nav a.active:after{content:"";position:absolute;left:0;right:0;bottom:5px;height:1px;background:var(--red3);box-shadow:0 0 10px rgba(226,20,37,.85)}.actions{justify-self:end;display:flex;gap:10px}.icon-btn{width:38px;height:38px;border:1px solid var(--line);background:#0a0506;color:var(--gold);cursor:pointer;border-radius:0}.menu-btn{display:none}.mobile-nav{display:none}.main{flex:1}.footer{display:flex;justify-content:space-between;gap:24px;padding:22px clamp(18px,4vw,64px);border-top:1px solid var(--line);color:#7f7048;font:10px var(--roman);letter-spacing:.14em;text-transform:uppercase}
-.hero{min-height:760px;position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(300px,.65fr);align-items:center;gap:clamp(26px,4vw,72px);padding:80px clamp(24px,7vw,110px) 92px;border-bottom:1px solid rgba(227,189,84,.18);background:radial-gradient(circle at 70% 35%,rgba(186,8,28,.24),transparent 28%),linear-gradient(180deg,#070405 0%,#090405 62%,#050405 100%)}.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.62) 45%,rgba(24,0,4,.28) 100%),radial-gradient(circle at 84% 14%,rgba(219,14,34,.24),transparent 23%)}.hero-architecture{position:absolute;inset:0;opacity:.33;display:flex;justify-content:space-around;align-items:flex-end;padding:0 8vw}.hero-architecture i{width:24vw;max-width:360px;height:88%;border:2px solid rgba(197,20,37,.2);border-bottom:0;border-radius:50% 50% 0 0 / 24% 24% 0 0;box-shadow:inset 0 0 80px rgba(105,0,15,.25)}.hero-copy{position:relative;z-index:2;max-width:780px}.eyebrow{font:10px var(--roman);letter-spacing:.32em;color:var(--gold);text-transform:uppercase}.hero h1{display:flex;flex-direction:column;margin:20px 0 12px;font-family:var(--blackletter);font-size:clamp(86px,11vw,164px);font-weight:400;line-height:.58;color:var(--scarlet);text-shadow:0 4px 0 #310308,0 0 35px rgba(181,0,20,.3)}.hero h1 span:last-child{margin-left:.22em}.hero h2{margin:36px 0 0;color:var(--gold);font-size:clamp(18px,2vw,28px);font-weight:500;letter-spacing:.52em}.rule{width:138px;height:1px;margin:30px 0;background:linear-gradient(90deg,var(--red3),var(--gold));box-shadow:0 0 12px rgba(210,19,36,.55)}.hero p{max-width:650px;margin:0;color:#d2c39b;line-height:2.05;letter-spacing:.065em}.hero-meta{display:flex;align-items:center;gap:16px;margin-top:20px;color:#8e7d4d;font:9px var(--roman);letter-spacing:.16em}.hero-meta b{font-size:7px;color:var(--red3)}.enter-link{display:inline-flex;gap:12px;margin-top:34px;padding-bottom:8px;border-bottom:1px solid rgba(227,189,84,.38);color:var(--gold);font:10px var(--roman);letter-spacing:.22em}
-.hero-cover{position:relative;z-index:2;margin:0;justify-self:end;width:min(390px,31vw);min-width:285px}.book-frame{position:relative;padding:8px;background:#050303;border:1px solid rgba(227,189,84,.38);box-shadow:0 40px 70px #000,0 0 42px rgba(148,0,18,.22)}.book-frame:before,.book-frame:after{content:"";position:absolute;width:34px;height:34px;border-color:var(--gold2);opacity:.8}.book-frame:before{left:-9px;top:-9px;border-left:1px solid;border-top:1px solid}.book-frame:after{right:-9px;bottom:-9px;border-right:1px solid;border-bottom:1px solid}.hero-cover figcaption{margin-top:14px;text-align:center;color:#7f6d42;font:9px var(--roman);letter-spacing:.22em}
-.cover-art{position:relative;aspect-ratio:.72;min-height:520px;overflow:hidden;border:1px solid #46030b;background:radial-gradient(circle at 72% 76%,rgba(255,35,46,.30) 0 2%,transparent 3%),radial-gradient(circle at 76% 72%,rgba(255,105,112,.23) 0 1.3%,transparent 2%),linear-gradient(180deg,rgba(82,0,12,.14),rgba(0,0,0,.62)),repeating-linear-gradient(90deg,transparent 0 8%,rgba(214,10,30,.15) 8.3% 9%,transparent 9.3% 16%),linear-gradient(135deg,#160205,#030203 60%,#190207)}.cover-art:before{content:"";position:absolute;inset:6%;border:2px solid #690713;box-shadow:inset 0 0 0 2px #120204,inset 0 0 0 3px rgba(195,12,31,.55),0 0 30px #000}.cover-by{position:absolute;z-index:2;top:12%;left:14%;color:var(--gold);font:9px var(--roman);letter-spacing:.11em}.cover-title{position:absolute;z-index:2;top:17%;left:12%;font:clamp(54px,6vw,82px)/.67 var(--blackletter);color:var(--scarlet);text-shadow:0 3px 0 #260106}.cover-sub{position:absolute;z-index:2;left:13%;bottom:9%;font:8px/1.8 var(--roman);letter-spacing:.08em;color:var(--gold);text-align:center}.cover-sword{position:absolute;z-index:2;width:16%;height:48%;right:22%;top:39%}.cover-sword:before{content:"";position:absolute;left:46%;top:0;width:8%;height:76%;background:linear-gradient(#b40b1d,#3c0208);clip-path:polygon(50% 0,100% 8%,68% 100%,32% 100%,0 8%)}.cover-sword:after{content:"";position:absolute;left:0;top:70%;width:100%;height:9%;background:#8f0918;clip-path:polygon(0 50%,35% 0,45% 34%,55% 34%,65% 0,100% 50%,65% 100%,55% 66%,45% 66%,35% 100%)}.cover-sword i{position:absolute;left:40%;top:76%;width:20%;height:23%;border:3px solid #7d0815;border-top:none}.cover-bats b{position:absolute;z-index:2;width:11%;height:5%;background:#020202;clip-path:polygon(0 50%,22% 8%,47% 45%,50% 20%,53% 45%,78% 8%,100% 50%,78% 35%,50% 85%,22% 35%)}.cover-bats b:nth-child(1){left:9%;top:52%;transform:rotate(-12deg)}.cover-bats b:nth-child(2){right:7%;top:35%;transform:scale(.72) rotate(18deg)}.cover-bats b:nth-child(3){right:10%;top:60%;transform:scale(.5) rotate(-8deg)}
-.manifesto{display:grid;grid-template-columns:auto minmax(0,760px);justify-content:center;align-items:center;gap:28px;padding:48px 24px;background:linear-gradient(90deg,#070506,#120608 50%,#070506);border-bottom:1px solid rgba(227,189,84,.15)}.manifesto-mark{font-size:26px;color:var(--red3)}.manifesto p{margin:0;color:#b7a77f;line-height:2;font-size:14px}.section{width:min(1180px,calc(100% - 40px));margin:auto;padding:80px 0 96px}.section-title{text-align:center}.section-title span{font:9px var(--roman);letter-spacing:.3em;color:var(--gold2)}.section-title h2,.page-title h1{font-size:clamp(31px,4vw,52px);letter-spacing:.12em;color:#f0d77d;margin:12px 0}.section-title p{margin:5px 0 0;color:#6e6041;font:9px var(--roman);letter-spacing:.18em;text-transform:uppercase}.portal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}.card{position:relative;min-height:292px;padding:34px 29px;border:1px solid rgba(227,189,84,.23);background:linear-gradient(155deg,#16090b,#070506 70%);box-shadow:inset 0 0 34px #000b,0 16px 28px #0004;transition:.25s;overflow:hidden}.card:hover{transform:translateY(-5px);border-color:rgba(202,17,36,.78)}.card .n{position:absolute;right:18px;top:16px;color:#775d2b;font:11px var(--roman)}.card .sigil{font-size:30px;color:var(--red3);margin:20px 0 26px}.card small{color:#b59035;font:9px var(--roman);letter-spacing:.18em}.card h3{color:#efdca4;font-size:20px}.card p{color:#9d906c;font-size:13px;line-height:1.85}.card .go{position:absolute;left:29px;bottom:28px;color:var(--gold);font-size:11px}
-.book-object{width:min(1180px,calc(100% - 40px));margin:0 auto 96px;display:grid;grid-template-columns:.8fr 1.2fr;align-items:center;gap:48px;padding:34px;border:1px solid rgba(227,189,84,.18);background:linear-gradient(120deg,#120708,#070506)}.book-object-copy span{font:9px var(--roman);letter-spacing:.24em;color:var(--gold2)}.book-object-copy h2{margin:14px 0;color:#e6cd75;font-size:30px}.book-object-copy p{color:#a69770;line-height:2}.book-object-visual{min-height:340px;display:flex;align-items:flex-end;justify-content:center;perspective:1400px;padding:30px;background:radial-gradient(circle at 50% 70%,rgba(124,0,16,.14),transparent 43%)}.mock-book{position:relative;height:270px;border:1px solid rgba(227,189,84,.18);box-shadow:0 24px 35px #000d,inset 0 0 25px #000;background:linear-gradient(135deg,#180508,#040303 62%,#160407);color:var(--gold)}.mock-book-front,.mock-book-back{width:185px}.mock-book-front{transform:rotateY(-10deg);z-index:3;padding:34px 18px}.mock-book-front strong{display:block;margin-top:20px;font:48px/.72 var(--blackletter);color:var(--red3)}.mock-book-front .tiny{font:8px var(--roman)}.mock-book-spine{width:50px}.mock-book-spine span{writing-mode:vertical-rl;position:absolute;inset:20px auto 20px 15px;font:27px var(--blackletter);color:var(--red3)}.mock-book-back{transform:rotateY(12deg)}.mock-book-back span{position:absolute;inset:auto 16px 28px;text-align:center;font:8px var(--roman)}
-.page{width:min(1120px,calc(100% - 40px));margin:auto;padding:76px 0 96px}.page-title{text-align:center;max-width:760px;margin:0 auto 54px}.page-title p{color:#9d8e69}.page-title:after{content:"◆";display:block;color:var(--red3);margin-top:22px;font-size:10px}.dossiers{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}.dossier{grid-column:span 2;min-height:310px;padding:30px;border:1px solid rgba(227,189,84,.24);background:linear-gradient(150deg,#15080a,#080506 72%);box-shadow:inset 0 0 32px #000a,0 12px 30px #0005}.dossier:nth-child(4){grid-column:2/span 2}.dossier header{display:flex;justify-content:space-between;border-bottom:1px solid rgba(227,189,84,.15);padding-bottom:16px;color:var(--red3)}.dossier h2{color:var(--gold)}.dossier p{font-size:14px;line-height:1.95;color:#b8aa82}.note{text-align:center;color:#756641;font-size:11px;margin-top:36px}.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.media-box{min-height:380px;display:grid;grid-template-columns:42% 1fr;align-items:center;gap:32px;padding:40px;border:1px solid rgba(227,189,84,.24);background:linear-gradient(145deg,#16090b,#070506)}.media-art{aspect-ratio:1;display:grid;place-items:center;border:1px solid rgba(227,189,84,.36);border-radius:50%;font-size:44px;color:var(--red3);background:repeating-radial-gradient(circle,#090506 0 8px,#1d090d 9px 10px)}.media-art.film{border-radius:0}.media-box span{font:9px var(--roman);color:#a9802e}.media-box h2{font-size:32px;color:#ecd275}.media-box p{color:#9f916c}.media-box small{color:#6f6244;font:9px var(--roman)}.extras{display:grid;gap:16px}.extra{display:grid;grid-template-columns:80px 44px 1fr auto;align-items:center;gap:28px;min-height:154px;padding:28px 34px;border:1px solid rgba(227,189,84,.21);background:linear-gradient(100deg,#14080a,#070506)}.extra.featured{border-color:rgba(195,12,31,.58);background:linear-gradient(100deg,#23090e,#080506)}.extra .idx{font:10px var(--roman);color:#755c30}.extra .glyph{font-size:27px;color:var(--red3)}.extra small{font:9px var(--roman);color:#ad8734}.extra h2{margin:7px 0;color:#ecd897}.extra p{margin:0;color:#9f916d}.extra .state{font-size:11px;color:#bca15a}.muted{opacity:.56}
-.diary-shell{min-height:100vh;overflow:hidden;background:radial-gradient(circle at 50% 38%,rgba(142,0,20,.19),transparent 42%),linear-gradient(110deg,#060405,#16080a 48%,#050405);display:grid;grid-template-rows:1fr 28px;place-items:center;padding:20px}.diary-return{position:fixed;left:18px;top:16px;z-index:100;color:#d1b45f;font-size:11px;border-bottom:1px solid rgba(227,189,84,.27);padding:7px 9px}.book-wrap{width:min(1000px,90vw);height:min(700px,calc(100vh - 60px));display:grid;place-items:center;perspective:2200px}.book{position:relative;width:min(1000px,90vw);height:min(680px,calc(100vh - 70px));transform-style:preserve-3d;filter:drop-shadow(0 24px 28px #000d)}.book.closed{width:min(500px,90vw)}.sheet{position:absolute;top:0;width:50%;height:100%;transform-style:preserve-3d;transform-origin:left center;transition:transform 900ms cubic-bezier(.2,.65,.25,1);right:0}.sheet.flipped{transform:rotateY(-180deg)}.page-face{position:absolute;inset:0;backface-visibility:hidden;overflow:hidden;background:linear-gradient(95deg,#b79b63,#dec88f 8%,#e4d09d 55%,#b99c64);border:1px solid #6f5425}.back{transform:rotateY(180deg);background:linear-gradient(265deg,#b79b63,#dec88f 8%,#e4d09d 55%,#b99c64)}.book-cover-face{background:radial-gradient(circle at 50% 34%,rgba(123,8,22,.38),transparent 35%),linear-gradient(105deg,#050303,#4a0a12 42%,#140508 78%,#030202);border:4px solid #030202;color:var(--gold);box-shadow:inset 0 0 0 2px #8a0b1c,inset 0 0 0 4px #050303,inset 0 0 0 5px rgba(227,189,84,.52)}.cover-inner{position:absolute;inset:9%;border:1px solid rgba(227,189,84,.66);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:54px}.cover-inner h1{text-align:center;font-size:34px;line-height:1.7;color:var(--gold)}.ruby{width:52px;aspect-ratio:1;transform:rotate(45deg);background:#7b0a18;border:5px ridge #bd8e2d}.paper{height:100%;padding:54px 52px 42px;color:var(--ink);font-size:16px;line-height:1.95}.paper h2{font-size:18px;margin:0 0 28px;color:#5b0d19}.paper p{margin:0 0 .9em;text-indent:2em}.page-status{font:10px var(--roman);color:#8f7d55}
-@media(max-width:980px){.hero{grid-template-columns:1fr;min-height:auto;padding-top:92px}.hero-copy{text-align:center;justify-self:center}.hero h1{align-items:center;font-size:clamp(82px,18vw,138px)}.hero h1 span:last-child{margin-left:0}.rule{margin-left:auto;margin-right:auto}.hero-meta{justify-content:center}.hero-cover{justify-self:center;width:min(390px,72vw);margin-top:24px}.portal-grid{grid-template-columns:1fr 1fr}.book-object{grid-template-columns:1fr}.dossiers{grid-template-columns:1fr}.dossier,.dossier:nth-child(4){grid-column:auto}.media-grid{grid-template-columns:1fr}}
-@media(max-width:850px){.topbar{grid-template-columns:1fr auto}.nav{display:none}.menu-btn{display:block}.mobile-nav{grid-column:1/-1;display:grid;border-top:1px solid var(--line);margin-top:10px}.mobile-nav[hidden]{display:none}.mobile-nav a{padding:14px 4px;border-bottom:1px solid rgba(227,189,84,.12)}.footer{flex-direction:column}.extra{grid-template-columns:60px 36px 1fr}.extra .state{display:none}.book-wrap,.book{width:min(500px,94vw)}.sheet{width:100%}.book.closed{width:min(500px,94vw)}}
-@media(max-width:560px){.brand strong{font-size:22px}.hero{padding:70px 20px 72px}.hero h1{font-size:clamp(72px,24vw,108px)}.hero h2{letter-spacing:.34em}.hero-meta{flex-wrap:wrap}.manifesto{grid-template-columns:1fr;text-align:center}.portal-grid{grid-template-columns:1fr}.book-object{padding:22px}.media-box{grid-template-columns:1fr;padding:28px}.media-art{width:160px}.extra{grid-template-columns:44px 1fr;gap:18px}.extra .idx{display:none}.paper{padding:42px 34px 34px;font-size:14px}.cover-inner h1{font-size:28px}}
-
-/* --- refined gothic archive pages --- */
-.archive-hero{position:relative;min-height:310px;display:grid;place-items:center;overflow:hidden;border-bottom:1px solid rgba(227,189,84,.16);background:
-radial-gradient(circle at 50% 25%,rgba(174,7,28,.22),transparent 30%),
-linear-gradient(180deg,#0b0507 0%,#060405 100%)}
-.archive-hero:before{content:"";position:absolute;inset:0;opacity:.34;background:
-linear-gradient(90deg,transparent 19%,rgba(150,10,27,.16) 19.2% 19.7%,transparent 19.9% 80%,rgba(150,10,27,.16) 80.2% 80.7%,transparent 80.9%),
-repeating-linear-gradient(90deg,transparent 0 10%,rgba(226,18,38,.045) 10.2% 10.4%,transparent 10.6% 20%)}
-.archive-hero .arch{position:absolute;bottom:-120px;width:min(340px,32vw);height:390px;border:1px solid rgba(178,10,29,.20);border-bottom:0;border-radius:50% 50% 0 0}
-.archive-hero .arch.a{left:8%}.archive-hero .arch.b{left:50%;translate:-50%}.archive-hero .arch.c{right:8%}
-.archive-hero .page-title{position:relative;z-index:2;margin:0;padding:46px 20px}.archive-hero .page-title h1{font-size:clamp(36px,5vw,64px)}
-.archive-band{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;padding:15px 20px;border-bottom:1px solid rgba(227,189,84,.12);background:#080506;color:#806c3b;font:9px var(--roman);letter-spacing:.16em}
-.archive-band b{color:var(--red3);font-weight:400}
-.dossier,.media-box,.extra{position:relative;overflow:hidden}
-.dossier:before,.media-box:before,.extra:before{content:"";position:absolute;inset:9px;border:1px solid rgba(145,10,26,.10);pointer-events:none}
-.dossier:hover,.media-box:hover,.extra.featured:hover{border-color:rgba(196,13,33,.58);box-shadow:inset 0 0 36px #000b,0 0 30px rgba(118,0,17,.10)}
-.dossier header span:last-child{font-size:22px}.dossier h2{font-size:22px;letter-spacing:.09em}.dossier p{position:relative}
-.media-box{min-height:420px}.media-box h2{font-family:var(--serif);letter-spacing:.12em}.media-box:after{content:"SEALED";position:absolute;right:-22px;top:22px;rotate:42deg;border-block:1px solid rgba(196,13,33,.4);padding:4px 30px;color:#8e1523;font:8px var(--roman);letter-spacing:.22em}
-.extras{max-width:1000px;margin:auto}.extra{transition:transform .22s ease,border-color .22s ease}.extra.featured:hover{transform:translateX(4px)}
-.extra-diary-book{width:36px;height:48px;border:1px solid #7d0918;background:linear-gradient(135deg,#27080d,#080405);box-shadow:inset 0 0 0 2px #060304,inset 0 0 0 3px rgba(227,189,84,.35);display:grid;place-items:center;color:var(--gold);font:14px var(--blackletter)}
-.extra-diary-book:after{content:"◆";font-size:8px;color:var(--red3)}
-/* --- immersive diary powered by StPageFlip --- */
-.diary-shell{--room:#14070a;position:relative;min-height:100svh;overflow:hidden;display:grid;grid-template-rows:minmax(0,1fr) 28px;place-items:center;padding:28px 14px 8px;background:
-radial-gradient(circle at 50% 42%,rgba(144,3,23,.20),transparent 44%),
-linear-gradient(105deg,#050304,#16070a 48%,#040304);transition:background .8s ease}
+:root{--gold:#d8b754;--red:#700915;--paper:#dec78e;--ink:#2a1712;--hand:"Ma Shan Zheng","STKaiti","KaiTi",cursive}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#050304}
+body{overflow:hidden;font-family:"Noto Serif SC","Songti SC",serif}
+.diary-shell{min-height:100svh;display:grid;grid-template-rows:minmax(0,1fr) 28px;place-items:center;padding:24px 12px 8px;position:relative;overflow:hidden;background:
+radial-gradient(circle at 50% 42%,rgba(145,4,23,.18),transparent 44%),
+linear-gradient(105deg,#050304,#16070a 48%,#040304)}
 .diary-shell:before{content:"";position:absolute;inset:0;pointer-events:none;background:
-repeating-linear-gradient(91deg,transparent 0 105px,rgba(80,12,18,.12) 106px 108px,transparent 109px 210px),
-radial-gradient(circle at 12% 85%,rgba(232,160,43,.08),transparent 20%);mix-blend-mode:screen}
-.diary-shell.season-winter{background:radial-gradient(circle at 78% 16%,rgba(108,134,164,.10),transparent 28%),radial-gradient(circle at 45% 45%,rgba(120,0,18,.12),transparent 40%),linear-gradient(105deg,#040405,#10070a 50%,#030405)}
-.diary-shell.season-autumn{background:radial-gradient(circle at 13% 80%,rgba(175,71,22,.12),transparent 26%),linear-gradient(105deg,#050304,#18070a 48%,#040304)}
-.diary-return{position:fixed;left:18px;top:16px;z-index:200;color:#d2b762;font-size:11px;border-bottom:1px solid rgba(227,189,84,.25);padding:7px 9px;background:rgba(5,3,4,.42);backdrop-filter:blur(4px)}
-.diary-hint{position:fixed;right:18px;top:18px;z-index:200;color:#756542;font:9px var(--roman);letter-spacing:.12em}
-.diary-stage{position:relative;z-index:2;width:min(1080px,95vw);height:min(720px,calc(100svh - 64px));display:grid;place-items:center;perspective:2200px;filter:drop-shadow(0 28px 30px #000d)}
-.diary-book{margin:auto}.stf__parent{margin:auto!important}.stf__block{cursor:grab}.stf__block:active{cursor:grabbing}
-.diary-page{position:relative;overflow:hidden;color:#2b1814;font-family:var(--serif);background:
+repeating-linear-gradient(90deg,transparent 0 105px,rgba(95,10,20,.10) 106px 108px,transparent 109px 210px),
+radial-gradient(circle at 12% 85%,rgba(232,160,43,.07),transparent 20%)}
+.diary-return{position:fixed;left:12px;top:14px;z-index:500;color:var(--gold);font-size:12px;text-decoration:none;border-bottom:1px solid rgba(216,183,84,.28);padding:8px 10px;background:rgba(4,2,3,.48)}
+.diary-hint{position:fixed;right:18px;top:18px;z-index:500;color:#7c6940;font-size:10px;letter-spacing:.12em}
+.stage{position:relative;z-index:2;width:min(1080px,96vw);height:min(720px,calc(100svh - 62px));display:grid;place-items:center;perspective:2400px;filter:drop-shadow(0 28px 34px #000e)}
+.book{position:relative;width:min(1000px,92vw);height:min(690px,calc(100svh - 82px));transform-style:preserve-3d;touch-action:pan-y;transition:width .45s ease}
+.book.closed{width:min(500px,92vw)}
+.sheet{position:absolute;top:0;right:0;width:50%;height:100%;transform-origin:left center;transform-style:preserve-3d;transition:transform 900ms cubic-bezier(.2,.7,.2,1);will-change:transform}
+.sheet.flipped{transform:rotateY(-180deg)}
+.sheet.dragging{transition:none}
+.face{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform-style:preserve-3d}
+.face.back{transform:rotateY(180deg)}
+.page{color:var(--ink);background:
 radial-gradient(circle at 14% 14%,rgba(96,57,25,.08) 0 3px,transparent 4px),
 radial-gradient(circle at 84% 72%,rgba(90,48,20,.08) 0 9px,transparent 18px),
-linear-gradient(95deg,#b5955b,#ddc58c 7%,#e3cf9c 53%,#b6955c);
-border-block:1px solid rgba(83,52,20,.55)}
-.diary-page.left:after,.diary-page.right:after{content:"";position:absolute;top:0;bottom:0;width:34px;pointer-events:none}
-.diary-page.left:after{right:0;background:linear-gradient(90deg,transparent,rgba(44,24,14,.26))}
-.diary-page.right:after{left:0;background:linear-gradient(90deg,rgba(44,24,14,.27),transparent)}
-.paper-grain{position:absolute;inset:0;pointer-events:none;opacity:.20;background-image:repeating-radial-gradient(ellipse at 30% 40%,transparent 0 2px,rgba(70,38,18,.18) 3px 4px);background-size:11px 9px;mix-blend-mode:multiply}
-.diary-paper{position:relative;z-index:1;height:100%;padding:52px 48px 40px;overflow:hidden}.diary-date{margin:30px 0 20px;color:#61101b;font:400 23px/1.35 var(--hand);letter-spacing:.05em}.diary-date:first-child{margin-top:0}.diary-flow,.diary-text{font-family:var(--hand)}.diary-flow p,.diary-text p{margin:0 0 .72em;font:400 20px/1.78 var(--hand);letter-spacing:.015em;text-indent:2em}.diary-flow p.continued{ text-indent:0 }.diary-measure{position:absolute!important;left:-10000px!important;top:0!important;width:500px!important;height:690px!important;visibility:hidden!important;pointer-events:none!important;z-index:-999!important}.diary-blank .diary-paper{opacity:.35}.folio{position:absolute;z-index:2;bottom:18px;left:0;right:0;text-align:center;color:rgba(73,48,24,.48);font:9px var(--roman)}
-.diary-cover{position:relative;overflow:hidden;background:
+linear-gradient(95deg,#b5965d,#dec78e 7%,#e4d09d 53%,#b5965d);border-block:1px solid rgba(83,52,20,.55)}
+.face.front.page:after,.face.back.page:after{content:"";position:absolute;top:0;bottom:0;width:40px;pointer-events:none}
+.face.front.page:after{left:0;background:linear-gradient(90deg,rgba(44,24,14,.24),transparent)}
+.face.back.page:after{right:0;background:linear-gradient(270deg,rgba(44,24,14,.24),transparent)}
+.paper{position:relative;z-index:1;height:100%;padding:52px 48px 40px;overflow:hidden}
+.flow{font-family:var(--hand)}
+.flow h2{margin:26px 0 18px;color:#6b0f1c;font:400 23px/1.35 var(--hand);letter-spacing:.05em}
+.flow h2:first-child{margin-top:0}
+.flow p{margin:0 0 .72em;font:400 20px/1.78 var(--hand);letter-spacing:.015em;text-indent:2em}
+.flow p.continued{text-indent:0}
+.folio{position:absolute;z-index:2;bottom:18px;left:0;right:0;text-align:center;color:rgba(73,48,24,.45);font-size:9px}
+.cover,.backcover{background:
 radial-gradient(circle at 50% 34%,rgba(139,9,27,.34),transparent 38%),
 linear-gradient(105deg,#030202,#3b0810 38%,#160508 70%,#030202);border:4px solid #020202;color:var(--gold);box-shadow:inset 0 0 0 2px #7e0a18,inset 0 0 0 4px #050303,inset 0 0 0 5px rgba(227,189,84,.48)}
-.diary-cover:before{content:"";position:absolute;inset:8%;border:1px solid rgba(227,189,84,.68);box-shadow:inset 0 0 0 4px rgba(5,3,4,.86),inset 0 0 0 5px rgba(137,11,27,.5)}
-.diary-cover-inner{position:absolute;inset:13%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.diary-cover-inner small{font:9px var(--roman);letter-spacing:.18em;color:#a68a43}.diary-cover-inner h1{margin:24px 0 44px;font-size:clamp(29px,3.2vw,42px);line-height:1.65;color:#e5c65d;letter-spacing:.12em}.diary-ruby{width:48px;aspect-ratio:1;rotate:45deg;background:#760a17;border:5px ridge #a9802e;box-shadow:0 4px 14px #0008,inset 5px 5px 10px rgba(241,73,84,.18)}
-.diary-back{background:linear-gradient(105deg,#020202,#2d070d 45%,#080304);border:4px solid #020202;box-shadow:inset 0 0 0 2px #6e0815}
-.page-status{position:relative;z-index:2;margin:0;color:#8a7952;font:9px var(--roman);letter-spacing:.14em}
-@media(max-width:850px){.diary-stage{width:min(520px,94vw);height:min(700px,calc(100svh - 66px))}.diary-paper{padding:42px 34px 34px}.diary-text p{font-size:14px;line-height:1.85}.diary-hint{display:none}}
-
+.cover:before{content:"";position:absolute;inset:8%;border:1px solid rgba(227,189,84,.65)}
+.cover-inner{position:absolute;inset:13%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.cover-inner small{font-size:9px;letter-spacing:.18em;color:#a68a43}
+.cover-inner h1{margin:24px 0 44px;font-size:clamp(29px,3.2vw,42px);line-height:1.65;color:#e5c65d;letter-spacing:.12em}
+.ruby{width:48px;aspect-ratio:1;rotate:45deg;background:#760a17;border:5px ridge #a9802e;box-shadow:0 4px 14px #0008,inset 5px 5px 10px rgba(241,73,84,.18)}
+.corner{position:absolute;z-index:50;width:42px;height:42px;bottom:0;opacity:.16;pointer-events:none}
+.corner.right{right:0;background:linear-gradient(135deg,transparent 49%,#e3bd54 50%)}
+.corner.left{left:0;background:linear-gradient(225deg,transparent 49%,#e3bd54 50%)}
+.status{position:relative;z-index:3;margin:0;color:#8b7951;font-size:10px;letter-spacing:.12em}
+.measure{position:absolute!important;left:-99999px!important;top:0!important;width:500px!important;height:690px!important;visibility:hidden!important;pointer-events:none!important}
+@media(max-width:850px){
+  .book{width:min(500px,94vw);height:min(690px,calc(100svh - 82px))}
+  .book:not(.closed){width:min(500px,94vw)}
+  .sheet{width:100%}
+  .paper{padding:42px 34px 34px}
+  .flow p{font-size:17px;line-height:1.8}
+  .flow h2{font-size:21px}
+  .diary-hint{display:none}
+}
 </style>
 </head>
-<body><div id="app"></div>
-<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+<body>
+<main class="diary-shell">
+  <a class="diary-return" href="/extras/">← 返回番外</a>
+  <div class="diary-hint">拖动页角翻页 · ← →</div>
+  <section class="stage"><div id="book" class="book closed"></div></section>
+  <p id="status" class="status">封面</p>
+</main>
 <script>
 const entries=[
 ["■年6月6日",["命运将一个拥有红宝石般眼眸的猎人送至我面前。他的血液出乎意料地难以入口，不过，那顽强的自愈之力，以及「小刀」前所未有的悸动，都昭示了他的不同寻常。","姑且尝试一次“初拥”的仪式吧。","或许，我终于能够塑造出自己一直寻找的某种可能。","就称他为“66号”。"]],
@@ -95,170 +84,67 @@ const entries=[
 ["■年10月31日",["66号仍旧没有离开。","他开始插手血仆的去留，干涉协会的事务，甚至对我该不该杀人指手画脚。有时候我会觉得，我培养的根本不是什么听话的后裔，而是一个专门与我作对的麻烦。","可我似乎已经习惯了这个麻烦。","还有很多事情没有完成。","手臂上来自恶魔的印记时时刻刻提醒着我，我能够维持自己意志的时间并不会无限延长。","在“大蛇”真正吞噬我以前，我必须让66号拥有能够独自活下去的力量。"]],
 ["■年12月15日",["冬天已经来了。","城堡比过去安静许多。那些孩子陆续离开以后，走廊里再也听不到从前那样杂乱的脚步声。66号倒还是一样，偶尔回来，偶尔消失，仿佛从来不觉得有向我说明去处的必要。","我最真实的愿望，不过是他能够保护自己。","活得比任何人都久一些。","如果还能继续像现在这样，对那些孩子露出笑容，那就更好了。","曾经，我也这样希望过「你」。","说到底，我仍然只是那个无法以真正面目示人的怪物，只能靠着过去的回忆勉强生活。","我曾以为自己能够塑造66号。","如今看来，或许恰恰相反。","他正在变成一个连我也无法控制的人。","这大概也是好事。","我能够为他做的，或许只剩下一件事——成为他走向不朽之前的一块踏脚石。","即使最后因此万劫不复。","「你」如果能够看见今日的我，会不会也觉得这样的感情十分可悲？"]]
 ];
-const titles={"/":"RUBY PARANOIA（深红偏执）— Zenobia","/world/":"世界观设定 — RUBY PARANOIA · Zenobia","/media/":"歌曲与视频 — RUBY PARANOIA · Zenobia","/extras/":"附录与番外 — RUBY PARANOIA · Zenobia","/extras/diary/":"甜美公爵的私人日记 — RUBY PARANOIA · Zenobia"};
-const norm=p=>p!=="/"?(p.replace(/\/+$/,'')+"/"):"/";
-const path=norm(location.pathname);
-document.title=titles[path]||titles["/"];
-function navLink(to,label){return `<a href="${to}" class="${path===to?'active':''}">${label}</a>`}
-function shell(content){return `<div class="site"><header class="topbar"><a class="brand" href="/"><strong>Ruby Paranoia</strong><small>深红偏执 · Zenobia</small></a><nav class="nav">${navLink('/','首页')}${navLink('/world/','世界观')}${navLink('/media/','歌曲·视频')}${navLink('/extras/','番外')}</nav><div class="actions"><button class="icon-btn" data-share aria-label="分享">↗</button><button class="icon-btn menu-btn" data-menu aria-label="菜单">☰</button></div><nav class="mobile-nav" hidden>${navLink('/','首页')}${navLink('/world/','世界观')}${navLink('/media/','歌曲·视频')}${navLink('/extras/','番外')}</nav></header><main class="main">${content}</main><footer class="footer"><span>RUBY PARANOIA · Zenobia</span><span>Fanwork / One Punch Man fanfiction</span></footer></div>`}
-function home(){return `<section class="hero"><div class="hero-architecture"><i></i><i></i><i></i></div><div class="hero-copy"><div class="eyebrow">A GOTHIC FANWORK BY ZENOBIA</div><h1><span>Ruby</span><span>Paranoia</span></h1><h2>深红偏执</h2><div class="rule"></div><p>这是一个围绕吸血鬼、猎人、记忆、控制与选择展开的 One Punch Man 同人故事。</p><div class="hero-meta"><span>AMAI MASK × ZOMBIEMAN</span><b>◆</b><span>ONGOING</span></div><a class="enter-link" href="#archive">ENTER THE ARCHIVE <span>↓</span></a></div><figure class="hero-cover"><div class="book-frame"><div class="cover-art"><span class="cover-by">By Zenobia</span><div class="cover-title">Ruby<br>Paranoia</div><div class="cover-sword"><i></i></div><div class="cover-bats"><b></b><b></b><b></b></div><span class="cover-sub">AMAI MASK × ZOMBIEMAN<br>ONE PUNCH MAN FANBOOK</span></div></div><figcaption>BOOK DESIGN · ZENOBIA</figcaption></figure></section><section class="manifesto"><div class="manifesto-mark">✦</div><p>“红宝石”既是记忆的残片，也是无法被安静埋葬的偏执。这里收录正文之外的世界设定、音乐影像与番外档案。</p></section><section class="section" id="archive"><div class="section-title"><span>ARCHIVE INDEX</span><h2>作品档案</h2><p>Choose a sealed file</p></div><div class="portal-grid"><a class="card" href="/world/"><span class="n">01</span><div class="sigil">♜</div><small>WORLD ARCHIVE</small><h3>世界观设定</h3><p>血族秩序、人类势力与既有规则档案。</p><span class="go">阅览档案 →</span></a><a class="card" href="/media/"><span class="n">02</span><div class="sigil">◉</div><small>MEDIA VAULT</small><h3>歌曲 / 视频</h3><p>与作品相关的声音与影像陈列。</p><span class="go">阅览档案 →</span></a><a class="card" href="/extras/"><span class="n">03</span><div class="sigil">✒</div><small>EXTRA FILES</small><h3>附录与番外</h3><p>主线之外，被封存的故事与私人记录。</p><span class="go">阅览档案 →</span></a><a class="card" href="/extras/diary/"><span class="n">04</span><div class="sigil">▣</div><small>PRIVATE DIARY</small><h3>甜公日记</h3><p>翻阅甜美公爵留下的羊皮纸私人日记。</p><span class="go">阅览档案 →</span></a></div></section><section class="book-object"><div class="book-object-copy"><span>PHYSICAL EDITION CONCEPT</span><h2>像一本被遗忘在古堡里的书。</h2><p>网页视觉从小说封面延伸：黑色作为空间，深红作为血液与执念，暗金作为烛火、旧金属与纸张边缘的光。</p></div><div class="book-object-visual"><div class="mock-book mock-book-back"><span>RUBY PARANOIA</span></div><div class="mock-book mock-book-spine"><span>Ruby Paranoia</span></div><div class="mock-book mock-book-front"><span class="tiny">BY ZENOBIA</span><strong>Ruby<br>Paranoia</strong></div></div></section>`}
-function archiveHero(kicker,title,desc){return `<section class="archive-hero"><i class="arch a"></i><i class="arch b"></i><i class="arch c"></i><header class="page-title"><div class="eyebrow">${kicker}</div><h1>${title}</h1><p>${desc}</p></header></section>`}
-function world(){const rows=[["I","♛","血族秩序","血族社会存在“长亲—后裔—血仆”等关系结构。","不同血族对人类立场并不一致：有力量统治派，也有强调力量与责任对应、维持族群平衡的一派。甜美公爵处在两者之间，认为利用人类可以接受，但必须受到约束。"],["II","⛨","人类势力","人类侧存在教会、骑士团、血猎／猎人组织等力量。","这些势力与血族彼此对立，却也并非铁板一块。"],["III","✦","初拥与后裔","“初拥”会把人类转化为血族后裔。","66号是甜美公爵第一个成功完成初拥并存活的人类，并保留了日光耐受与强自愈等异常特性。"],["IV","◆","血液与生存","血族获取血液的方式包括收买血仆、圈养人畜、外出捕猎，以及介入人类战争。",""],["V","♜","权力结构","血族协会由玛考伊建立，本部位于 V 市。","协会通过议会协调血族精英，并输出可能影响人类命运的决策。"]];return `${archiveHero("WORLD DOSSIER · ZENOBIA","世界观设定","现阶段已确认的秩序、阵营与生存法则。")}<div class="archive-band"><span>ARCHIVE NO. 01</span><b>◆</b><span>VAMPIRE SOCIETY</span><b>◆</b><span>ONGOING RECORD</span></div><article class="page"><div class="dossiers">${rows.map(r=>`<section class="dossier"><header><span>${r[0]}</span><span>${r[1]}</span></header><h2>${r[2]}</h2><p>${r[3]}</p>${r[4]?`<p>${r[4]}</p>`:''}</section>`).join('')}</div><p class="note">以正文为准，后续随连载更新。</p></article>`}
-function media(){return `${archiveHero("SOUND & VISION · ZENOBIA","歌曲 / 视频","声音与影像将在此处依次归档。")}<div class="archive-band"><span>ARCHIVE NO. 02</span><b>◆</b><span>AUDIO / FILM</span><b>◆</b><span>SEALED MATERIAL</span></div><div class="page"><div class="media-grid"><section class="media-box"><div class="media-art">◉</div><div><span>SECTION I · AUDIO</span><h2>歌曲</h2><p>档案尚未公开。未来将在这里陈列与作品相关的歌曲、主题曲与音频。</p><small>COMING SOON</small></div></section><section class="media-box"><div class="media-art film">▤</div><div><span>SECTION II · FILM</span><h2>视频</h2><p>影像卷宗仍在封存。未来可直接嵌入 Bilibili / YouTube 等公开视频。</p><small>COMING SOON</small></div></section></div></div>`}
-function extras(){return `${archiveHero("APPENDICES · ZENOBIA","附录与番外档案","主线之外，仍被纸页与封蜡保存的记录。")}<div class="archive-band"><span>ARCHIVE NO. 03</span><b>◆</b><span>PRIVATE RECORDS</span><b>◆</b><span>APPENDICES</span></div><div class="page"><div class="extras"><a class="extra featured" href="/extras/diary/"><span class="idx">EX — 01</span><span class="extra-diary-book"></span><div><small>可阅览档案</small><h2>甜美公爵的私人日记</h2><p>以可翻阅的中世纪羊皮纸日记形式呈现的私人记录。支持鼠标拖拽页角、点击翻页、方向键与移动端滑动。</p></div><span class="state">开启日记 →</span></a><article class="extra"><span class="idx">EX — 02</span><span class="glyph">⚿</span><div><small>番外档案</small><h2>井中的新娘</h2><p>一段发生在主线之前的旧事，关于被凝视、被安排的人生，与一次拒绝。</p></div><span class="state">封存</span></article><article class="extra muted"><span class="idx">EX — ··</span><span class="glyph">◌</span><div><small>待归档</small><h2>更多番外</h2><p>将随连载补充。</p></div></article></div></div>`}
-function diary(){return `<main class="diary-shell season-summer"><a class="diary-return" href="/extras/">← 返回番外</a><div class="diary-hint">拖动页角翻页 · ← →</div><section class="diary-stage"><div id="diary-book" class="diary-book"><div class="diary-cover" data-density="hard"><div class="diary-cover-inner"><small>PRIVATE RECORD · ZENOBIA</small><h1>甜美公爵的<br>私人日记</h1><div class="diary-ruby"></div></div></div></div></section><p class="page-status">封面</p></main>`}
-const app=document.getElementById('app');if(path==='/extras/diary/'){app.innerHTML=diary();if(document.fonts&&document.fonts.ready){document.fonts.ready.then(initDiary)}else{initDiary()}}else{let c=path==='/world/'?world():path==='/media/'?media():path==='/extras/'?extras():home();app.innerHTML=shell(c);initSite()}
-function initSite(){const s=document.querySelector('[data-share]');if(s)s.onclick=async()=>{try{if(navigator.share)await navigator.share({title:document.title,text:'RUBY PARANOIA · Zenobia',url:location.href});else{await navigator.clipboard.writeText(location.href);s.textContent='✓';setTimeout(()=>s.textContent='↗',1500)}}catch(e){}};const m=document.querySelector('[data-menu]'),n=document.querySelector('.mobile-nav');if(m&&n)m.onclick=()=>{n.hidden=!n.hidden;m.textContent=n.hidden?'☰':'×'}}
-function initDiary(){
-  const shell=document.querySelector('.diary-shell');
-  const book=document.getElementById('diary-book');
-  const status=document.querySelector('.page-status');
-  if(!book)return;
-  if(!window.St||!window.St.PageFlip){status.textContent='翻页组件加载失败，请刷新页面';return}
 
-  // Measure the actual rendered text at the logical PageFlip page size.
-  const measure=document.createElement('div');
-  measure.className='diary-page right diary-measure';
-  measure.innerHTML='<div class="paper-grain"></div><article class="diary-paper"><div class="diary-flow"></div></article>';
-  document.body.appendChild(measure);
-  const measureFlow=measure.querySelector('.diary-flow');
-  const measurePaper=measure.querySelector('.diary-paper');
+async function init(){
+ if(document.fonts&&document.fonts.ready) await document.fonts.ready;
+ const book=document.getElementById('book'),status=document.getElementById('status');
 
-  const fits=(html)=>{
-    measureFlow.innerHTML=html;
-    return measurePaper.scrollHeight<=measurePaper.clientHeight+1;
-  };
+ // paginate by actual rendered height
+ const m=document.createElement('div');m.className='face page measure';
+ m.innerHTML='<article class="paper"><div class="flow"></div></article>';document.body.appendChild(m);
+ const flow=m.querySelector('.flow'),paper=m.querySelector('.paper');
+ const fits=h=>{flow.innerHTML=h;return paper.scrollHeight<=paper.clientHeight+1};
+ const pages=[];let blocks=[];
+ const flush=()=>{if(blocks.length){pages.push(blocks.join(''));blocks=[]}};
+ const addRaw=h=>{if(fits(blocks.concat(h).join(''))){blocks.push(h);return true}return false};
 
-  const pages=[];
-  let blocks=[];
-  const flush=()=>{
-    if(blocks.length){pages.push(blocks.join(''));blocks=[]}
-  };
-  const tryAdd=(html)=>{
-    const candidate=blocks.concat(html).join('');
-    if(fits(candidate)){blocks.push(html);return true}
-    return false;
-  };
+ function addPara(text){
+   if(addRaw('<p>'+text+'</p>'))return;
+   if(blocks.length){
+     const ch=Array.from(text);let lo=1,hi=ch.length,best=0;
+     while(lo<=hi){const mid=(lo+hi)>>1;if(fits(blocks.concat('<p>'+ch.slice(0,mid).join('')+'</p>').join(''))){best=mid;lo=mid+1}else hi=mid-1}
+     if(best>0){let cut=best,from=Math.max(0,Math.floor(best*.68)),probe=ch.slice(from,best).join(''),mm=[...probe.matchAll(/[，。！？；、…]/g)];if(mm.length)cut=from+mm[mm.length-1].index+1;blocks.push('<p>'+ch.slice(0,cut).join('')+'</p>');flush();text=ch.slice(cut).join('')}else flush();
+   }
+   while(text){
+     const ch=Array.from(text);
+     if(addRaw('<p class="continued">'+text+'</p>'))break;
+     let lo=1,hi=ch.length,best=0;
+     while(lo<=hi){const mid=(lo+hi)>>1;if(fits(blocks.concat('<p class="continued">'+ch.slice(0,mid).join('')+'</p>').join(''))){best=mid;lo=mid+1}else hi=mid-1}
+     if(best<=0){flush();continue}
+     let cut=best,from=Math.max(0,Math.floor(best*.68)),probe=ch.slice(from,best).join(''),mm=[...probe.matchAll(/[，。！？；、…]/g)];if(mm.length)cut=from+mm[mm.length-1].index+1;
+     blocks.push('<p class="continued">'+ch.slice(0,cut).join('')+'</p>');flush();text=ch.slice(cut).join('');
+   }
+ }
+ entries.forEach(([date,ps])=>{const head='<h2>＜'+date+'＞</h2>',first=ps[0]||'',group=head+(first?'<p>'+first+'</p>':'');if(!addRaw(group)){flush();if(!addRaw(group)){blocks.push(head);if(first)addPara(first)}}for(let i=1;i<ps.length;i++)addPara(ps[i])});
+ flush();m.remove();
 
-  // Add a paragraph, splitting only when the remaining physical space truly requires it.
-  const addParagraph=(text)=>{
-    const whole='<p>'+text+'</p>';
-    if(tryAdd(whole))return;
-    if(blocks.length) {
-      // First try to use the remainder of the current page instead of wasting it.
-      let chars=Array.from(text), lo=1, hi=chars.length, best=0;
-      while(lo<=hi){
-        const mid=(lo+hi)>>1;
-        const html='<p>'+chars.slice(0,mid).join('')+'</p>';
-        if(fits(blocks.concat(html).join(''))){best=mid;lo=mid+1}else hi=mid-1;
-      }
-      if(best>0){
-        // Prefer a natural punctuation break near the measured boundary.
-        let cut=best;
-        const probe=chars.slice(Math.max(0,Math.floor(best*.62)),best).join('');
-        const matches=[...probe.matchAll(/[，。！？；、…]/g)];
-        if(matches.length){
-          const base=Math.max(0,Math.floor(best*.62));
-          cut=base+matches[matches.length-1].index+1;
-        }
-        blocks.push('<p>'+chars.slice(0,cut).join('')+'</p>');
-        flush();
-        text=chars.slice(cut).join('');
-      }else{
-        flush();
-      }
-    }
-    while(text){
-      const chars=Array.from(text);
-      const full='<p class="continued">'+text+'</p>';
-      if(tryAdd(full))break;
-      let lo=1,hi=chars.length,best=0;
-      while(lo<=hi){
-        const mid=(lo+hi)>>1;
-        const html='<p class="continued">'+chars.slice(0,mid).join('')+'</p>';
-        if(fits(blocks.concat(html).join(''))){best=mid;lo=mid+1}else hi=mid-1;
-      }
-      if(best<=0){flush();continue}
-      let cut=best;
-      const probe=chars.slice(Math.max(0,Math.floor(best*.62)),best).join('');
-      const matches=[...probe.matchAll(/[，。！？；、…]/g)];
-      if(matches.length){
-        const base=Math.max(0,Math.floor(best*.62));
-        cut=base+matches[matches.length-1].index+1;
-      }
-      blocks.push('<p class="continued">'+chars.slice(0,cut).join('')+'</p>');
-      flush();
-      text=chars.slice(cut).join('');
-    }
-  };
+ const physical=pages.map((html,i)=>({html,num:i+1,blank:false}));
+ if(physical.length%2===1)physical.push({html:'',num:null,blank:true});
+ physical.push({html:'',num:null,blank:true},{html:'',num:null,blank:true});
 
-  entries.forEach(([date,paras])=>{
-    const heading='<h2 class="diary-date">＜'+date+'＞</h2>';
-    const first=paras[0]||'';
-    const firstGroup=heading+(first?'<p>'+first+'</p>':'');
-    // Keep a date with its opening paragraph; if they do not fit together, start them on the next page.
-    if(!tryAdd(firstGroup)){
-      flush();
-      if(!tryAdd(firstGroup)){
-        blocks.push(heading);
-        if(first)addParagraph(first);
-      }
-    }
-    for(let i=1;i<paras.length;i++)addParagraph(paras[i]);
-  });
-  flush();
-  measure.remove();
+ const face=(p,back=false)=>'<div class="face '+(back?'back ':'front ')+'page'+(p&&p.blank?' blank':'')+'"><article class="paper">'+(p&&p.html?'<div class="flow">'+p.html+'</div>':'')+'</article>'+(p&&p.num?'<span class="folio">'+p.num+'</span>':'')+'</div>';
+ book.innerHTML='';
+ const first=document.createElement('div');first.className='sheet';
+ first.innerHTML='<div class="face front cover"><div class="cover-inner"><small>PRIVATE RECORD · ZENOBIA</small><h1>甜美公爵的<br>私人日记</h1><div class="ruby"></div></div></div>'+face(physical[0],true)+'<i class="corner right"></i>';book.appendChild(first);
+ for(let i=1;i<physical.length;i+=2){const s=document.createElement('div');s.className='sheet';s.innerHTML=face(physical[i],false)+face(physical[i+1],true)+'<i class="corner right"></i><i class="corner left"></i>';book.appendChild(s)}
 
-  const contentCount=pages.length;
-  pages.forEach((html,i)=>{
-    const page=document.createElement('div');
-    page.className='diary-page '+(i%2===0?'left':'right');
-    const ratio=i/Math.max(1,contentCount-1);
-    page.dataset.season=ratio>.82?'winter':ratio>.48?'autumn':ratio>.26?'late-summer':'summer';
-    page.innerHTML='<div class="paper-grain"></div><article class="diary-paper"><div class="diary-flow">'+html+'</div></article><span class="folio">'+(i+1)+'</span>';
-    book.appendChild(page);
-  });
-
-  // Guarantee a full blank spread after the last written page.
-  let logicalCount=contentCount;
-  if(logicalCount%2===1){
-    const filler=document.createElement('div');
-    filler.className='diary-page right diary-blank';
-    filler.dataset.season='winter';
-    filler.innerHTML='<div class="paper-grain"></div><article class="diary-paper"></article>';
-    book.appendChild(filler);
-    logicalCount++;
-  }
-  for(let i=0;i<2;i++){
-    const blank=document.createElement('div');
-    blank.className='diary-page '+(i===0?'left':'right')+' diary-blank';
-    blank.dataset.season='winter';
-    blank.innerHTML='<div class="paper-grain"></div><article class="diary-paper"></article>';
-    book.appendChild(blank);
-  }
-  const back=document.createElement('div');
-  back.className='diary-back';
-  back.dataset.density='hard';
-  book.appendChild(back);
-
-  const pageFlip=new window.St.PageFlip(book,{
-    width:500,height:690,size:'stretch',minWidth:315,maxWidth:500,minHeight:435,maxHeight:690,
-    showCover:true,usePortrait:true,mobileScrollSupport:true,drawShadow:true,maxShadowOpacity:.82,
-    flippingTime:1050,useMouseEvents:true,swipeDistance:24,showPageCorners:true,autoSize:true,startZIndex:10
-  });
-  pageFlip.loadFromHTML(book.children);
-
-  const update=(idx)=>{
-    if(idx===0){status.textContent='封面';shell.className='diary-shell season-summer';return}
-    const node=book.children[idx];
-    if(node?.classList.contains('diary-back')){status.textContent='封底';shell.className='diary-shell season-winter';return}
-    if(node?.classList.contains('diary-blank')){status.textContent='空白页';shell.className='diary-shell season-winter';return}
-    const season=node?.dataset.season||'summer';
-    shell.className='diary-shell season-'+season;
-    status.textContent=Math.min(idx,contentCount)+' / '+contentCount;
-  };
-  pageFlip.on('flip',e=>update(e.data));
-  window.addEventListener('keydown',e=>{if(e.key==='ArrowRight')pageFlip.flipNext();if(e.key==='ArrowLeft')pageFlip.flipPrev()});
-  update(0);
+ const sheets=[...book.querySelectorAll('.sheet')];let cur=0,startX=0,active=null,mode='',moved=0;
+ function render(){
+   sheets.forEach((s,i)=>{const f=i<cur;s.classList.toggle('flipped',f);if(!s.classList.contains('dragging'))s.style.transform=f?'rotateY(-180deg)':'rotateY(0deg)';s.style.zIndex=f?String(i+1):String(sheets.length-i)});
+   book.classList.toggle('closed',cur===0);
+   status.textContent=cur===0?'封面':((cur-1)*2+1>pages.length?'空白页':Math.min(cur*2,pages.length)+' / '+pages.length);
+ }
+ const next=()=>{if(cur<sheets.length){cur++;render()}},prev=()=>{if(cur>0){cur--;render()}};
+ const px=e=>e.clientX;
+ book.addEventListener('pointerdown',e=>{const r=book.getBoundingClientRect(),x=px(e)-r.left;startX=px(e);moved=0;const mobile=innerWidth<=850,right=mobile?x>r.width*.35:x>r.width/2;if(right&&cur<sheets.length){active=sheets[cur];mode='next'}else if(!right&&cur>0){active=sheets[cur-1];mode='prev'}else return;active.classList.add('dragging');active.style.zIndex=String(sheets.length+5);book.setPointerCapture?.(e.pointerId)});
+ book.addEventListener('pointermove',e=>{if(!active)return;const dx=px(e)-startX;moved=Math.max(moved,Math.abs(dx));const w=book.getBoundingClientRect().width*(innerWidth<=850?1:.5);if(mode==='next')active.style.transform='rotateY('+Math.max(-180,Math.min(0,dx/w*180))+'deg)';else active.style.transform='rotateY('+(-180+Math.max(0,Math.min(180,dx/w*180)))+'deg')});
+ const end=e=>{if(!active)return;const dx=px(e)-startX,thr=book.getBoundingClientRect().width*(innerWidth<=850?.16:.10);active.classList.remove('dragging');active.style.transform='';if(mode==='next'&&dx<-thr)cur=Math.min(sheets.length,cur+1);else if(mode==='prev'&&dx>thr)cur=Math.max(0,cur-1);active=null;render()};
+ book.addEventListener('pointerup',end);book.addEventListener('pointercancel',end);
+ book.addEventListener('click',e=>{if(moved>10)return;const r=book.getBoundingClientRect(),x=e.clientX-r.left;if(innerWidth<=850||x>r.width/2)next();else prev()});
+ addEventListener('keydown',e=>{if(e.key==='ArrowRight')next();if(e.key==='ArrowLeft')prev()});
+ render();
 }
-</script></body></html>
+init();
+</script>
+</body>
+</html>

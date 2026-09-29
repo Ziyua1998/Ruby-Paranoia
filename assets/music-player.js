@@ -76,6 +76,7 @@ async function buildTrack(t){
 }
 
 function mount(){
+  if(location.pathname.replace(/\/+$/,"")==="/extras/diary")return;
   if(document.querySelector(".rp-music"))return;
 
   const root=document.createElement("div");

@@ -1,78 +1,34 @@
 (()=>{"use strict";
 
 const tracks=[
-  {
-    id:"moonlit_castle",
-    title:"月夜の古城",
-    artist:"Instrumental",
-    parts:[
-      "moonlit_castle-01.txt","moonlit_castle-02.txt","moonlit_castle-03.txt","moonlit_castle-04.txt",
-      "moonlit_castle-05.txt","moonlit_castle-06.txt","moonlit_castle-07.txt","moonlit_castle-08.txt"
-    ]
-  },
-  {
-    id:"fanatic_nocturne",
-    title:"狂信者のノクターン（狂信徒的夜曲）",
-    artist:"AMAI MASK",
-    parts:[
-      "fanatic_nocturne-01.txt","fanatic_nocturne-02.txt","fanatic_nocturne-03.txt",
-      "fanatic_nocturne-04.txt","fanatic_nocturne-05.txt",
-      {file:"fanatic_nocturne-06.b64x",outerBase64:true},
-      "fanatic_nocturne-07.txt","fanatic_nocturne-08.txt","fanatic_nocturne-09.txt"
-    ]
-  },
-  {
-    id:"dark_hymn",
-    title:"闇の讃美歌（暗夜赞歌）",
-    artist:"AMAI MASK & ZOMBIEMAN & OTHERS",
-    parts:[
-      "dark_hymn-01.txt","dark_hymn-02.txt",
-      {file:"dark_hymn-03.b64x",outerBase64:true},
-      "dark_hymn-04.txt","dark_hymn-05.txt",
-      {file:"dark_hymn-06.b64x",outerBase64:true},
-      {file:"dark_hymn-07.b64x",outerBase64:true}
-    ]
-  }
+  {id:"moonlit_castle",title:"月夜の古城",artist:"Instrumental",src:"/assets/music/moonlit-castle.mp3"},
+  {id:"fanatic_nocturne",title:"狂信者のノクターン（狂信徒的夜曲）",artist:"AMAI MASK",src:"/assets/music/fanatic-nocturne.mp3"},
+  {id:"dark_hymn",title:"闇の讃美歌（暗夜赞歌）",artist:"AMAI MASK & ZOMBIEMAN & OTHERS",src:"/assets/music/dark-hymn.mp3"}
 ];
 
-const KEY="rp_music_state_v2";
-const LEGACY_KEY="rp_music_state_v1";
-const cache=new Map();
+const KEY="rp_music_state_v3";
+const LEGACY_KEYS=["rp_music_state_v2","rp_music_state_v1"];
 const fmt=s=>{
   if(!Number.isFinite(s))return"0:00";
   s=Math.max(0,Math.floor(s));
   return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
 };
 
-function decodeOuterBase64(text){
-  const clean=text.replace(/\s/g,"");
-  return atob(clean);
-}
-
-async function buildTrack(t){
-  if(cache.has(t.id))return cache.get(t.id);
-
-  const parts=[];
-  for(const spec of t.parts){
-    const file=typeof spec==="string"?spec:spec.file;
-    const r=await fetch("/assets/music/"+file,{cache:"force-cache"});
-    if(!r.ok)throw new Error("missing music asset: "+file);
-
-    let chunk=(await r.text()).replace(/\s/g,"");
-    if(typeof spec!=="string"&&spec.outerBase64){
-      chunk=decodeOuterBase64(chunk).replace(/\s/g,"");
+function readState(){
+  const defaults={track:0,time:0,volume:.62,muted:false,loop:false,collapsed:true,playing:true,savedAt:0};
+  let raw=null;
+  try{
+    raw=localStorage.getItem(KEY);
+    if(!raw){
+      for(const k of LEGACY_KEYS){
+        raw=localStorage.getItem(k);
+        if(raw)break;
+      }
     }
-    parts.push(chunk);
-  }
-
-  const b64=parts.join("");
-  const bin=atob(b64);
-  const bytes=new Uint8Array(bin.length);
-  for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
-
-  const url=URL.createObjectURL(new Blob([bytes],{type:"audio/mpeg"}));
-  cache.set(t.id,url);
-  return url;
+  }catch(e){}
+  if(!raw)return {state:defaults,hadState:false};
+  try{return {state:{...defaults,...JSON.parse(raw)},hadState:true}}
+  catch(e){return {state:defaults,hadState:false}}
 }
 
 function mount(){
@@ -84,7 +40,8 @@ function mount(){
   document.body.appendChild(root);
 
   const audio=new Audio();
-  audio.preload="auto";
+  audio.preload="metadata";
+  audio.playsInline=true;
 
   const lid=root.querySelector(".rp-music-lid");
   const title=root.querySelector(".rp-music-title");
@@ -99,33 +56,20 @@ function mount(){
   const loop=root.querySelector(".loop");
   const status=root.querySelector(".rp-music-status");
 
-  const defaults={
-    track:0,time:0,volume:.62,muted:false,loop:false,
-    collapsed:true,playing:true,savedAt:0
-  };
-
-  let raw=null;
-  try{
-    raw=localStorage.getItem(KEY)||localStorage.getItem(LEGACY_KEY);
-  }catch(e){}
-
-  const hadState=!!raw;
-  let state={...defaults};
-  if(raw){
-    try{state={...state,...JSON.parse(raw)}}catch(e){}
-  }
-
+  const loaded=readState();
+  let state=loaded.state;
+  const hadState=loaded.hadState;
   state.track=Math.max(0,Math.min(tracks.length-1,state.track|0));
+
   audio.volume=Math.max(0,Math.min(1,Number.isFinite(+state.volume)?+state.volume:.62));
   audio.muted=!!state.muted;
   audio.loop=!!state.loop;
-  volume.value=audio.volume;
-  root.classList.toggle("is-collapsed",state.collapsed!==false);
-  loop.style.color=audio.loop?"#efd477":"";
+  volume.value=String(audio.volume);
   mute.textContent=audio.muted?"×":"♩";
+  loop.style.color=audio.loop?"#efd477":"";
+  root.classList.toggle("is-collapsed",state.collapsed!==false);
 
   let unloading=false;
-  let loadSerial=0;
   let gestureArmed=false;
 
   function persist(forcePlaying){
@@ -168,30 +112,31 @@ function mount(){
     document.addEventListener("keydown",start,true);
   }
 
-  async function load(index,autoplay=false,resume=0){
-    const serial=++loadSerial;
-    state.track=(index+tracks.length)%tracks.length;
+  function setTrackMeta(){
     const t=tracks[state.track];
-
     title.textContent=t.title;
     artist.textContent=t.artist;
+  }
+
+  async function load(index,autoplay=false,resume=0){
+    state.track=(index+tracks.length)%tracks.length;
+    const t=tracks[state.track];
+    setTrackMeta();
+
     root.classList.add("loading");
-    status.textContent="正在整理琴谱…";
-    play.disabled=true;
-    prev.disabled=true;
-    next.disabled=true;
+    status.textContent="正在读取琴谱…";
+    play.disabled=prev.disabled=next.disabled=true;
 
     try{
-      const src=await buildTrack(t);
-      if(serial!==loadSerial)return;
-
-      audio.src=src;
-      audio.load();
+      if(audio.src!==new URL(t.src,location.href).href){
+        audio.src=t.src;
+        audio.load();
+      }
 
       await new Promise((resolve,reject)=>{
         if(audio.readyState>=1)return resolve();
         const ok=()=>{cleanup();resolve()};
-        const bad=()=>{cleanup();reject(new Error("audio metadata failed"))};
+        const bad=()=>{cleanup();reject(new Error("audio load failed: "+t.src))};
         const cleanup=()=>{
           audio.removeEventListener("loadedmetadata",ok);
           audio.removeEventListener("error",bad);
@@ -199,8 +144,6 @@ function mount(){
         audio.addEventListener("loadedmetadata",ok,{once:true});
         audio.addEventListener("error",bad,{once:true});
       });
-
-      if(serial!==loadSerial)return;
 
       const target=Math.max(0,+resume||0);
       if(target>0&&Number.isFinite(audio.duration)){
@@ -223,34 +166,24 @@ function mount(){
       }
     }catch(e){
       console.error(e);
-      status.textContent="乐曲资源读取失败";
-      play.textContent="▶";
       state.playing=false;
+      play.textContent="▶";
+      status.textContent="乐曲资源读取失败";
       persist(false);
     }finally{
-      if(serial===loadSerial){
-        root.classList.remove("loading");
-        play.disabled=false;
-        prev.disabled=false;
-        next.disabled=false;
-      }
+      root.classList.remove("loading");
+      play.disabled=prev.disabled=next.disabled=false;
     }
   }
 
-  lid.onclick=()=>{
-    root.classList.toggle("is-collapsed");
-    persist();
-  };
+  lid.onclick=()=>{root.classList.toggle("is-collapsed");persist()};
 
   play.onclick=async()=>{
-    if(!audio.src){
-      await load(state.track,false,resumeTime());
-    }
+    if(!audio.src)await load(state.track,false,resumeTime());
     if(audio.paused){
       try{
         state.playing=true;
         await audio.play();
-        status.textContent="";
       }catch(e){
         state.playing=true;
         persist(true);
@@ -261,19 +194,8 @@ function mount(){
     }
   };
 
-  prev.onclick=()=>{
-    state.time=0;
-    state.playing=true;
-    persist(true);
-    load(state.track-1,true,0);
-  };
-
-  next.onclick=()=>{
-    state.time=0;
-    state.playing=true;
-    persist(true);
-    load(state.track+1,true,0);
-  };
+  prev.onclick=()=>{state.time=0;state.playing=true;persist(true);load(state.track-1,true,0)};
+  next.onclick=()=>{state.time=0;state.playing=true;persist(true);load(state.track+1,true,0)};
 
   progress.oninput=()=>{
     if(audio.duration){
@@ -307,24 +229,11 @@ function mount(){
       progress.value=String(Math.round(audio.currentTime/audio.duration*1000));
       time.textContent=fmt(audio.currentTime)+" / "+fmt(audio.duration);
       state.time=audio.currentTime;
-      if(Math.floor(audio.currentTime)%2===0)persist();
     }
   };
 
-  audio.onplay=()=>{
-    play.textContent="Ⅱ";
-    state.playing=true;
-    status.textContent="";
-    persist(true);
-  };
-
-  audio.onpause=()=>{
-    play.textContent="▶";
-    if(!unloading){
-      state.playing=false;
-      persist(false);
-    }
-  };
+  audio.onplay=()=>{play.textContent="Ⅱ";state.playing=true;status.textContent="";persist(true)};
+  audio.onpause=()=>{play.textContent="▶";if(!unloading){state.playing=false;persist(false)}};
 
   audio.onended=()=>{
     if(!audio.loop){
@@ -335,23 +244,16 @@ function mount(){
     }
   };
 
-  window.addEventListener("pagehide",()=>{
+  const leave=()=>{
     const wasPlaying=state.playing||!audio.paused;
     unloading=true;
     persist(wasPlaying);
-  },{capture:true});
+  };
+  window.addEventListener("pagehide",leave,{capture:true});
+  window.addEventListener("beforeunload",leave,{capture:true});
 
-  window.addEventListener("beforeunload",()=>{
-    const wasPlaying=state.playing||!audio.paused;
-    unloading=true;
-    persist(wasPlaying);
-  },{capture:true});
-
-  title.textContent=tracks[state.track].title;
-  artist.textContent=tracks[state.track].artist;
-
-  const shouldAutoplay=!hadState||state.playing;
-  load(state.track,shouldAutoplay,resumeTime());
+  setTrackMeta();
+  load(state.track,!hadState||state.playing,resumeTime());
 }
 
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);

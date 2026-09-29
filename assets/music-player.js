@@ -131,7 +131,7 @@ function mount(){
     if(Number.isFinite(audio.duration)&&audio.duration>0){
       progress.max=String(audio.duration);
       if(!seeking)progress.value=String(Math.min(audio.currentTime,audio.duration));
-      syncDuration();
+      time.textContent=fmt(audio.currentTime)+" / "+fmt(audio.duration);
     }
   }
 

@@ -24,6 +24,10 @@ radial-gradient(circle at 12% 85%,rgba(232,160,43,.07),transparent 20%)}
 .stage{position:relative;z-index:2;width:100%;height:calc(100svh - 44px);display:grid;place-items:center;perspective:2400px;filter:drop-shadow(0 28px 34px #000e);overflow:visible}
 .book{position:relative;width:1000px;height:690px;transform:scale(var(--diary-scale,1));transform-origin:center center;transform-style:preserve-3d;touch-action:pan-y;transition:width .45s ease}
 .book.closed{width:500px}.book.closed .sheet{width:100%}
+.book.at-back .sheet{visibility:hidden}
+.book.at-back .sheet:last-child{visibility:visible;transform:none!important;width:100%!important;right:0}
+.book.at-back .sheet:last-child>.front{display:none}
+.book.at-back .sheet:last-child>.backcover{display:block;transform:none!important}
 .sheet{position:absolute;top:0;right:0;width:50%;height:100%;transform-origin:left center;transform-style:preserve-3d;transition:transform 900ms cubic-bezier(.2,.7,.2,1),width .45s ease;will-change:transform}
 .sheet.flipped{transform:rotateY(-180deg)}
 .sheet.dragging{transition:none}
@@ -147,6 +151,7 @@ async function init(){
  function render(){
    sheets.forEach((s,i)=>{const f=i<cur;s.classList.toggle('flipped',f);if(!s.classList.contains('dragging'))s.style.transform=f?'rotateY(-180deg)':'rotateY(0deg)';s.style.zIndex=f?String(i+1):String(sheets.length-i)});
    book.classList.toggle('closed',cur===0||cur===sheets.length);
+   book.classList.toggle('at-back',cur===sheets.length);
    status.textContent=cur===0?'封面':(cur===sheets.length?'封底':((cur-1)*2+1>pages.length?'空白页':Math.min(cur*2,pages.length)+' / '+pages.length));
  }
  const next=()=>{if(cur<sheets.length){cur++;render()}},prev=()=>{if(cur>0){cur--;render()}};

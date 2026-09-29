@@ -156,6 +156,7 @@ linear-gradient(105deg,#030202,#3b0810 38%,#160508 70%,#030202);border:4px solid
 
 .map-place-hotspot{position:absolute;z-index:12;width:30px;height:30px;margin:-15px 0 0 -15px;border:0;padding:0;background:transparent;cursor:crosshair}
 .map-place-hotspot:hover,.map-place-hotspot:focus,.map-place-hotspot:focus-within{z-index:5000}
+.map-city-hotspot.is-active,.map-place-hotspot.is-active{z-index:10000!important}
 .map-place-hotspot:focus{outline:none}
 .place-house{position:absolute;left:50%;top:50%;width:12px;height:10px;translate:-50% -30%;background:#7d0c1a;box-shadow:0 0 0 1px #ead38e,0 0 12px rgba(125,12,26,.28);transition:.18s}
 .place-house:before{content:"";position:absolute;left:50%;top:-7px;translate:-50% 0;border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:8px solid #7d0c1a;filter:drop-shadow(0 -1px 0 #ead38e)}
@@ -164,6 +165,7 @@ linear-gradient(105deg,#030202,#3b0810 38%,#160508 70%,#030202);border:4px solid
 .map-place-hotspot:hover .place-house:before,.map-place-hotspot:focus .place-house:before{border-bottom-color:#b11226}
 .map-place-hotspot .map-tip{opacity:0;visibility:hidden;transform:translateY(8px)}
 .map-place-hotspot:hover .map-tip,.map-place-hotspot:focus .map-tip{opacity:1;visibility:visible;transform:translateY(0)}
+.map-city-hotspot.is-active .map-tip,.map-place-hotspot.is-active .map-tip{opacity:1!important;visibility:visible!important;transform:translateY(0)!important;z-index:20000!important}
 .place-tip{left:18px;bottom:18px}
 .legend-city{color:#6b1019;font-family:var(--roman);letter-spacing:.1em}
 .legend-place{color:#9b1022;font-size:15px}
@@ -248,9 +250,30 @@ function media(){return `${archiveHero("SOUND & VISION · ZENOBIA","歌曲 / 视
 function extras(){return `${archiveHero("APPENDICES · ZENOBIA","附录与番外档案","主线之外，仍被纸页与封蜡保存的记录。")}<div class="archive-band"><span>ARCHIVE NO. 03</span><b>◆</b><span>PRIVATE RECORDS</span><b>◆</b><span>APPENDICES</span></div><div class="page"><div class="extras"><a class="extra featured" href="/extras/diary/"><span class="idx">EX — 01</span><span class="extra-diary-book"></span><div><small>可阅览档案</small><h2>甜公的日记</h2><p>以可翻阅的中世纪羊皮纸日记形式呈现的私人记录。支持鼠标拖拽页角、点击翻页、方向键与移动端滑动。</p></div><span class="state">开启日记 →</span></a><article class="extra"><span class="idx">EX — 02</span><span class="glyph">⚿</span><div><small>番外档案</small><h2>井中的新娘</h2><p>一段发生在主线之前的旧事，关于被凝视、被安排的人生，与一次拒绝。</p></div><span class="state">封存</span></article><article class="extra muted"><span class="idx">EX — ··</span><span class="glyph">◌</span><div><small>待归档</small><h2>更多番外</h2><p>将随连载补充。</p></div></article></div></div>`}
 function diary(){return `<main class="diary-shell season-summer"><a class="diary-return" href="/extras/">← 返回番外</a><div class="diary-hint">拖动页角翻页 · ← →</div><section class="diary-stage"><div id="diary-book" class="diary-book"><div class="diary-cover" data-density="hard"><div class="diary-cover-inner"><small>PRIVATE RECORD · ZENOBIA</small><h1>甜公的日记</h1><div class="diary-ruby"></div></div></div></div></section><p class="page-status">封面</p></main>`}
 const app=document.getElementById('app');if(path==='/extras/diary/'){app.innerHTML=diary();if(document.fonts&&document.fonts.ready){document.fonts.ready.then(initDiary)}else{initDiary()}}else{let c=path==='/world/'?world():path==='/media/'?media():path==='/extras/'?extras():home();app.innerHTML=shell(c);initSite()}
+function bindMapHoverLayers(){
+  const hotspots=[...document.querySelectorAll('.map-city-hotspot,.map-place-hotspot')];
+  const activate=el=>{
+    hotspots.forEach(h=>{if(h!==el){h.classList.remove('is-active');h.style.zIndex=''}});
+    el.classList.add('is-active');
+    el.style.zIndex='10000';
+  };
+  const deactivate=el=>{
+    el.classList.remove('is-active');
+    el.style.zIndex='';
+  };
+  hotspots.forEach(el=>{
+    el.addEventListener('pointerenter',()=>activate(el));
+    el.addEventListener('mouseenter',()=>activate(el));
+    el.addEventListener('pointerleave',()=>deactivate(el));
+    el.addEventListener('mouseleave',()=>deactivate(el));
+    el.addEventListener('focus',()=>activate(el));
+    el.addEventListener('blur',()=>deactivate(el));
+  });
+}
 async function initWorldMap(){
   const img=document.getElementById('saitama-map');
   if(!img)return;
+  bindMapHoverLayers();
   try{
     const urls=['/assets/saitama-lossless-part-01.txt','/assets/saitama-lossless-part-02.txt','/assets/saitama-lossless-part-03.txt','/assets/saitama-lossless-part-04.txt','/assets/saitama-lossless-part-05.txt','/assets/saitama-lossless-part-06.txt','/assets/saitama-lossless-part-07.txt','/assets/saitama-lossless-part-08.txt','/assets/saitama-lossless-part-09.txt','/assets/saitama-lossless-part-10.txt','/assets/saitama-lossless-part-11.txt','/assets/saitama-lossless-part-12.txt','/assets/saitama-lossless-part-13.txt','/assets/saitama-lossless-part-14.txt','/assets/saitama-lossless-part-15.txt','/assets/saitama-lossless-part-16.txt','/assets/saitama-lossless-part-17.txt','/assets/saitama-lossless-part-18.txt','/assets/saitama-lossless-part-19.txt','/assets/saitama-lossless-part-20.txt'];
     const parts=await Promise.all(urls.map(async u=>{const r=await fetch(u,{cache:'force-cache'});if(!r.ok)throw new Error('map asset '+u);return r.text()}));

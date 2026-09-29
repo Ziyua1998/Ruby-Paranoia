@@ -5,21 +5,13 @@ const tracks=[
     id:"moonlit_castle",
     title:"月夜の古城",
     artist:"Instrumental",
-    parts:[
-      "moonlit_castle-01.txt","moonlit_castle-02.txt","moonlit_castle-03.txt","moonlit_castle-04.txt",
-      "moonlit_castle-05.txt","moonlit_castle-06.txt","moonlit_castle-07.txt","moonlit_castle-08.txt"
-    ]
+    src:"/assets/music/moonlit-castle[2].mp3"
   },
   {
     id:"fanatic_nocturne",
     title:"狂信者のノクターン（狂信徒的夜曲）",
     artist:"AMAI MASK",
-    parts:[
-      "fanatic_nocturne-01.txt","fanatic_nocturne-02.txt","fanatic_nocturne-03.txt",
-      "fanatic_nocturne-04.txt","fanatic_nocturne-05.txt",
-      {file:"fanatic_nocturne-06.b64x",outerBase64:true},
-      "fanatic_nocturne-07.txt","fanatic_nocturne-08.txt","fanatic_nocturne-09.txt"
-    ]
+    src:"/assets/music/fanatic-nocturne.mp3"
   },
   {
     id:"dark_hymn",
@@ -50,10 +42,11 @@ function decodeOuterBase64(text){
 }
 
 async function buildTrack(t){
+  if(t.src)return t.src;
   if(cache.has(t.id))return cache.get(t.id);
 
   const parts=[];
-  for(const spec of t.parts){
+  for(const spec of t.parts||[]){
     const file=typeof spec==="string"?spec:spec.file;
     const r=await fetch("/assets/music/"+file,{cache:"force-cache"});
     if(!r.ok)throw new Error("missing music asset: "+file);

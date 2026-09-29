@@ -1,0 +1,34 @@
+:root{--rp-music-gold:#c9a24a;--rp-music-red:#6e0815;--rp-music-red2:#a10f22;--rp-music-wood:#21090d;--rp-music-black:#070405;--rp-music-ivory:#e7d6a5}
+.rp-music{position:fixed;right:18px;bottom:18px;z-index:1200;width:318px;color:#d8c690;font-family:"Noto Serif SC","Songti SC",serif;filter:drop-shadow(0 18px 24px #000b)}
+.rp-music *{box-sizing:border-box}
+.rp-music-shell{position:relative;border:1px solid #7d652e;background:linear-gradient(145deg,#2c0b11 0%,#16070a 54%,#090506 100%);box-shadow:inset 0 0 0 3px #110507,inset 0 0 0 4px rgba(201,162,74,.28),0 0 0 1px #000;overflow:hidden}
+.rp-music-shell:before{content:"";position:absolute;inset:7px;border:1px solid rgba(201,162,74,.18);pointer-events:none}
+.rp-music-lid{height:36px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border-bottom:1px solid rgba(201,162,74,.25);background:linear-gradient(#310b12,#19070a);cursor:pointer}
+.rp-music-brand{font-family:UnifrakturMaguntia,Georgia,serif;color:#d3ad4f;font-size:18px;letter-spacing:.03em;text-shadow:0 1px #000}
+.rp-music-gem{width:9px;height:9px;transform:rotate(45deg);background:#750816;border:1px solid #d3ad4f;box-shadow:0 0 8px rgba(184,18,39,.5)}
+.rp-music-panel{max-height:260px;opacity:1;transition:.28s ease;padding:13px 14px 12px}
+.rp-music.is-collapsed{width:196px}
+.rp-music.is-collapsed .rp-music-panel{max-height:0;opacity:0;padding-top:0;padding-bottom:0;pointer-events:none}
+.rp-music-score{min-height:58px;border:1px solid rgba(201,162,74,.26);background:linear-gradient(180deg,rgba(117,8,22,.18),rgba(0,0,0,.2));padding:9px 10px;text-align:center;position:relative}
+.rp-music-score:after{content:"";position:absolute;left:12px;right:12px;bottom:8px;border-bottom:1px solid rgba(201,162,74,.13);box-shadow:0 -6px rgba(201,162,74,.08),0 -12px rgba(201,162,74,.07)}
+.rp-music-kicker{display:block;font-size:8px;letter-spacing:.22em;color:#8f7842;text-transform:uppercase}
+.rp-music-title{display:block;margin-top:4px;color:#ead38e;font-size:12px;line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rp-music-artist{display:block;margin-top:2px;color:#8f805c;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rp-music-keys{display:grid;grid-template-columns:1fr 1.25fr 1fr;height:48px;margin-top:10px;border:1px solid #453817;background:#050303}
+.rp-music-key{position:relative;border:0;border-right:1px solid #71602e;background:linear-gradient(#f0dfad,#cfba7e);color:#3d1d16;font-size:18px;cursor:pointer;box-shadow:inset 0 -6px 8px rgba(68,40,18,.2);transition:.12s}
+.rp-music-key:last-child{border-right:0}
+.rp-music-key:hover{background:linear-gradient(#f7e8bb,#d7c183)}
+.rp-music-key:active{transform:translateY(2px);box-shadow:inset 0 -2px 4px rgba(68,40,18,.25)}
+.rp-music-key.main:before,.rp-music-key.main:after{content:"";position:absolute;top:0;width:16px;height:28px;background:linear-gradient(#16090b,#050304);z-index:2}
+.rp-music-key.main:before{left:-8px}.rp-music-key.main:after{right:-8px}
+.rp-music-tools{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;margin-top:10px}
+.rp-music-progress{width:100%;accent-color:#8d1020;cursor:pointer}
+.rp-music-time{font-size:9px;color:#87754d;min-width:62px;text-align:right;font-variant-numeric:tabular-nums}
+.rp-music-volume-row{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;margin-top:8px;color:#8f7842;font-size:10px}
+.rp-music-volume{width:100%;accent-color:#c9a24a;cursor:pointer}
+.rp-music-small{border:0;background:transparent;color:#b99b50;cursor:pointer;font-size:13px;padding:2px 4px}
+.rp-music-small:hover{color:#efd477}
+.rp-music-status{margin-top:6px;min-height:13px;color:#6f6246;font-size:9px;text-align:center}
+.rp-music.loading .rp-music-gem{animation:rpPulse 1s infinite alternate}
+@keyframes rpPulse{to{box-shadow:0 0 15px rgba(210,24,50,.9);background:#b01328}}
+@media(max-width:720px){.rp-music{right:10px;bottom:10px;width:min(286px,calc(100vw - 20px))}.rp-music.is-collapsed{width:174px}.rp-music-lid{height:34px}.rp-music-brand{font-size:16px}}

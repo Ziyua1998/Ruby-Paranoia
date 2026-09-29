@@ -74,13 +74,14 @@ function mount(){
 
   const root=document.createElement("div");
   root.className="rp-music is-collapsed";
-  root.innerHTML='<div class="rp-music-shell"><div class="rp-music-lid" title="展开/收起播放器"><span class="rp-music-brand">Nocturne Cabinet</span><span class="rp-music-note-icon" aria-hidden="true">♪</span></div><div class="rp-music-panel"><div class="rp-music-score"><small class="rp-music-kicker">Musica Nocturna</small><strong class="rp-music-title"></strong><span class="rp-music-artist"></span></div><div class="rp-music-keys"><button class="rp-music-key prev" aria-label="上一首">‹</button><button class="rp-music-key main play" aria-label="播放">▶</button><button class="rp-music-key next" aria-label="下一首">›</button></div><div class="rp-music-tools"><input class="rp-music-progress" type="range" min="0" max="1000" value="0" aria-label="播放进度"><span class="rp-music-time">0:00 / 0:00</span></div><div class="rp-music-volume-row"><button class="rp-music-small mute" aria-label="静音">♩</button><input class="rp-music-volume" type="range" min="0" max="1" step=".02" aria-label="音量"><button class="rp-music-small loop" aria-label="循环播放">↻</button></div><div class="rp-music-status">正在唤醒夜曲…</div></div></div>';
+  root.innerHTML='<button class="rp-music-toggle" type="button" aria-label="音乐播放器" aria-expanded="false" title="展开音乐播放器"><span aria-hidden="true">♪</span></button><div class="rp-music-shell"><div class="rp-music-lid" title="收起播放器"><span class="rp-music-brand">Nocturne Cabinet</span></div><div class="rp-music-panel"><div class="rp-music-score"><small class="rp-music-kicker">Musica Nocturna</small><strong class="rp-music-title"></strong><span class="rp-music-artist"></span></div><div class="rp-music-keys"><button class="rp-music-key prev" aria-label="上一首">‹</button><button class="rp-music-key main play" aria-label="播放">▶</button><button class="rp-music-key next" aria-label="下一首">›</button></div><div class="rp-music-tools"><input class="rp-music-progress" type="range" min="0" max="1" step="0.01" value="0" aria-label="播放进度"><span class="rp-music-time">0:00 / 0:00</span></div><div class="rp-music-volume-row"><button class="rp-music-small mute" aria-label="静音">♩</button><input class="rp-music-volume" type="range" min="0" max="1" step=".02" aria-label="音量"><button class="rp-music-small loop" aria-label="单曲循环" aria-pressed="false" title="单曲循环">↻</button></div><div class="rp-music-status">正在唤醒夜曲…</div></div></div>';
   const actions=document.querySelector(".topbar .actions");
   if(actions){actions.classList.add("has-music-player");const share=actions.querySelector("[data-share]");if(share){actions.insertBefore(root,share)}else{actions.prepend(root)}}else{root.classList.add("rp-music-fallback");document.body.appendChild(root)}
 
   const audio=new Audio();
   audio.preload="auto";
 
+  const toggle=root.querySelector(".rp-music-toggle");
   const lid=root.querySelector(".rp-music-lid");
   const title=root.querySelector(".rp-music-title");
   const artist=root.querySelector(".rp-music-artist");
@@ -117,12 +118,30 @@ function mount(){
   volume.value=audio.volume;
   state.collapsed=true;
   root.classList.add("is-collapsed");
-  loop.style.color=audio.loop?"#efd477":"";
+  loop.classList.toggle("is-active",audio.loop);
+  loop.setAttribute("aria-pressed",String(audio.loop));
   mute.textContent=audio.muted?"×":"♩";
 
   let unloading=false;
   let loadSerial=0;
   let gestureArmed=false;
+  let seeking=false;
+
+  function syncDuration(){
+    if(Number.isFinite(audio.duration)&&audio.duration>0){
+      progress.max=String(audio.duration);
+      if(!seeking)progress.value=String(Math.min(audio.currentTime,audio.duration));
+      syncDuration();
+    }
+  }
+
+  function setCollapsed(collapsed){
+    root.classList.toggle("is-collapsed",collapsed);
+    toggle.setAttribute("aria-expanded",String(!collapsed));
+    toggle.title=collapsed?"展开音乐播放器":"收起音乐播放器";
+    state.collapsed=collapsed;
+    persist();
+  }
 
   function persist(forcePlaying){
     state.volume=audio.volume;
@@ -233,10 +252,8 @@ function mount(){
     }
   }
 
-  lid.onclick=()=>{
-    root.classList.toggle("is-collapsed");
-    persist();
-  };
+  toggle.onclick=()=>setCollapsed(!root.classList.contains("is-collapsed"));
+  lid.onclick=()=>setCollapsed(true);
 
   play.onclick=async()=>{
     if(!audio.src){
@@ -271,13 +288,26 @@ function mount(){
     load(state.track+1,true,0);
   };
 
-  progress.oninput=()=>{
-    if(audio.duration){
-      audio.currentTime=(+progress.value/1000)*audio.duration;
-      state.time=audio.currentTime;
-      persist();
-    }
+  const seekPreview=()=>{
+    if(!Number.isFinite(audio.duration)||audio.duration<=0)return;
+    seeking=true;
+    const target=Math.max(0,Math.min(+progress.value,audio.duration));
+    time.textContent=fmt(target)+" / "+fmt(audio.duration);
   };
+  const seekCommit=()=>{
+    if(!Number.isFinite(audio.duration)||audio.duration<=0){seeking=false;return}
+    const target=Math.max(0,Math.min(+progress.value,audio.duration));
+    try{audio.currentTime=target}catch(e){}
+    state.time=target;
+    seeking=false;
+    time.textContent=fmt(target)+" / "+fmt(audio.duration);
+    persist();
+  };
+  progress.addEventListener("pointerdown",()=>{seeking=true});
+  progress.addEventListener("input",seekPreview);
+  progress.addEventListener("change",seekCommit);
+  progress.addEventListener("pointerup",seekCommit);
+  progress.addEventListener("keyup",e=>{if(["ArrowLeft","ArrowRight","Home","End"].includes(e.key))seekCommit()});
 
   volume.oninput=()=>{
     audio.volume=+volume.value;
@@ -294,14 +324,19 @@ function mount(){
 
   loop.onclick=()=>{
     audio.loop=!audio.loop;
-    loop.style.color=audio.loop?"#efd477":"";
+    state.loop=audio.loop;
+    loop.classList.toggle("is-active",audio.loop);
+    loop.setAttribute("aria-pressed",String(audio.loop));
+    loop.title=audio.loop?"单曲循环：已开启":"单曲循环";
     persist();
   };
 
+  audio.ondurationchange=syncDuration;
+  audio.onloadedmetadata=syncDuration;
   audio.ontimeupdate=()=>{
-    if(audio.duration){
-      progress.value=String(Math.round(audio.currentTime/audio.duration*1000));
-      time.textContent=fmt(audio.currentTime)+" / "+fmt(audio.duration);
+    if(Number.isFinite(audio.duration)&&audio.duration>0){
+      if(!seeking)progress.value=String(audio.currentTime);
+      time.textContent=fmt(seeking?+progress.value:audio.currentTime)+" / "+fmt(audio.duration);
       state.time=audio.currentTime;
       if(Math.floor(audio.currentTime)%2===0)persist();
     }

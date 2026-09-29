@@ -1,14 +1,14 @@
 :root{--rp-music-gold:#c9a24a;--rp-music-red:#6e0815;--rp-music-red2:#a10f22;--rp-music-wood:#21090d;--rp-music-black:#070405;--rp-music-ivory:#e7d6a5}
-.rp-music{position:fixed;right:18px;bottom:18px;z-index:1200;width:318px;color:#d8c690;font-family:"Noto Serif SC","Songti SC",serif;filter:drop-shadow(0 18px 24px #000b)}
+.actions.has-music-player{position:relative;padding-left:48px}\n.rp-music{position:absolute;right:48px;top:0;z-index:1200;width:318px;color:#d8c690;font-family:"Noto Serif SC","Songti SC",serif;filter:drop-shadow(0 18px 24px #000b)}\n.rp-music-fallback{position:fixed;right:18px;top:18px}
 .rp-music *{box-sizing:border-box}
 .rp-music-shell{position:relative;border:1px solid #7d652e;background:linear-gradient(145deg,#2c0b11 0%,#16070a 54%,#090506 100%);box-shadow:inset 0 0 0 3px #110507,inset 0 0 0 4px rgba(201,162,74,.28),0 0 0 1px #000;overflow:hidden}
 .rp-music-shell:before{content:"";position:absolute;inset:7px;border:1px solid rgba(201,162,74,.18);pointer-events:none}
-.rp-music-lid{height:36px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border-bottom:1px solid rgba(201,162,74,.25);background:linear-gradient(#310b12,#19070a);cursor:pointer}
+.rp-music-lid{height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border-bottom:1px solid rgba(201,162,74,.25);background:linear-gradient(#310b12,#19070a);cursor:pointer}
 .rp-music-brand{font-family:UnifrakturMaguntia,Georgia,serif;color:#d3ad4f;font-size:18px;letter-spacing:.03em;text-shadow:0 1px #000}
 .rp-music-gem{width:9px;height:9px;transform:rotate(45deg);background:#750816;border:1px solid #d3ad4f;box-shadow:0 0 8px rgba(184,18,39,.5)}
 .rp-music-panel{max-height:260px;opacity:1;transition:.28s ease;padding:13px 14px 12px}
-.rp-music.is-collapsed{width:196px}
-.rp-music.is-collapsed .rp-music-panel{max-height:0;opacity:0;padding-top:0;padding-bottom:0;pointer-events:none}
+.rp-music.is-collapsed{width:38px}
+.rp-music.is-collapsed .rp-music-panel{max-height:0;opacity:0;padding-top:0;padding-bottom:0;pointer-events:none}\n.rp-music.is-collapsed .rp-music-lid{width:38px;padding:0;justify-content:center;border:1px solid rgba(201,162,74,.22);background:#0a0506}\n.rp-music.is-collapsed .rp-music-brand{display:none}\n.rp-music.is-collapsed .rp-music-gem{width:10px;height:10px}
 .rp-music-score{min-height:58px;border:1px solid rgba(201,162,74,.26);background:linear-gradient(180deg,rgba(117,8,22,.18),rgba(0,0,0,.2));padding:9px 10px;text-align:center;position:relative}
 .rp-music-score:after{content:"";position:absolute;left:12px;right:12px;bottom:8px;border-bottom:1px solid rgba(201,162,74,.13);box-shadow:0 -6px rgba(201,162,74,.08),0 -12px rgba(201,162,74,.07)}
 .rp-music-kicker{display:block;font-size:8px;letter-spacing:.22em;color:#8f7842;text-transform:uppercase}
@@ -31,4 +31,4 @@
 .rp-music-status{margin-top:6px;min-height:13px;color:#6f6246;font-size:9px;text-align:center}
 .rp-music.loading .rp-music-gem{animation:rpPulse 1s infinite alternate}
 @keyframes rpPulse{to{box-shadow:0 0 15px rgba(210,24,50,.9);background:#b01328}}
-@media(max-width:720px){.rp-music{right:10px;bottom:10px;width:min(286px,calc(100vw - 20px))}.rp-music.is-collapsed{width:174px}.rp-music-lid{height:34px}.rp-music-brand{font-size:16px}}
+@media(max-width:720px){.actions.has-music-player{padding-left:44px}.rp-music{right:44px;top:0;width:min(286px,calc(100vw - 84px))}.rp-music.is-collapsed{width:38px}.rp-music-lid{height:38px}.rp-music-brand{font-size:16px}.rp-music-fallback{right:10px;top:10px;width:min(286px,calc(100vw - 20px))}}

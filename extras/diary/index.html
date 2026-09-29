@@ -21,9 +21,9 @@ repeating-linear-gradient(90deg,transparent 0 105px,rgba(95,10,20,.10) 106px 108
 radial-gradient(circle at 12% 85%,rgba(232,160,43,.07),transparent 20%)}
 .diary-return{position:fixed;left:12px;top:14px;z-index:500;color:var(--gold);font-size:12px;text-decoration:none;border-bottom:1px solid rgba(216,183,84,.28);padding:8px 10px;background:rgba(4,2,3,.48)}
 .diary-hint{position:fixed;right:18px;top:18px;z-index:500;color:#7c6940;font-size:10px;letter-spacing:.12em}
-.stage{position:relative;z-index:2;width:min(1080px,96vw);height:min(720px,calc(100svh - 62px));display:grid;place-items:center;perspective:2400px;filter:drop-shadow(0 28px 34px #000e)}
-.book{position:relative;width:min(1000px,92vw);height:min(690px,calc(100svh - 82px));transform-style:preserve-3d;touch-action:pan-y;transition:width .45s ease}
-.book.closed{width:min(500px,92vw)}.book.closed .sheet{width:100%}
+.stage{position:relative;z-index:2;width:100%;height:calc(100svh - 44px);display:grid;place-items:center;perspective:2400px;filter:drop-shadow(0 28px 34px #000e);overflow:visible}
+.book{position:relative;width:1000px;height:690px;transform:scale(var(--diary-scale,1));transform-origin:center center;transform-style:preserve-3d;touch-action:pan-y;transition:width .45s ease}
+.book.closed{width:500px}.book.closed .sheet{width:100%}
 .sheet{position:absolute;top:0;right:0;width:50%;height:100%;transform-origin:left center;transform-style:preserve-3d;transition:transform 900ms cubic-bezier(.2,.7,.2,1),width .45s ease;will-change:transform}
 .sheet.flipped{transform:rotateY(-180deg)}
 .sheet.dragging{transition:none}
@@ -46,19 +46,23 @@ linear-gradient(95deg,#b5965d,#dec78e 7%,#e4d09d 53%,#b5965d);border-block:1px s
 .cover,.backcover{background:
 radial-gradient(circle at 50% 34%,rgba(139,9,27,.34),transparent 38%),
 linear-gradient(105deg,#030202,#3b0810 38%,#160508 70%,#030202);border:4px solid #020202;color:var(--gold);box-shadow:inset 0 0 0 2px #7e0a18,inset 0 0 0 4px #050303,inset 0 0 0 5px rgba(227,189,84,.48)}
-.cover:before{content:"";position:absolute;inset:8%;border:1px solid rgba(227,189,84,.65)}
+.cover:before,.backcover:before{content:"";position:absolute;inset:8%;border:1px solid rgba(227,189,84,.65)}
 .cover-inner{position:absolute;inset:13%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 .cover-inner small{font-size:9px;letter-spacing:.18em;color:#a68a43}
 .cover-inner h1{margin:24px 0 44px;font-size:clamp(29px,3.2vw,42px);line-height:1.65;color:#e5c65d;letter-spacing:.12em}
-.ruby{width:48px;aspect-ratio:1;rotate:45deg;background:#760a17;border:5px ridge #a9802e;box-shadow:0 4px 14px #0008,inset 5px 5px 10px rgba(241,73,84,.18)}
+.inverted-cross{position:relative;width:54px;height:82px;filter:drop-shadow(0 4px 12px #0009)}
+.inverted-cross:before,.inverted-cross:after{content:"";position:absolute;background:linear-gradient(180deg,#b9162b,#650813);border:1px solid #d8b754;box-shadow:inset 0 0 0 1px #250307}
+.inverted-cross:before{left:50%;top:0;width:10px;height:76px;transform:translateX(-50%)}
+.inverted-cross:after{left:50%;top:50px;width:46px;height:10px;transform:translateX(-50%)}
+.backcover-inner{position:absolute;inset:13%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;text-align:center;color:#a68a43}
+.backcover-inner small{font-size:9px;letter-spacing:.18em}
 .corner{position:absolute;z-index:50;width:42px;height:42px;bottom:0;opacity:.16;pointer-events:none}
 .corner.right{right:0;background:linear-gradient(135deg,transparent 49%,#e3bd54 50%)}
 .corner.left{left:0;background:linear-gradient(225deg,transparent 49%,#e3bd54 50%)}
 .status{position:relative;z-index:3;margin:0;color:#8b7951;font-size:10px;letter-spacing:.12em}
 .measure{position:absolute!important;left:-99999px!important;top:0!important;width:500px!important;height:690px!important;visibility:hidden!important;pointer-events:none!important}
 @media(max-width:850px){
-  .book{width:min(500px,94vw);height:min(690px,calc(100svh - 82px))}
-  .book:not(.closed){width:min(500px,94vw)}
+  .book,.book:not(.closed),.book.closed{width:500px;height:690px}
   .sheet{width:100%}
   .paper{padding:42px 34px 34px}
   .flow p{font-size:17px;line-height:1.8}
@@ -88,6 +92,8 @@ const entries=[
 async function init(){
  if(document.fonts&&document.fonts.ready) await document.fonts.ready;
  const book=document.getElementById('book'),status=document.getElementById('status');
+ const fitBook=()=>{const mobile=innerWidth<=850,logicalW=mobile?500:1000,availableW=Math.max(280,innerWidth-36),availableH=Math.max(320,innerHeight-110),scale=Math.min(1,availableW/logicalW,availableH/690);book.style.setProperty('--diary-scale',String(scale))};
+ fitBook();addEventListener('resize',fitBook);
 
  // paginate by actual rendered height
  const m=document.createElement('div');m.className='face page measure';
@@ -119,20 +125,29 @@ async function init(){
  flush();m.remove();
 
  const physical=pages.map((html,i)=>({html,num:i+1,blank:false}));
- if(physical.length%2===1)physical.push({html:'',num:null,blank:true});
- physical.push({html:'',num:null,blank:true},{html:'',num:null,blank:true});
-
+ const blank={html:'',num:null,blank:true};
  const face=(p,back=false)=>'<div class="face '+(back?'back ':'front ')+'page'+(p&&p.blank?' blank':'')+'"><article class="paper">'+(p&&p.html?'<div class="flow">'+p.html+'</div>':'')+'</article>'+(p&&p.num?'<span class="folio">'+p.num+'</span>':'')+'</div>';
+ const backCover=()=>'<div class="face back backcover"><div class="backcover-inner"><small>RUBY PARANOIA</small><div class="inverted-cross" aria-hidden="true"></div></div></div>';
  book.innerHTML='';
  const first=document.createElement('div');first.className='sheet';
- first.innerHTML='<div class="face front cover"><div class="cover-inner"><small>PRIVATE RECORD · ZENOBIA</small><h1>甜公的日记</h1><div class="ruby"></div></div></div>'+face(physical[0],true)+'<i class="corner right"></i>';book.appendChild(first);
- for(let i=1;i<physical.length;i+=2){const s=document.createElement('div');s.className='sheet';s.innerHTML=face(physical[i],false)+face(physical[i+1],true)+'<i class="corner right"></i><i class="corner left"></i>';book.appendChild(s)}
+ first.innerHTML='<div class="face front cover"><div class="cover-inner"><small>PRIVATE RECORD</small><h1>甜公的日记</h1><div class="inverted-cross" aria-hidden="true"></div></div></div>'+face(physical[0]||blank,true)+'<i class="corner right"></i>';book.appendChild(first);
+ let i=1,backCoverAdded=false;
+ while(i<physical.length){
+   const front=physical[i++]||blank;
+   if(i<physical.length){
+     const back=physical[i++];
+     const s=document.createElement('div');s.className='sheet';s.innerHTML=face(front,false)+face(back,true)+'<i class="corner right"></i><i class="corner left"></i>';book.appendChild(s);
+   }else{
+     const s=document.createElement('div');s.className='sheet';s.innerHTML=face(front,false)+backCover()+'<i class="corner right"></i><i class="corner left"></i>';book.appendChild(s);backCoverAdded=true;
+   }
+ }
+ if(!backCoverAdded){const s=document.createElement('div');s.className='sheet';s.innerHTML=face(blank,false)+backCover()+'<i class="corner right"></i><i class="corner left"></i>';book.appendChild(s)}
 
  const sheets=[...book.querySelectorAll('.sheet')];let cur=0,startX=0,active=null,mode='',moved=0;
  function render(){
    sheets.forEach((s,i)=>{const f=i<cur;s.classList.toggle('flipped',f);if(!s.classList.contains('dragging'))s.style.transform=f?'rotateY(-180deg)':'rotateY(0deg)';s.style.zIndex=f?String(i+1):String(sheets.length-i)});
-   book.classList.toggle('closed',cur===0);
-   status.textContent=cur===0?'封面':((cur-1)*2+1>pages.length?'空白页':Math.min(cur*2,pages.length)+' / '+pages.length);
+   book.classList.toggle('closed',cur===0||cur===sheets.length);
+   status.textContent=cur===0?'封面':(cur===sheets.length?'封底':((cur-1)*2+1>pages.length?'空白页':Math.min(cur*2,pages.length)+' / '+pages.length));
  }
  const next=()=>{if(cur<sheets.length){cur++;render()}},prev=()=>{if(cur>0){cur--;render()}};
  const px=e=>e.clientX;

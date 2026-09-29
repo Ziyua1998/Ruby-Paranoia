@@ -54,7 +54,7 @@ linear-gradient(105deg,#030202,#3b0810 38%,#160508 70%,#030202);border:4px solid
 .corner{position:absolute;z-index:50;width:42px;height:42px;bottom:0;opacity:.16;pointer-events:none}
 .corner.right{right:0;background:linear-gradient(135deg,transparent 49%,#e3bd54 50%)}
 .corner.left{left:0;background:linear-gradient(225deg,transparent 49%,#e3bd54 50%)}
-.doodle-page .paper{display:grid;place-items:center;padding:34px}.doodle{width:min(78%,360px);max-height:82%;object-fit:contain;display:block;background:transparent;mix-blend-mode:multiply;filter:grayscale(1) contrast(1.18);transform:rotate(-1.5deg);box-shadow:none}.status{position:relative;z-index:3;margin:0;color:#8b7951;font-size:10px;letter-spacing:.12em}
+.status{position:relative;z-index:3;margin:0;color:#8b7951;font-size:10px;letter-spacing:.12em}
 .measure{position:absolute!important;left:-99999px!important;top:0!important;width:500px!important;height:690px!important;visibility:hidden!important;pointer-events:none!important}
 @media(max-width:850px){
   .book{width:min(500px,94vw);height:min(690px,calc(100svh - 82px))}
@@ -66,7 +66,6 @@ linear-gradient(105deg,#030202,#3b0810 38%,#160508 70%,#030202);border:4px solid
   .diary-hint{display:none}
 }
 </style>
-<link rel="stylesheet" href="/assets/music-player.css">
 </head>
 <body>
 <main class="diary-shell">
@@ -76,7 +75,6 @@ linear-gradient(105deg,#030202,#3b0810 38%,#160508 70%,#030202);border:4px solid
   <p id="status" class="status">封面</p>
 </main>
 <script>
-const doodle="data:image/webp;base64,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";
 const entries=[
 ["■年6月6日",["命运将一个拥有红宝石般眼眸的猎人送至我面前。他的血液出乎意料地难以下咽，可那顽强的自愈能力，以及「小刀」从未有过的反应，都昭示了他的不同寻常。","姑且一试那“初拥”的仪式吧。或许，就能塑造出我自己一直寻找的某种可能。","就称他为“66号”。"]],
 ["■年7月20日",["一个多月了才发现，66号竟然能够沐浴在阳光下而毫发无伤，这超越了我对血族的认知，也让我看到了他惊人的潜质。或许是时候让他知晓，身为我的后裔所要肩负的真正使命了。","我要将他打造成这永夜中最美丽的杰作，培养成足以与我并肩，维护这世间正义的存在。至于为这份‘恩赐’必须经历的那些痛苦……总有一天，他会理解的。"]],
@@ -122,9 +120,9 @@ async function init(){
 
  const physical=pages.map((html,i)=>({html,num:i+1,blank:false}));
  if(physical.length%2===1)physical.push({html:'',num:null,blank:true});
- physical.push({html:'',num:null,blank:false,doodle:true},{html:'',num:null,blank:true});
+ physical.push({html:'',num:null,blank:true},{html:'',num:null,blank:true});
 
- const face=(p,back=false)=>'<div class="face '+(back?'back ':'front ')+'page'+(p&&p.blank?' blank':'')+(p&&p.doodle?' doodle-page':'')+'"><article class="paper">'+(p&&p.doodle?'<img class="doodle" src="'+doodle+'" alt="铅笔涂鸦">':(p&&p.html?'<div class="flow">'+p.html+'</div>':''))+'</article>'+(p&&p.num?'<span class="folio">'+p.num+'</span>':'')+'</div>';
+ const face=(p,back=false)=>'<div class="face '+(back?'back ':'front ')+'page'+(p&&p.blank?' blank':'')+'"><article class="paper">'+(p&&p.html?'<div class="flow">'+p.html+'</div>':'')+'</article>'+(p&&p.num?'<span class="folio">'+p.num+'</span>':'')+'</div>';
  book.innerHTML='';
  const first=document.createElement('div');first.className='sheet';
  first.innerHTML='<div class="face front cover"><div class="cover-inner"><small>PRIVATE RECORD · ZENOBIA</small><h1>甜公的日记</h1><div class="ruby"></div></div></div>'+face(physical[0],true)+'<i class="corner right"></i>';book.appendChild(first);
@@ -148,6 +146,5 @@ async function init(){
 }
 init();
 </script>
-<script src="/assets/music-player.js" defer></script>
 </body>
 </html>

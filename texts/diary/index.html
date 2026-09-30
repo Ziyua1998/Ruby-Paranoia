@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>甜公的日记 — RUBY PARANOIA · Zenobia</title>
+<meta name="description" content="RUBY PARANOIA 番外：甜公的日记">
+<meta name="author" content="Zenobia">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#d8b754;--red:#700915;--paper:#dec78e;--ink:#2a1712;--hand:"Ma Shan Zheng","STKaiti","KaiTi",cursive}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#050304}
+body{overflow:hidden;font-family:"Noto Serif SC","Songti SC",serif}
+.diary-shell{min-height:100svh;display:grid;grid-template-rows:minmax(0,1fr) 28px;place-items:center;padding:24px 12px 8px;position:relative;overflow:hidden;background:
+radial-gradient(circle at 50% 42%,rgba(145,4,23,.18),transparent 44%),
+linear-gradient(105deg,#050304,#16070a 48%,#040304)}
+.diary-shell:before{content:"";position:absolute;inset:0;pointer-events:none;background:
+repeating-linear-gradient(90deg,transparent 0 105px,rgba(95,10,20,.10) 106px 108px,transparent 109px 210px),
+radial-gradient(circle at 12% 85%,rgba(232,160,43,.07),transparent 20%)}
+.diary-return{position:fixed;left:12px;top:14px;z-index:500;color:var(--gold);font-size:12px;text-decoration:none;border-bottom:1px solid rgba(216,183,84,.28);padding:8px 10px;background:rgba(4,2,3,.48)}
+.diary-hint{position:fixed;right:18px;top:18px;z-index:500;color:#7c6940;font-size:10px;letter-spacing:.12em}
+.stage{position:relative;z-index:2;width:100%;height:calc(100svh - 44px);display:grid;place-items:center;perspective:2400px;filter:drop-shadow(0 28px 34px #000e);overflow:visible}
+.book{position:relative;width:1000px;height:690px;transform:scale(var(--diary-scale,1));transform-origin:center center;transform-style:preserve-3d;touch-action:pan-y;transition:width .45s ease}
+.book.closed{width:500px}.book.closed .sheet{width:100%}
+.book.at-back .sheet{visibility:hidden}
+.book.at-back .sheet:last-child{visibility:visible;transform:none!important;width:100%!important;right:0}
+.book.at-back .sheet:last-child>.front{display:none}
+.book.at-back .sheet:last-child>.backcover{display:block;transform:none!important}
+.sheet{position:absolute;top:0;right:0;width:50%;height:100%;transform-origin:left center;transform-style:preserve-3d;transition:transform 900ms cubic-bezier(.2,.7,.2,1),width .45s ease;will-change:transform}
+.sheet.flipped{transform:rotateY(-180deg)}
+.sheet.dragging{transition:none}
+.face{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform-style:preserve-3d}
+.face.back{transform:rotateY(180deg)}
+.page{color:var(--ink);background:
+radial-gradient(circle at 14% 14%,rgba(96,57,25,.08) 0 3px,transparent 4px),
+radial-gradient(circle at 84% 72%,rgba(90,48,20,.08) 0 9px,transparent 18px),
+linear-gradient(95deg,#b5965d,#dec78e 7%,#e4d09d 53%,#b5965d);border-block:1px solid rgba(83,52,20,.55)}
+.face.front.page:after,.face.back.page:after{content:"";position:absolute;top:0;bottom:0;width:40px;pointer-events:none}
+.face.front.page:after{left:0;background:linear-gradient(90deg,rgba(44,24,14,.24),transparent)}
+.face.back.page:after{right:0;background:linear-gradient(270deg,rgba(44,24,14,.24),transparent)}
+.paper{position:relative;z-index:1;height:100%;padding:52px 48px 40px;overflow:hidden}
+.flow{font-family:var(--hand)}
+.flow h2{margin:26px 0 18px;color:#6b0f1c;font:400 23px/1.35 var(--hand);letter-spacing:.05em}
+.flow h2:first-child{margin-top:0}
+.flow p{margin:0 0 .72em;font:400 20px/1.78 var(--hand);letter-spacing:.015em;text-indent:2em}
+.flow p.continued{text-indent:0}
+.folio{position:absolute;z-index:2;bottom:18px;left:0;right:0;text-align:center;color:rgba(73,48,24,.45);font-size:9px}
+.cover,.backcover{background:
+radial-gradient(circle at 50% 34%,rgba(139,9,27,.34),transparent 38%),
+linear-gradient(105deg,#030202,#3b0810 38%,#160508 70%,#030202);border:4px solid #020202;color:var(--gold);box-shadow:inset 0 0 0 2px #7e0a18,inset 0 0 0 4px #050303,inset 0 0 0 5px rgba(227,189,84,.48)}
+.cover:before,.backcover:before{content:"";position:absolute;inset:8%;border:1px solid rgba(227,189,84,.65)}
+.cover-inner{position:absolute;inset:13%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.cover-inner small{font-size:9px;letter-spacing:.18em;color:#a68a43}
+.cover-inner h1{margin:24px 0 44px;font-size:clamp(29px,3.2vw,42px);line-height:1.65;color:#e5c65d;letter-spacing:.12em}
+.inverted-cross{position:relative;width:54px;height:82px;filter:drop-shadow(0 4px 12px #0009)}
+.inverted-cross:before,.inverted-cross:after{content:"";position:absolute;background:linear-gradient(180deg,#b9162b,#650813);border:1px solid #d8b754;box-shadow:inset 0 0 0 1px #250307}
+.inverted-cross:before{left:50%;top:0;width:10px;height:76px;transform:translateX(-50%)}
+.inverted-cross:after{left:50%;top:50px;width:46px;height:10px;transform:translateX(-50%)}
+.backcover-inner{position:absolute;inset:13%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;text-align:center;color:#a68a43}
+.backcover-inner small{font-size:9px;letter-spacing:.18em}
+.corner{position:absolute;z-index:50;width:42px;height:42px;bottom:0;opacity:.16;pointer-events:none}
+.corner.right{right:0;background:linear-gradient(135deg,transparent 49%,#e3bd54 50%)}
+.corner.left{left:0;background:linear-gradient(225deg,transparent 49%,#e3bd54 50%)}
+.status{position:relative;z-index:3;margin:0;color:#8b7951;font-size:10px;letter-spacing:.12em}
+.measure{position:absolute!important;left:-99999px!important;top:0!important;width:500px!important;height:690px!important;visibility:hidden!important;pointer-events:none!important}
+@media(max-width:850px){
+  .book,.book:not(.closed),.book.closed{width:500px;height:690px}
+  .sheet{width:100%}
+  .paper{padding:42px 34px 34px}
+  .flow p{font-size:17px;line-height:1.8}
+  .flow h2{font-size:21px}
+  .diary-hint{display:none}
+}
+</style>
+</head>
+<body>
+<main class="diary-shell">
+  <a class="diary-return" href="/texts/">← 返回文本</a>
+  <div class="diary-hint">拖动页角翻页 · ← →</div>
+  <section class="stage"><div id="book" class="book closed"></div></section>
+  <p id="status" class="status">封面</p>
+</main>
+<script>
+const entries=[
+["■年6月6日",["命运将一个拥有红宝石般眼眸的猎人送至我面前。他的血液出乎意料地难以下咽，可那顽强的自愈能力，以及「小刀」从未有过的反应，都昭示了他的不同寻常。","姑且一试那“初拥”的仪式吧。或许，就能塑造出我自己一直寻找的某种可能。","就称他为“66号”。"]],
+["■年7月20日",["一个多月了才发现，66号竟然能够沐浴在阳光下而毫发无伤，这超越了我对血族的认知，也让我看到了他惊人的潜质。或许是时候让他知晓，身为我的后裔所要肩负的真正使命了。","我要将他打造成这永夜中最美丽的杰作，培养成足以与我并肩，维护这世间正义的存在。至于为这份‘恩赐’必须经历的那些痛苦……总有一天，他会理解的。"]],
+["■年8月27日",["真让人发愁。66号还是想杀我。","今天的事更是荒唐。他一定与和外面的那些粗鄙之徒厮混惯了，才会如此不知廉耻地张开腿给我看。而我大概也是疯了，只要看见他的脸，就无法自持。","或许真是那杯被动过手脚的血液在作祟。","但他的身体、声音、气味，乃至充满憎恨的眼神，都让我感受到一种久违的灼热……"]],
+["■年9月12日",["最近，66号偶尔会允许我留在他的房间，不过也从没有停止提防我。","他睡着的时候倒很安静。那让我想起，如果「你」活到今天，大概也会是这般模样。","但「你」属于阳光，是像我这样满身罪孽的怪物永远无法奢望的。而66号就躺在我触手可及的地方。有那么一刻，我对命运产生了荒谬的感激。"]],
+["■年10月16日",["无论我如何做，66号始终不肯真正屈从。他真的如此厌恶我吗？若真是如此，在那座废弃的教堂里，在鬼神共同注视的祭坛上，他又为什么主动吻我？","算了。我已不想深究。那在暗处窥视的卑劣人类已经将我们的结合公之于众，今后，无论他是否情愿留在我身边，都将与我一同沉沦。"]],
+["■年10月31日",["66号仍旧没有离开。有时候我会觉得，我培养了一个专门与我作对的麻烦。而我似乎已经习惯了。","还有太多的事要做。恶魔留下的痕迹时时刻刻提醒着我，自己的意志未必还能维持多久。在被“大蛇”完全吞噬之前，必须加快速度，为66号铺平道路……"]],
+["■年12月15日",["我真正希望的，不过是66号能够保护自己，活得比任何人都久一些，继续对着那些小孩子露出笑容。这也是曾经我希望的「你」的人生。说到底，我还是那个始终不敢以真面目示人、靠着回忆饮鸩止渴的怪物。","我曾以为自己能够塑造66号，可如今恰恰相反，他正在变得更强大。我能替他做的，大概只剩下一件事——成为他通往不朽的踏脚石。即使我将万劫不复。","「你」倘若能看见今日的情景，是否也会为我这扭曲的感情，而感到悲哀？"]]
+];
+
+async function init(){
+ if(document.fonts&&document.fonts.ready) await document.fonts.ready;
+ const book=document.getElementById('book'),status=document.getElementById('status');
+ const fitBook=()=>{const mobile=innerWidth<=850,logicalW=mobile?500:1000,availableW=Math.max(280,innerWidth-36),availableH=Math.max(320,innerHeight-110),scale=Math.min(1,availableW/logicalW,availableH/690);book.style.setProperty('--diary-scale',String(scale))};
+ fitBook();addEventListener('resize',fitBook);
+
+ // paginate by actual rendered height
+ const m=document.createElement('div');m.className='face page measure';
+ m.innerHTML='<article class="paper"><div class="flow"></div></article>';document.body.appendChild(m);
+ const flow=m.querySelector('.flow'),paper=m.querySelector('.paper');
+ const fits=h=>{flow.innerHTML=h;return paper.scrollHeight<=paper.clientHeight+1};
+ const pages=[];let blocks=[];
+ const flush=()=>{if(blocks.length){pages.push(blocks.join(''));blocks=[]}};
+ const addRaw=h=>{if(fits(blocks.concat(h).join(''))){blocks.push(h);return true}return false};
+
+ function addPara(text){
+   if(addRaw('<p>'+text+'</p>'))return;
+   if(blocks.length){
+     const ch=Array.from(text);let lo=1,hi=ch.length,best=0;
+     while(lo<=hi){const mid=(lo+hi)>>1;if(fits(blocks.concat('<p>'+ch.slice(0,mid).join('')+'</p>').join(''))){best=mid;lo=mid+1}else hi=mid-1}
+     if(best>0){let cut=best,from=Math.max(0,Math.floor(best*.68)),probe=ch.slice(from,best).join(''),mm=[...probe.matchAll(/[，。！？；、…]/g)];if(mm.length)cut=from+mm[mm.length-1].index+1;blocks.push('<p>'+ch.slice(0,cut).join('')+'</p>');flush();text=ch.slice(cut).join('')}else flush();
+   }
+   while(text){
+     const ch=Array.from(text);
+     if(addRaw('<p class="continued">'+text+'</p>'))break;
+     let lo=1,hi=ch.length,best=0;
+     while(lo<=hi){const mid=(lo+hi)>>1;if(fits(blocks.concat('<p class="continued">'+ch.slice(0,mid).join('')+'</p>').join(''))){best=mid;lo=mid+1}else hi=mid-1}
+     if(best<=0){flush();continue}
+     let cut=best,from=Math.max(0,Math.floor(best*.68)),probe=ch.slice(from,best).join(''),mm=[...probe.matchAll(/[，。！？；、…]/g)];if(mm.length)cut=from+mm[mm.length-1].index+1;
+     blocks.push('<p class="continued">'+ch.slice(0,cut).join('')+'</p>');flush();text=ch.slice(cut).join('');
+   }
+ }
+ entries.forEach(([date,ps])=>{const head='<h2>＜'+date+'＞</h2>',first=ps[0]||'',group=head+(first?'<p>'+first+'</p>':'');if(!addRaw(group)){flush();if(!addRaw(group)){blocks.push(head);if(first)addPara(first)}}for(let i=1;i<ps.length;i++)addPara(ps[i])});
+ flush();m.remove();
+
+ const physical=pages.map((html,i)=>({html,num:i+1,blank:false}));
+ const blank={html:'',num:null,blank:true};
+ const face=(p,back=false)=>'<div class="face '+(back?'back ':'front ')+'page'+(p&&p.blank?' blank':'')+'"><article class="paper">'+(p&&p.html?'<div class="flow">'+p.html+'</div>':'')+'</article>'+(p&&p.num?'<span class="folio">'+p.num+'</span>':'')+'</div>';
+ const backCover=()=>'<div class="face back backcover"><div class="backcover-inner"><small>RUBY PARANOIA</small><div class="inverted-cross" aria-hidden="true"></div></div></div>';
+ book.innerHTML='';
+ const first=document.createElement('div');first.className='sheet';
+ first.innerHTML='<div class="face front cover"><div class="cover-inner"><small>PRIVATE RECORD</small><h1>甜公的日记</h1><div class="inverted-cross" aria-hidden="true"></div></div></div>'+face(physical[0]||blank,true)+'<i class="corner right"></i>';book.appendChild(first);
+ let i=1,backCoverAdded=false;
+ while(i<physical.length){
+   const front=physical[i++]||blank;
+   if(i<physical.length){
+     const back=physical[i++];
+     const s=document.createElement('div');s.className='sheet';s.innerHTML=face(front,false)+face(back,true)+'<i class="corner right"></i><i class="corner left"></i>';book.appendChild(s);
+   }else{
+     const s=document.createElement('div');s.className='sheet';s.innerHTML=face(front,false)+backCover()+'<i class="corner right"></i><i class="corner left"></i>';book.appendChild(s);backCoverAdded=true;
+   }
+ }
+ if(!backCoverAdded){const s=document.createElement('div');s.className='sheet';s.innerHTML=face(blank,false)+backCover()+'<i class="corner right"></i><i class="corner left"></i>';book.appendChild(s)}
+
+ const sheets=[...book.querySelectorAll('.sheet')];let cur=0,startX=0,active=null,mode='',moved=0;
+ function render(){
+   sheets.forEach((s,i)=>{const f=i<cur;s.classList.toggle('flipped',f);if(!s.classList.contains('dragging'))s.style.transform=f?'rotateY(-180deg)':'rotateY(0deg)';s.style.zIndex=f?String(i+1):String(sheets.length-i)});
+   book.classList.toggle('closed',cur===0||cur===sheets.length);
+   book.classList.toggle('at-back',cur===sheets.length);
+   status.textContent=cur===0?'封面':(cur===sheets.length?'封底':((cur-1)*2+1>pages.length?'空白页':Math.min(cur*2,pages.length)+' / '+pages.length));
+ }
+ const next=()=>{if(cur<sheets.length){cur++;render()}},prev=()=>{if(cur>0){cur--;render()}};
+ const px=e=>e.clientX;
+ book.addEventListener('pointerdown',e=>{const r=book.getBoundingClientRect(),x=px(e)-r.left;startX=px(e);moved=0;const mobile=innerWidth<=850,right=mobile?x>r.width*.35:x>r.width/2;if(right&&cur<sheets.length){active=sheets[cur];mode='next'}else if(!right&&cur>0){active=sheets[cur-1];mode='prev'}else return;active.classList.add('dragging');active.style.zIndex=String(sheets.length+5);book.setPointerCapture?.(e.pointerId)});
+ book.addEventListener('pointermove',e=>{if(!active)return;const dx=px(e)-startX;moved=Math.max(moved,Math.abs(dx));const w=book.getBoundingClientRect().width*(innerWidth<=850?1:.5);if(mode==='next')active.style.transform='rotateY('+Math.max(-180,Math.min(0,dx/w*180))+'deg)';else active.style.transform='rotateY('+(-180+Math.max(0,Math.min(180,dx/w*180)))+'deg)'});
+ const end=e=>{if(!active)return;const dx=px(e)-startX,thr=book.getBoundingClientRect().width*(innerWidth<=850 ? .16 : .10);active.classList.remove('dragging');active.style.transform='';if(mode==='next'&&dx<-thr)cur=Math.min(sheets.length,cur+1);else if(mode==='prev'&&dx>thr)cur=Math.max(0,cur-1);active=null;render()};
+ book.addEventListener('pointerup',end);book.addEventListener('pointercancel',end);
+ book.addEventListener('click',e=>{if(moved>10)return;const r=book.getBoundingClientRect(),x=e.clientX-r.left;if(innerWidth<=850||x>r.width/2)next();else prev()});
+ addEventListener('keydown',e=>{if(e.key==='ArrowRight')next();if(e.key==='ArrowLeft')prev()});
+ render();
+}
+init();
+</script>
+</body>
+</html>

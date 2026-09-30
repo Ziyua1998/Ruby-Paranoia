@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090506">
+<title>文本 — RUBY PARANOIA / One Punch Man</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/section-pages.css?v=20260930-1">
+<link rel="stylesheet" href="/assets/music-player.css?v=20260930-1">
+</head>
+<body>
+<div class="site">
+<header class="topbar">
+<a class="brand" href="/"><strong>Ruby Paranoia</strong><small>深红偏执 · Zenobia</small></a>
+<nav class="nav"><a href="/" class="">首页</a><a href="/world/" class="">世界</a><a href="/characters/" class="">角色</a><a href="/texts/" class="active">文本</a><a href="/music/" class="">音乐</a><a href="/film/" class="">影片</a><a href="/extras/" class="">附录</a><a href="/author/" class="">作者</a></nav>
+<div class="actions">
+<button class="icon-btn lang-btn" data-lang type="button" aria-label="语言">中</button>
+<button class="icon-btn" data-share type="button" aria-label="分享">↗</button>
+<button class="icon-btn menu-btn" data-menu type="button" aria-label="菜单">☰</button>
+</div>
+<nav class="mobile-nav" hidden><a href="/" class="">首页</a><a href="/world/" class="">世界</a><a href="/characters/" class="">角色</a><a href="/texts/" class="active">文本</a><a href="/music/" class="">音乐</a><a href="/film/" class="">影片</a><a href="/extras/" class="">附录</a><a href="/author/" class="">作者</a></nav>
+</header>
+<main>
+<section class="hero"><div><div class="eyebrow">TEXT ARCHIVE</div><h1>文本</h1></div></section>
+<section class="content">
+ <div class="section-title"><h2>正剧</h2><span>MAIN STORY</span></div>
+ <div class="grid"><article class="card disabled"><small>MAIN STORY</small><h3>正剧</h3><p>正文尚未完成，暂不公开。页面结构已预留。</p><span class="tag">SEALED</span></article></div>
+ <div class="section-title" style="margin-top:52px"><h2>番外</h2><span>EXTRA STORIES</span></div>
+ <div class="grid">
+ <a class="card" href="/extras/diary/"><small>EX — 01</small><h3>《甜公的日记本》</h3><p>私人记录，以可翻阅日记本形式呈现。</p><span class="tag">OPEN</span></a>
+ <a class="card" href="/texts/monk/"><small>EX — 02</small><h3>《修道院的秃子》</h3><p>番外文本入口。</p><span class="tag">ARCHIVE</span></a>
+ <a class="card" href="/texts/phantom/"><small>EX — 03</small><h3>《歌剧魅影》</h3><p>番外文本入口。</p><span class="tag">ARCHIVE</span></a>
+ <a class="card" href="/texts/bride/"><small>EX — 04</small><h3>《井中的新娘》</h3><p>番外文本入口。</p><span class="tag">ARCHIVE</span></a>
+ </div></section>
+</main>
+<footer class="footer"><span>RUBY PARANOIA / One Punch Man</span><span>Produced by Zenobia</span></footer>
+</div>
+<script>
+(()=>{const s=document.querySelector('[data-share]');if(s)s.onclick=async()=>{const original=s.textContent;const flash=(t)=>{s.textContent=t;setTimeout(()=>s.textContent=original,1500)};try{if(navigator.share){try{await navigator.share({title:document.title,text:'RUBY PARANOIA / One Punch Man',url:location.href});flash('✓');return}catch(e){if(e&&e.name==='AbortError')return}}if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(location.href);flash('✓');return}window.prompt('复制此链接',location.href)}catch(e){window.prompt('复制此链接',location.href)}};const m=document.querySelector('[data-menu]'),n=document.querySelector('.mobile-nav');if(m&&n)m.onclick=()=>{n.hidden=!n.hidden;m.textContent=n.hidden?'☰':'×'}})();
+</script>
+<script src="/assets/site-controls.js?v=20260930-1" defer></script>
+<script src="/assets/music-player.js?v=20260930-1" defer></script>
+</body></html>

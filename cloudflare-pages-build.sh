@@ -5,6 +5,6 @@ rm -rf dist
 mkdir -p dist
 
 cp index.html 404.html dist/
-cp -R assets extras media world dist/
+cp -R assets extras media world characters texts music film author dist/
 
 echo "Cloudflare Pages static bundle prepared in dist/"

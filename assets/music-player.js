@@ -14,58 +14,30 @@ const tracks=[
     src:"/assets/music/fanatic-nocturne.mp3"
   },
   {
-    id:"dark_hymn",
-    title:"闇の讃美歌（暗夜赞歌）",
-    artist:"AMAI MASK & ZOMBIEMAN & OTHERS",
-    parts:[
-      "dark_hymn-01.txt","dark_hymn-02.txt",
-      {file:"dark_hymn-03.b64x",outerBase64:true},
-      "dark_hymn-04.txt","dark_hymn-05.txt",
-      {file:"dark_hymn-06.b64x",outerBase64:true},
-      {file:"dark_hymn-07.b64x",outerBase64:true}
-    ]
+    id:"ruby_paranoia_instrumental",
+    title:"ルビー・パラノイア（RUBY PARANOIA）",
+    artist:"Instrumental",
+    src:"/assets/music/ルビー・パラノイア（RUBY PARANOIA） - 伴奏.mp3"
+  },
+  {
+    id:"waga_shien_instrumental",
+    title:"我が始焉",
+    artist:"Instrumental",
+    src:"/assets/music/我が始焉 (Instrumental).mp3"
   }
 ];
 
 const KEY="rp_music_state_v2";
 const LEGACY_KEY="rp_music_state_v1";
-const cache=new Map();
 const fmt=s=>{
   if(!Number.isFinite(s))return"0:00";
   s=Math.max(0,Math.floor(s));
   return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
 };
 
-function decodeOuterBase64(text){
-  const clean=text.replace(/\s/g,"");
-  return atob(clean);
-}
-
 async function buildTrack(t){
-  if(t.src)return t.src;
-  if(cache.has(t.id))return cache.get(t.id);
-
-  const parts=[];
-  for(const spec of t.parts||[]){
-    const file=typeof spec==="string"?spec:spec.file;
-    const r=await fetch("/assets/music/"+file,{cache:"force-cache"});
-    if(!r.ok)throw new Error("missing music asset: "+file);
-
-    let chunk=(await r.text()).replace(/\s/g,"");
-    if(typeof spec!=="string"&&spec.outerBase64){
-      chunk=decodeOuterBase64(chunk).replace(/\s/g,"");
-    }
-    parts.push(chunk);
-  }
-
-  const b64=parts.join("");
-  const bin=atob(b64);
-  const bytes=new Uint8Array(bin.length);
-  for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
-
-  const url=URL.createObjectURL(new Blob([bytes],{type:"audio/mpeg"}));
-  cache.set(t.id,url);
-  return url;
+  if(!t.src)throw new Error("missing direct MP3 source for "+t.id);
+  return t.src;
 }
 
 function mount(){

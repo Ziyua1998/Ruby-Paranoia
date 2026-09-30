@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090506">
+<title>角色 — RUBY PARANOIA / One Punch Man</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/section-pages.css?v=20260930-1">
+<link rel="stylesheet" href="/assets/music-player.css?v=20260930-1">
+</head>
+<body>
+<div class="site">
+<header class="topbar">
+<a class="brand" href="/"><strong>Ruby Paranoia</strong><small>深红偏执 · Zenobia</small></a>
+<nav class="nav"><a href="/" class="">首页</a><a href="/world/" class="">世界</a><a href="/characters/" class="active">角色</a><a href="/texts/" class="">文本</a><a href="/music/" class="">音乐</a><a href="/film/" class="">影片</a><a href="/extras/" class="">附录</a><a href="/author/" class="">作者</a></nav>
+<div class="actions">
+<button class="icon-btn lang-btn" data-lang type="button" aria-label="语言">中</button>
+<button class="icon-btn" data-share type="button" aria-label="分享">↗</button>
+<button class="icon-btn menu-btn" data-menu type="button" aria-label="菜单">☰</button>
+</div>
+<nav class="mobile-nav" hidden><a href="/" class="">首页</a><a href="/world/" class="">世界</a><a href="/characters/" class="active">角色</a><a href="/texts/" class="">文本</a><a href="/music/" class="">音乐</a><a href="/film/" class="">影片</a><a href="/extras/" class="">附录</a><a href="/author/" class="">作者</a></nav>
+</header>
+<main>
+<section class="hero"><div><div class="eyebrow">CHARACTER ARCHIVE</div><h1>角色</h1></div></section>
+<section class="content"><div class="section-title"><h2>角色档案</h2><span>CHARACTER DOSSIERS</span></div><div class="grid">
+ <article class="card disabled"><small>MAIN CAST</small><h3>角色档案整理中</h3><p>后续用于收录主要角色、关系、身份与剧情节点。</p><span class="tag">COMING SOON</span></article>
+ <article class="card disabled"><small>RELATIONSHIP INDEX</small><h3>关系索引</h3><p>预留角色关系与阵营结构的独立入口。</p><span class="tag">COMING SOON</span></article>
+ </div></section>
+</main>
+<footer class="footer"><span>RUBY PARANOIA / One Punch Man</span><span>Produced by Zenobia</span></footer>
+</div>
+<script>
+(()=>{const s=document.querySelector('[data-share]');if(s)s.onclick=async()=>{const original=s.textContent;const flash=(t)=>{s.textContent=t;setTimeout(()=>s.textContent=original,1500)};try{if(navigator.share){try{await navigator.share({title:document.title,text:'RUBY PARANOIA / One Punch Man',url:location.href});flash('✓');return}catch(e){if(e&&e.name==='AbortError')return}}if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(location.href);flash('✓');return}window.prompt('复制此链接',location.href)}catch(e){window.prompt('复制此链接',location.href)}};const m=document.querySelector('[data-menu]'),n=document.querySelector('.mobile-nav');if(m&&n)m.onclick=()=>{n.hidden=!n.hidden;m.textContent=n.hidden?'☰':'×'}})();
+</script>
+<script src="/assets/site-controls.js?v=20260930-1" defer></script>
+<script src="/assets/music-player.js?v=20260930-1" defer></script>
+</body></html>

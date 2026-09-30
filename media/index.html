@@ -88,6 +88,20 @@ linear-gradient(105deg,#030202,#3b0810 38%,#160508 70%,#030202);border:4px solid
 .brand{min-width:210px}
 @media(max-width:1180px){.nav{gap:10px;font-size:11px}.brand{min-width:180px}.topbar{gap:12px}}
 @media(max-width:940px){.nav{display:none}.menu-btn{display:block}}
+
+/* final absolute centered desktop nav */
+@media(min-width:941px){
+  .topbar{position:sticky;grid-template-columns:auto 1fr auto}
+  .topbar>.nav{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    justify-content:center;
+    width:max-content;
+    max-width:calc(100% - 620px);
+  }
+}
 </style>
 <link rel="stylesheet" href="/assets/music-player.css?v=20260930-1">
 </head>

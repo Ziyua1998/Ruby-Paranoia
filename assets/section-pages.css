@@ -85,3 +85,14 @@ main{flex:1}.hero{min-height:250px;display:grid;place-items:center;text-align:ce
 .character-copy p{margin:0 0 16px;color:#c7b88c;line-height:1.95;font-size:14px}
 .character-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.character-tags span{padding:5px 8px;border:1px solid rgba(227,189,84,.17);color:#8e7b4f;font:8px var(--roman);letter-spacing:.1em}
 @media(max-width:800px){.character-dossier{grid-template-columns:1fr}.character-art-slot{min-height:360px;border-right:0;border-bottom:1px solid rgba(227,189,84,.16)}.character-copy{padding:28px 22px 34px}}
+
+/* music interview feature */
+.music-interview{width:min(1180px,92vw);margin:34px auto 8px;padding:28px;border:1px solid rgba(227,189,84,.22);background:linear-gradient(145deg,rgba(54,7,14,.28),rgba(7,4,5,.96));display:grid;grid-template-columns:minmax(230px,.55fr) minmax(420px,1.45fr);gap:34px;align-items:center}
+.music-interview-copy .eyebrow{margin-bottom:10px}.music-interview-copy h2{margin:0 0 14px;color:#e3c765;font-size:clamp(26px,3vw,40px);font-weight:500;line-height:1.28}.music-interview-copy p{margin:0;color:#94845d;line-height:1.9;font-size:13px}.music-interview-copy small{display:block;margin-top:18px;color:#766641;font:8px var(--roman);letter-spacing:.14em}
+.music-interview-video{position:relative;aspect-ratio:16/9;padding:7px;border:1px solid rgba(227,189,84,.3);background:#0b0506}.music-interview-video iframe{display:block;width:100%;height:100%;border:0;background:#000}
+.story-body{width:min(900px,88vw);margin:0 auto;padding:50px 0 92px;color:#c9bb91}
+.story-body p{margin:0 0 1.2em;font-size:16px;line-height:2.05;text-align:justify}
+.story-body .story-section{margin:58px 0 28px;text-align:center;color:#e2c461;font:600 20px/1.2 var(--serif);letter-spacing:.18em}
+.story-body .story-section:first-child{margin-top:0}
+.story-body .story-illustration{margin:42px 0;min-height:220px;display:grid;place-items:center;border:1px dashed rgba(227,189,84,.16);color:#695d40;font-size:11px}
+@media(max-width:760px){.music-interview{grid-template-columns:1fr;padding:20px}.story-body{width:min(92vw,900px)}.story-body p{font-size:15px;line-height:1.95}}

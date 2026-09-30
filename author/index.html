@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/section-pages.css?v=20260930-2">
 <link rel="stylesheet" href="/assets/music-player.css?v=20260930-1">
-<link rel="stylesheet" href="/assets/nav.css?v=20260930-1">
+<link rel="stylesheet" href="/assets/nav.css?v=20260930-2">
 </head>
 <body>
 <div class="site">
@@ -39,6 +39,6 @@
 <script>
 (()=>{const s=document.querySelector('[data-share]');if(s)s.onclick=async()=>{const original=s.textContent;const flash=(t)=>{s.textContent=t;setTimeout(()=>s.textContent=original,1500)};try{if(navigator.share){try{await navigator.share({title:document.title,text:'RUBY PARANOIA / One Punch Man',url:location.href});flash('✓');return}catch(e){if(e&&e.name==='AbortError')return}}if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(location.href);flash('✓');return}window.prompt('复制此链接',location.href)}catch(e){window.prompt('复制此链接',location.href)}};const m=document.querySelector('[data-menu]'),n=document.querySelector('.mobile-nav');if(m&&n)m.onclick=()=>{n.hidden=!n.hidden;m.textContent=n.hidden?'☰':'×'}})();
 </script>
-<script src="/assets/site-controls.js?v=20260930-1" defer></script>
+<script src="/assets/site-controls.js?v=20260930-2" defer></script>
 <script src="/assets/music-player.js?v=20260930-1" defer></script>
 </body></html>

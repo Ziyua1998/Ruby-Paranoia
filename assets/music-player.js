@@ -10,7 +10,7 @@ const tracks=[
   {
     id:"fanatic_nocturne",
     title:"狂信者のノクターン（狂信徒的夜曲）",
-    artist:"AMAI MASK",
+    artist:"Amai Mask",
     src:"/assets/music/fanatic-nocturne.mp3"
   },
   {

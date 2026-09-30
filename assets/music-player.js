@@ -74,7 +74,7 @@ function mount(){
 
   const root=document.createElement("div");
   root.className="rp-music is-collapsed";
-  root.innerHTML='<button class="rp-music-toggle" type="button" aria-label="音乐播放器" aria-expanded="false" title="展开音乐播放器"><span aria-hidden="true">♪</span></button><div class="rp-music-shell"><div class="rp-music-lid" title="收起播放器"><span class="rp-music-brand">Nocturne Cabinet</span></div><div class="rp-music-panel"><div class="rp-music-score"><small class="rp-music-kicker">Musica Nocturna</small><strong class="rp-music-title"></strong><span class="rp-music-artist"></span></div><div class="rp-music-keys"><button class="rp-music-key prev" aria-label="上一首">‹</button><button class="rp-music-key main play" aria-label="播放">▶</button><button class="rp-music-key next" aria-label="下一首">›</button></div><div class="rp-music-tools"><input class="rp-music-progress" type="range" min="0" max="1" step="0.01" value="0" aria-label="播放进度"><span class="rp-music-time">0:00 / 0:00</span></div><div class="rp-music-volume-row"><button class="rp-music-small mute" aria-label="静音">♩</button><input class="rp-music-volume" type="range" min="0" max="1" step=".02" aria-label="音量"><button class="rp-music-small loop" aria-label="单曲循环" aria-pressed="false" title="单曲循环">↻</button></div><div class="rp-music-status">正在唤醒夜曲…</div></div></div>';
+  root.innerHTML='<button class="rp-music-toggle" type="button" aria-label="音乐播放器" aria-expanded="false" title="展开音乐播放器"><span aria-hidden="true">♪</span></button><div class="rp-music-shell"><div class="rp-music-panel"><div class="rp-music-score"><small class="rp-music-kicker">Musica Nocturna</small><strong class="rp-music-title"></strong><span class="rp-music-artist"></span></div><div class="rp-music-keys"><button class="rp-music-key prev" aria-label="上一首">‹</button><button class="rp-music-key main play" aria-label="播放">▶</button><button class="rp-music-key next" aria-label="下一首">›</button></div><div class="rp-music-tools"><input class="rp-music-progress" type="range" min="0" max="1" step="0.01" value="0" aria-label="播放进度"><span class="rp-music-time">0:00 / 0:00</span></div><div class="rp-music-volume-row"><button class="rp-music-small mute" aria-label="静音">♩</button><input class="rp-music-volume" type="range" min="0" max="1" step=".02" aria-label="音量"><button class="rp-music-small loop" aria-label="单曲循环" aria-pressed="false" title="单曲循环">↻</button></div><div class="rp-music-status">正在唤醒夜曲…</div></div></div>';
   const actions=document.querySelector(".topbar .actions");
   if(actions){actions.classList.add("has-music-player");const share=actions.querySelector("[data-share]");if(share){actions.insertBefore(root,share)}else{actions.prepend(root)}}else{root.classList.add("rp-music-fallback");document.body.appendChild(root)}
 
@@ -82,7 +82,6 @@ function mount(){
   audio.preload="auto";
 
   const toggle=root.querySelector(".rp-music-toggle");
-  const lid=root.querySelector(".rp-music-lid");
   const title=root.querySelector(".rp-music-title");
   const artist=root.querySelector(".rp-music-artist");
   const play=root.querySelector(".play");
@@ -253,7 +252,6 @@ function mount(){
   }
 
   toggle.onclick=()=>setCollapsed(!root.classList.contains("is-collapsed"));
-  lid.onclick=()=>setCollapsed(true);
 
   play.onclick=async()=>{
     if(!audio.src){

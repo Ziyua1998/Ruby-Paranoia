@@ -176,8 +176,15 @@ linear-gradient(105deg,#030202,#3b0810 38%,#160508 70%,#030202);border:4px solid
 .map-legend>span{display:inline-flex!important;align-items:center!important;height:18px!important;line-height:18px!important;gap:5px!important}
 .legend-city,.legend-place{display:inline-flex!important;align-items:center!important;justify-content:center!important;height:18px!important;line-height:18px!important;vertical-align:middle!important;margin:0!important;padding:0!important}
 .legend-place{font-size:15px!important;transform:none!important}
+
+/* final expanded navigation */
+.topbar{grid-template-columns:auto minmax(0,1fr) auto;gap:20px}
+.nav{gap:clamp(10px,1.25vw,22px);font-size:12px;letter-spacing:.08em;white-space:nowrap}
+.brand{min-width:210px}
+@media(max-width:1180px){.nav{gap:10px;font-size:11px}.brand{min-width:180px}.topbar{gap:12px}}
+@media(max-width:940px){.nav{display:none}.menu-btn{display:block}}
 </style>
-<link rel="stylesheet" href="/assets/music-player.css?v=20260929-6">
+<link rel="stylesheet" href="/assets/music-player.css?v=20260930-1">
 </head>
 <body><div id="app"></div>
 <script>
@@ -195,7 +202,7 @@ const norm=p=>p!=="/"?(p.replace(/\/+$/,'')+"/"):"/";
 const path=norm(location.pathname);
 document.title=titles[path]||titles["/"];
 function navLink(to,label){return `<a href="${to}" class="${path===to?'active':''}">${label}</a>`}
-function shell(content){return `<div class="site"><header class="topbar"><a class="brand" href="/"><strong>Ruby Paranoia</strong><small>深红偏执 · Zenobia</small></a><nav class="nav">${navLink('/','首页')}${navLink('/world/','世界观')}${navLink('/media/','歌曲·视频')}${navLink('/extras/','番外')}</nav><div class="actions"><button class="icon-btn" data-share aria-label="分享">↗</button><button class="icon-btn menu-btn" data-menu aria-label="菜单">☰</button></div><nav class="mobile-nav" hidden>${navLink('/','首页')}${navLink('/world/','世界观')}${navLink('/media/','歌曲·视频')}${navLink('/extras/','番外')}</nav></header><main class="main">${content}</main><footer class="footer"><span>RUBY PARANOIA / One Punch Man</span><span>Produced by Zenobia</span></footer></div>`}
+function shell(content){return `<div class="site"><header class="topbar"><a class="brand" href="/"><strong>Ruby Paranoia</strong><small>深红偏执 · Zenobia</small></a><nav class="nav">${navLink('/','首页')}${navLink('/world/','世界')}${navLink('/characters/','角色')}${navLink('/texts/','文本')}${navLink('/music/','音乐')}${navLink('/film/','影片')}${navLink('/extras/','附录')}${navLink('/author/','作者')}</nav><div class="actions"><button class="icon-btn lang-btn" data-lang type="button" aria-label="语言">中</button><button class="icon-btn" data-share type="button" aria-label="分享">↗</button><button class="icon-btn menu-btn" data-menu type="button" aria-label="菜单">☰</button></div><nav class="mobile-nav" hidden>${navLink('/','首页')}${navLink('/world/','世界')}${navLink('/characters/','角色')}${navLink('/texts/','文本')}${navLink('/music/','音乐')}${navLink('/film/','影片')}${navLink('/extras/','附录')}${navLink('/author/','作者')}</nav></header><main class="main">${content}</main><footer class="footer"><span>RUBY PARANOIA / One Punch Man</span><span>Produced by Zenobia</span></footer></div>`}
 function home(){return `<section class="hero"><div class="hero-architecture"><i></i><i></i><i></i></div><div class="hero-copy"><div class="eyebrow">A GOTHIC FANWORK BY ZENOBIA</div><h1><span>Ruby</span><span>Paranoia</span></h1><h2>深红偏执</h2><div class="rule"></div><p>这是一个围绕吸血鬼、猎人、记忆、控制与选择展开的 One Punch Man 同人故事。</p><div class="hero-meta"><span>AMAI MASK × ZOMBIEMAN</span><b>◆</b><span>ONGOING</span></div><a class="enter-link" href="#archive">ENTER THE ARCHIVE <span>↓</span></a></div><figure class="hero-cover"><div class="book-frame"><div class="cover-art"><span class="cover-by">By Zenobia</span><div class="cover-title">Ruby<br>Paranoia</div><div class="cover-sword"><i></i></div><div class="cover-bats"><b></b><b></b><b></b></div><span class="cover-sub">AMAI MASK × ZOMBIEMAN<br>ONE PUNCH MAN FANBOOK</span></div></div><figcaption>BOOK DESIGN · ZENOBIA</figcaption></figure></section><section class="manifesto"><div class="manifesto-mark">✦</div><p>“红宝石”既是记忆的残片，也是无法被安静埋葬的偏执。这里收录正文之外的世界设定、音乐影像与番外档案。</p></section><section class="section" id="archive"><div class="section-title"><span>ARCHIVE INDEX</span><h2>作品档案</h2><p>Choose a sealed file</p></div><div class="portal-grid"><a class="card" href="/world/"><span class="n">01</span><div class="sigil">♜</div><small>WORLD ARCHIVE</small><h3>世界观设定</h3><p>血族秩序、人类势力与既有规则档案。</p><span class="go">阅览档案 →</span></a><a class="card" href="/media/"><span class="n">02</span><div class="sigil">◉</div><small>MEDIA VAULT</small><h3>歌曲 / 视频</h3><p>与作品相关的声音与影像陈列。</p><span class="go">阅览档案 →</span></a><a class="card" href="/extras/"><span class="n">03</span><div class="sigil">✒</div><small>EXTRA FILES</small><h3>附录与番外</h3><p>主线之外，被封存的故事与私人记录。</p><span class="go">阅览档案 →</span></a><a class="card" href="/extras/diary/"><span class="n">04</span><div class="sigil">▣</div><small>PRIVATE DIARY</small><h3>甜公日记</h3><p>翻阅甜公留下的羊皮纸日记。</p><span class="go">阅览档案 →</span></a></div></section><section class="book-object"><div class="book-object-copy"><span>PHYSICAL EDITION CONCEPT</span><h2>像一本被遗忘在古堡里的书。</h2><p>网页视觉从小说封面延伸：黑色作为空间，深红作为血液与执念，暗金作为烛火、旧金属与纸张边缘的光。</p></div><div class="book-object-visual"><div class="mock-book mock-book-back"><span>RUBY PARANOIA</span></div><div class="mock-book mock-book-spine"><span>Ruby Paranoia</span></div><div class="mock-book mock-book-front"><span class="tiny">BY ZENOBIA</span><strong>Ruby<br>Paranoia</strong></div></div></section>`}
 function archiveHero(kicker,title,desc){return `<section class="archive-hero"><i class="arch a"></i><i class="arch b"></i><i class="arch c"></i><header class="page-title"><div class="eyebrow">${kicker}</div><h1>${title}</h1><p>${desc}</p></header></section>`}
 function world(){
@@ -441,5 +448,6 @@ function initDiary(){
   window.addEventListener('keydown',e=>{if(e.key==='ArrowRight')next();if(e.key==='ArrowLeft')prev()});
   render();
 }
-</script><script src="/assets/music-player.js?v=20260929-6" defer></script>
+</script><script src="/assets/site-controls.js?v=20260930-1" defer></script>
+<script src="/assets/music-player.js?v=20260930-1" defer></script>
 </body></html>

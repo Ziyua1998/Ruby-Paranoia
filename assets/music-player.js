@@ -2,16 +2,16 @@
 
 const tracks=[
   {
-    id:"fanatic_nocturne_instrumental",
-    title:"狂信者のノクターン（狂信徒的夜曲）",
-    artist:"Instrumental",
-    src:"/assets/music/fanatic-nocturne.mp3"
-  },
-  {
     id:"ruby_paranoia_instrumental",
-    title:"ルビー・パラノイア（RUBY PARANOIA）",
+    title:"ルビー・パラノイア",
     artist:"Instrumental",
     src:"/assets/music/%E3%83%AB%E3%83%93%E3%83%BC%E3%83%BB%E3%83%91%E3%83%A9%E3%83%8E%E3%82%A4%E3%82%A2%EF%BC%88RUBY%20PARANOIA%EF%BC%89%20-%20%E4%BC%B4%E5%A5%8F.mp3"
+  },
+  {
+    id:"fanatic_nocturne_instrumental",
+    title:"狂信者のノクターン",
+    artist:"Instrumental",
+    src:"/assets/music/fanatic-nocturne.mp3"
   },
   {
     id:"waga_shien_instrumental",

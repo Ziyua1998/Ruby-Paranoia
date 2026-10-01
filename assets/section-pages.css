@@ -435,3 +435,60 @@ main{flex:1}.hero{min-height:250px;display:grid;place-items:center;text-align:ce
   .author-profile{grid-template-columns:1fr;gap:26px}
   .author-avatar{width:min(320px,80vw);justify-self:center}
 }
+
+/* main story chapter archive */
+.chapter-grid-note{margin:-4px 0 18px;color:#7f704c;font-size:11px;letter-spacing:.12em}
+.chapter-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.chapter-chip{min-width:0;min-height:58px;display:flex;align-items:center;gap:10px;padding:0 15px;border:1px solid rgba(227,189,84,.22);background:linear-gradient(145deg,rgba(49,6,13,.24),rgba(8,4,5,.92));color:#d9be64;text-decoration:none;transition:.18s ease}
+.chapter-chip span{flex:0 0 auto;font:9px var(--roman);letter-spacing:.12em;color:#806c3f}
+.chapter-chip strong{min-width:0;font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chapter-chip:hover{transform:translateY(-2px);border-color:rgba(227,189,84,.52);background:linear-gradient(145deg,rgba(79,8,20,.34),rgba(8,4,5,.94))}
+.chapter-page{flex:1;background:radial-gradient(circle at 50% 0,rgba(98,5,20,.12),transparent 26%)}
+.chapter-head{position:relative;width:min(900px,90vw);margin:0 auto;padding:48px 0 34px;text-align:center;border-bottom:1px solid rgba(227,189,84,.14)}
+.chapter-back{position:absolute;left:0;top:24px;color:#8c7640;font-size:11px;text-decoration:none}
+.chapter-head .eyebrow{margin-bottom:14px}
+.chapter-head h1{margin:0;color:#e4c767;font-size:clamp(34px,4.5vw,56px);font-weight:500;letter-spacing:.06em}
+.chapter-body{width:min(800px,88vw);margin:0 auto;padding:48px 0 36px}
+.chapter-body p{margin:0 0 1.35em;color:#ccb878;font-size:14px;line-height:2.08;text-align:justify;text-wrap:pretty}
+.chapter-subhead{margin:52px 0 28px;text-align:center;color:#d9bd62;font-size:14px;font-weight:500;letter-spacing:.18em}
+.chapter-divider{margin:44px 0;text-align:center;color:#a8893b;font-size:11px;letter-spacing:.28em}
+.chapter-prev-next{width:min(900px,90vw);margin:0 auto 72px;padding-top:24px;border-top:1px solid rgba(227,189,84,.16);display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.chapter-prev-next a,.chapter-nav-disabled{min-height:60px;padding:14px 16px;display:flex;align-items:center;border:1px solid rgba(227,189,84,.18);font-size:12px;line-height:1.5}
+.chapter-prev-next a{color:#cfb45c;text-decoration:none;background:rgba(34,4,9,.18)}
+.chapter-prev-next a:last-child{text-align:right;justify-content:flex-end}
+.chapter-prev-next a:hover{border-color:rgba(227,189,84,.5);background:rgba(71,7,17,.25)}
+.chapter-nav-disabled{color:#4f4630;justify-content:flex-start}
+.chapter-prev-next .chapter-nav-disabled:last-child{justify-content:flex-end}
+.chapter-toc-toggle{position:fixed;right:0;top:48%;z-index:1500;width:42px;min-height:92px;border:1px solid rgba(227,189,84,.3);border-right:0;background:#0b0506;color:#d9bb55;cursor:pointer;box-shadow:-8px 8px 28px rgba(0,0,0,.25)}
+.chapter-toc-toggle span{writing-mode:vertical-rl;letter-spacing:.18em;font-family:var(--serif);font-size:12px}
+.chapter-toc-scrim{position:fixed;inset:0;z-index:1590;background:rgba(0,0,0,.62);opacity:0;pointer-events:none;transition:.2s}
+.chapter-toc-drawer{position:fixed;z-index:1600;right:0;top:0;width:min(380px,88vw);height:100dvh;display:flex;flex-direction:column;background:linear-gradient(180deg,#130709,#080405 38%);border-left:1px solid rgba(227,189,84,.24);box-shadow:-22px 0 60px rgba(0,0,0,.48);transform:translateX(102%);transition:transform .24s ease}
+.chapter-toc.is-open .chapter-toc-scrim{opacity:1;pointer-events:auto}
+.chapter-toc.is-open .chapter-toc-drawer{transform:translateX(0)}
+.chapter-toc.is-open .chapter-toc-toggle{opacity:0;pointer-events:none}
+.chapter-toc-head{display:flex;align-items:center;justify-content:space-between;padding:24px 22px 18px;border-bottom:1px solid rgba(227,189,84,.16)}
+.chapter-toc-head small{display:block;margin-bottom:4px;font:8px var(--roman);letter-spacing:.2em;color:#806b3b}
+.chapter-toc-head strong{color:#e0c25e;font-size:20px;font-weight:500}
+.chapter-toc-close{width:34px;height:34px;border:1px solid rgba(227,189,84,.22);background:transparent;color:#d6b94e;font-size:20px;cursor:pointer}
+.chapter-toc-list{flex:1;overflow:auto;padding:10px 14px}
+.chapter-toc-list a{display:grid;grid-template-columns:38px 1fr;gap:8px;align-items:center;padding:11px 10px;border-bottom:1px solid rgba(227,189,84,.09);color:#9a8857;text-decoration:none}
+.chapter-toc-list a span{font:8px var(--roman);letter-spacing:.12em;color:#695932}
+.chapter-toc-list a b{font-size:12px;font-weight:400}
+.chapter-toc-list a:hover,.chapter-toc-list a.active{color:#e4c45e;background:rgba(112,7,25,.18)}
+.chapter-toc-list a.active{border-left:2px solid #b3112b}
+.chapter-toc-all{margin:14px;padding:12px;border:1px solid rgba(227,189,84,.18);color:#af9550;text-align:center;text-decoration:none;font-size:11px}
+body.chapter-toc-open{overflow:hidden}
+@media(max-width:900px){.chapter-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:680px){
+ .chapter-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .chapter-chip{min-height:54px;padding:0 11px}
+ .chapter-chip strong{font-size:12px}
+ .chapter-head{padding:44px 0 26px}
+ .chapter-back{top:15px}
+ .chapter-body{width:min(89vw,800px);padding:36px 0 26px}
+ .chapter-body p{font-size:13px;line-height:2}
+ .chapter-prev-next{grid-template-columns:1fr;margin-bottom:54px}
+ .chapter-prev-next a:last-child,.chapter-prev-next .chapter-nav-disabled:last-child{justify-content:flex-start;text-align:left}
+ .chapter-toc-toggle{min-height:78px;width:38px}
+}
+@media(max-width:420px){.chapter-grid{grid-template-columns:1fr}}

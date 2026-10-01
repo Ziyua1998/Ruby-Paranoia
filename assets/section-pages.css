@@ -107,8 +107,10 @@ main{flex:1}.hero{min-height:250px;display:grid;place-items:center;text-align:ce
   display:grid;place-items:center;
   border-bottom:1px solid rgba(227,189,84,.18);
   background:
-    radial-gradient(circle at 76% 42%,rgba(128,8,25,.18),transparent 28%),
-    linear-gradient(180deg,#070405,#0b0507);
+    radial-gradient(circle at 72% 40%,rgba(168,12,34,.24),transparent 24%),
+    radial-gradient(circle at 48% 48%,rgba(112,5,20,.20),transparent 42%),
+    linear-gradient(90deg,rgba(82,4,15,.22),transparent 22%,transparent 78%,rgba(82,4,15,.18)),
+    linear-gradient(180deg,#110608 0%,#0b0406 52%,#070405 100%);
 }
 .gallery-hero-inner{
   width:min(1180px,92vw);

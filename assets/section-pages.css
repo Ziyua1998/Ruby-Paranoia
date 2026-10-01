@@ -321,33 +321,6 @@ main{flex:1}.hero{min-height:250px;display:grid;place-items:center;text-align:ce
   .character-copy p{font-size:11px;line-height:1.75}
 }
 
-/* unified title-section artwork */
-.hero:before,.gallery-hero:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  opacity:.34;
-  background:
-    linear-gradient(90deg,transparent 19%,rgba(150,10,27,.16) 19.2% 19.7%,transparent 19.9% 80%,rgba(150,10,27,.16) 80.2% 80.7%,transparent 80.9%),
-    repeating-linear-gradient(90deg,transparent 0 10%,rgba(226,18,38,.045) 10.2% 10.4%,transparent 10.6% 20%);
-}
-.hero:after,.gallery-hero:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  opacity:.9;
-  background:
-    radial-gradient(ellipse 19% 115% at 18% 118%,transparent 98.1%,rgba(178,10,29,.22) 98.35% 98.6%,transparent 98.85%),
-    radial-gradient(ellipse 19% 115% at 50% 118%,transparent 98.1%,rgba(178,10,29,.22) 98.35% 98.6%,transparent 98.85%),
-    radial-gradient(ellipse 19% 115% at 82% 118%,transparent 98.1%,rgba(178,10,29,.22) 98.35% 98.6%,transparent 98.85%);
-}
-.hero>*,.gallery-hero>*{position:relative;z-index:2}
-
-
 /* === primary-page title system only === */
 .primary-hero{
   position:relative!important;

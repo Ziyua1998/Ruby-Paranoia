@@ -643,3 +643,22 @@ body.chapter-toc-open{overflow:hidden}
 }
 .story-back:hover,.story-back:focus-visible{color:#d8b754!important;outline:none}
 @media(max-width:760px){.story-back{left:18px!important;top:16px!important}}
+
+/* align main-story numbering with extra-story labels */
+.chapter-chip span,
+.extra-entry span{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  height:1em;
+  font:9px/1 var(--roman);
+  letter-spacing:.12em;
+  color:#806c3f;
+  white-space:nowrap;
+}
+.chapter-chip strong,
+.extra-entry strong{
+  display:inline-flex;
+  align-items:center;
+  line-height:1;
+}

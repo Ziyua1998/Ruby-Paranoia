@@ -628,3 +628,18 @@ body.chapter-toc-open{overflow:hidden}
   .diary-entry{min-height:104px;padding:18px 18px 18px 24px}
   .diary-entry-mark{display:none}
 }
+
+/* extra-story return link */
+.story-hero{position:relative}
+.story-back{
+  position:absolute!important;
+  left:max(22px,calc((100vw - 1180px)/2))!important;
+  top:22px!important;
+  z-index:4!important;
+  color:#a58a45!important;
+  font-size:11px!important;
+  line-height:1!important;
+  text-decoration:none!important;
+}
+.story-back:hover,.story-back:focus-visible{color:#d8b754!important;outline:none}
+@media(max-width:760px){.story-back{left:18px!important;top:16px!important}}

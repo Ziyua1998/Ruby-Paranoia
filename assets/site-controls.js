@@ -116,6 +116,48 @@ function setupMenu(){
   render();
 }
 
+function setupRelationshipLinks(){
+  const routes={
+    "甜美公爵":"/characters/amai-mask/",
+    "Amai Mask":"/characters/amai-mask/",
+    "66号":"/characters/zombieman/",
+    "66号 / 僵尸男":"/characters/zombieman/",
+    "僵尸男":"/characters/zombieman/",
+    "维比佳莎":"/characters/webigaza/",
+    "玛考伊":"/characters/mccoy/",
+    "童帝":"/characters/child-emperor/",
+    "性感囚犯":"/characters/puri-puri-prisoner/",
+    "西奇":"/characters/sitch/",
+    "龙卷":"/characters/tatsumaki/",
+    "吹雪":"/characters/fubuki/",
+    "埼玉":"/characters/saitama/",
+    "杰诺斯":"/characters/genos/",
+    "KING":"/characters/king/",
+    "布鲁":"/characters/blue/",
+    "居合铁":"/characters/iaian/",
+    "巴德":"/characters/bad/",
+    "波弗伊":"/characters/bofoi/",
+    "基诺斯":"/characters/genus/",
+    "12号":"/characters/servant-12/",
+    "26号":"/characters/servant-26/",
+    "39号":"/characters/servant-39/",
+    "赛克斯":"/characters/psykos/",
+    "弩S":"/characters/do-s/",
+    "流浪帝":"/characters/homeless-emperor/",
+    "丑陋大总统":"/characters/fuhrer-ugly/"
+  };
+  document.querySelectorAll(".dossier-network span").forEach(tag=>{
+    const name=(tag.textContent||"").trim();
+    const href=routes[name];
+    if(!href)return;
+    const a=document.createElement("a");
+    a.href=href;
+    a.className="dossier-network-link";
+    a.textContent=name;
+    tag.replaceWith(a);
+  });
+}
+
 function setupInternalLinks(){
   document.querySelectorAll("a[href]").forEach(a=>{
     const href=a.getAttribute("href")||"";
@@ -130,6 +172,6 @@ function setupInternalLinks(){
   });
 }
 
-function init(){setupLanguage();setupShare();setupMenu();setupInternalLinks()}
+function init(){setupLanguage();setupShare();setupMenu();setupRelationshipLinks();setupInternalLinks()}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();

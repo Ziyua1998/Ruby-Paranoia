@@ -23,7 +23,7 @@
   display:flex!important;align-items:center!important;justify-content:center!important;
   gap:18px!important;width:max-content!important;max-width:calc(100vw - 560px)!important;
   margin:0!important;padding:0!important;
-  font-size:13.5px!important;line-height:1!important;letter-spacing:.08em!important;
+  font-size:15px!important;line-height:1!important;letter-spacing:.07em!important;
   white-space:nowrap!important;
 }
 .topbar>.nav a{
@@ -86,12 +86,12 @@
 
 @media(max-width:1260px){
   .topbar{grid-template-columns:230px minmax(0,1fr) 180px!important;padding:0 18px!important}
-  .topbar>.nav{gap:12px!important;font-size:12.5px!important;max-width:calc(100vw - 500px)!important}
+  .topbar>.nav{gap:12px!important;font-size:14px!important;max-width:calc(100vw - 500px)!important}
   .topbar>.actions{right:12px!important}
 }
 @media(max-width:1080px){
   .topbar{grid-template-columns:205px minmax(0,1fr) 176px!important}
-  .topbar>.nav{gap:9px!important;font-size:11.5px!important;max-width:calc(100vw - 440px)!important}
+  .topbar>.nav{gap:9px!important;font-size:13px!important;max-width:calc(100vw - 440px)!important}
 }
 @media(max-width:940px){
   :root{--rp-nav-h:auto}
@@ -111,7 +111,7 @@
   }
   .topbar>.mobile-nav[hidden]{display:none!important}
   .topbar>.mobile-nav a{
-    padding:11px 8px!important;border-bottom:1px solid rgba(227,189,84,.12)!important;
+    padding:12px 8px!important;border-bottom:1px solid rgba(227,189,84,.12)!important;font-size:15px!important;
     color:var(--rp-nav-text)!important;
   }
   .topbar>.mobile-nav a.active{color:var(--rp-nav-red)!important}

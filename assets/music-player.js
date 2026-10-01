@@ -297,12 +297,7 @@ function mount(){
     if(!Number.isFinite(audio.duration)||audio.duration<=0)return;
     const target=Math.max(0,Math.min(Number(progress.value)||0,audio.duration));
     seeking=true;
-    try{
-      if(typeof audio.fastSeek==="function" && Math.abs(audio.currentTime-target)>1)audio.fastSeek(target);
-      else audio.currentTime=target;
-    }catch(e){
-      try{audio.currentTime=target}catch(_e){}
-    }
+    try{audio.currentTime=target}catch(e){}
     state.time=target;
     time.textContent=fmt(target)+" / "+fmt(audio.duration);
   };
@@ -343,6 +338,8 @@ function mount(){
   loop.onclick=()=>{
     state.loopMode=state.loopMode==="single"?"list":"single";
     renderLoopMode();
+    status.textContent=state.loopMode==="single"?"单曲循环":"列表循环";
+    setTimeout(()=>{if(status.textContent==="单曲循环"||status.textContent==="列表循环")status.textContent=""},1200);
     persist();
   };
 

@@ -2,28 +2,28 @@
 
 const tracks=[
   {
-    id:"moonlit_castle",
-    title:"月夜の古城",
-    artist:"Instrumental",
-    src:"/assets/music/moonlit-castle[2].mp3"
-  },
-  {
-    id:"fanatic_nocturne",
+    id:"fanatic_nocturne_instrumental",
     title:"狂信者のノクターン（狂信徒的夜曲）",
-    artist:"Amai Mask",
+    artist:"Instrumental",
     src:"/assets/music/fanatic-nocturne.mp3"
   },
   {
     id:"ruby_paranoia_instrumental",
     title:"ルビー・パラノイア（RUBY PARANOIA）",
     artist:"Instrumental",
-    src:"/assets/music/ルビー・パラノイア（RUBY PARANOIA） - 伴奏.mp3"
+    src:"/assets/music/%E3%83%AB%E3%83%93%E3%83%BC%E3%83%BB%E3%83%91%E3%83%A9%E3%83%8E%E3%82%A4%E3%82%A2%EF%BC%88RUBY%20PARANOIA%EF%BC%89%20-%20%E4%BC%B4%E5%A5%8F.mp3"
   },
   {
     id:"waga_shien_instrumental",
     title:"我が始焉",
     artist:"Instrumental",
-    src:"/assets/music/我が始焉 (Instrumental).mp3"
+    src:"/assets/music/%E6%88%91%E3%81%8C%E5%A7%8B%E7%84%89%20(Instrumental).mp3"
+  },
+  {
+    id:"stillness_instrumental",
+    title:"Stillness",
+    artist:"Instrumental",
+    src:"/assets/music/Stillness%20(Instrumental).mp3"
   }
 ];
 

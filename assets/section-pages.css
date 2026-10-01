@@ -96,3 +96,6 @@ main{flex:1}.hero{min-height:250px;display:grid;place-items:center;text-align:ce
 .story-body .story-section:first-child{margin-top:0}
 .story-body .story-illustration{margin:42px 0;min-height:220px;display:grid;place-items:center;border:1px dashed rgba(227,189,84,.16);color:#695d40;font-size:11px}
 @media(max-width:760px){.music-interview{grid-template-columns:1fr;padding:20px}.story-body{width:min(92vw,900px)}.story-body p{font-size:15px;line-height:1.95}}
+
+.song-media-slot .slot-box:has(.song-audio){min-height:108px;border-style:solid;background:linear-gradient(180deg,rgba(54,7,14,.24),rgba(7,4,5,.72))}
+.song-audio{width:min(720px,94%);height:42px;display:block;accent-color:#b01428}

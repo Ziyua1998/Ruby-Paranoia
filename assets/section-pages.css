@@ -177,6 +177,7 @@ main{flex:1}.hero{min-height:250px;display:grid;place-items:center;text-align:ce
   .character-art{max-height:460px;padding:14px 12px 0}
 }
 
+.character-dossier.is-reversed{grid-template-columns:minmax(0,1fr) minmax(240px,34%)}
 .character-dossier.is-reversed .character-art-slot{grid-column:2;border-right:0;border-left:1px solid rgba(227,189,84,.16)}
 .character-dossier.is-reversed .character-copy{grid-column:1;grid-row:1}
 @media(max-width:800px){

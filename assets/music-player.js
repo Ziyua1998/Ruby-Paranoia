@@ -67,7 +67,7 @@ function mount(){
   const status=root.querySelector(".rp-music-status");
 
   const defaults={
-    track:0,time:0,volume:.62,muted:false,loop:false,
+    track:0,time:0,volume:.62,muted:false,loopMode:"list",
     collapsed:true,playing:true,savedAt:0
   };
 
@@ -79,18 +79,33 @@ function mount(){
   const hadState=!!raw;
   let state={...defaults};
   if(raw){
-    try{state={...state,...JSON.parse(raw)}}catch(e){}
+    try{
+      const parsed=JSON.parse(raw);
+      state={...state,...parsed};
+      if(typeof parsed.loop==="boolean" && !parsed.loopMode)state.loopMode=parsed.loop?"single":"list";
+    }catch(e){}
+  }
+
+  let firstEntryThisSession=false;
+  try{
+    firstEntryThisSession=sessionStorage.getItem("rp_music_session_started")!=="1";
+    if(firstEntryThisSession)sessionStorage.setItem("rp_music_session_started","1");
+  }catch(e){}
+  if(firstEntryThisSession){
+    state.track=0;
+    state.time=0;
+    state.playing=true;
+    state.savedAt=0;
   }
 
   state.track=Math.max(0,Math.min(tracks.length-1,state.track|0));
+  state.loopMode=state.loopMode==="single"?"single":"list";
   audio.volume=Math.max(0,Math.min(1,Number.isFinite(+state.volume)?+state.volume:.62));
   audio.muted=!!state.muted;
-  audio.loop=!!state.loop;
+  audio.loop=state.loopMode==="single";
   volume.value=audio.volume;
   state.collapsed=true;
   root.classList.add("is-collapsed");
-  loop.classList.toggle("is-active",audio.loop);
-  loop.setAttribute("aria-pressed",String(audio.loop));
   mute.textContent=audio.muted?"×":"♩";
 
   let unloading=false;
@@ -106,6 +121,17 @@ function mount(){
     }
   }
 
+  function renderLoopMode(){
+    const single=state.loopMode==="single";
+    audio.loop=single;
+    loop.textContent=single?"↻₁":"↻";
+    loop.classList.toggle("is-active",single);
+    loop.setAttribute("aria-pressed",String(single));
+    loop.setAttribute("aria-label",single?"单曲循环：点击切换列表循环":"列表循环：点击切换单曲循环");
+    loop.title=single?"单曲循环（点击切换列表循环）":"列表循环（点击切换单曲循环）";
+  }
+  renderLoopMode();
+
   function setCollapsed(collapsed){
     root.classList.toggle("is-collapsed",collapsed);
     toggle.setAttribute("aria-expanded",String(!collapsed));
@@ -117,7 +143,7 @@ function mount(){
   function persist(forcePlaying){
     state.volume=audio.volume;
     state.muted=audio.muted;
-    state.loop=audio.loop;
+    state.loopMode=audio.loop?"single":"list";
     state.collapsed=root.classList.contains("is-collapsed");
     state.time=Number.isFinite(audio.currentTime)?audio.currentTime:(state.time||0);
     if(typeof forcePlaying==="boolean")state.playing=forcePlaying;
@@ -225,7 +251,16 @@ function mount(){
 
   toggle.onclick=()=>setCollapsed(!root.classList.contains("is-collapsed"));
 
+  function pauseForegroundAudio(){
+    document.querySelectorAll(".song-audio").forEach(a=>{
+      if(!a.paused){
+        try{a.pause()}catch(e){}
+      }
+    });
+  }
+
   play.onclick=async()=>{
+    if(audio.paused)pauseForegroundAudio();
     if(!audio.src){
       await load(state.track,false,resumeTime());
     }
@@ -258,26 +293,39 @@ function mount(){
     load(state.track+1,true,0);
   };
 
-  const seekPreview=()=>{
+  const seekToValue=()=>{
     if(!Number.isFinite(audio.duration)||audio.duration<=0)return;
+    const target=Math.max(0,Math.min(Number(progress.value)||0,audio.duration));
     seeking=true;
-    const target=Math.max(0,Math.min(+progress.value,audio.duration));
-    time.textContent=fmt(target)+" / "+fmt(audio.duration);
-  };
-  const seekCommit=()=>{
-    if(!Number.isFinite(audio.duration)||audio.duration<=0){seeking=false;return}
-    const target=Math.max(0,Math.min(+progress.value,audio.duration));
-    try{audio.currentTime=target}catch(e){}
+    try{
+      if(typeof audio.fastSeek==="function" && Math.abs(audio.currentTime-target)>1)audio.fastSeek(target);
+      else audio.currentTime=target;
+    }catch(e){
+      try{audio.currentTime=target}catch(_e){}
+    }
     state.time=target;
-    seeking=false;
     time.textContent=fmt(target)+" / "+fmt(audio.duration);
-    persist();
   };
   progress.addEventListener("pointerdown",()=>{seeking=true});
-  progress.addEventListener("input",seekPreview);
-  progress.addEventListener("change",seekCommit);
-  progress.addEventListener("pointerup",seekCommit);
-  progress.addEventListener("keyup",e=>{if(["ArrowLeft","ArrowRight","Home","End"].includes(e.key))seekCommit()});
+  progress.addEventListener("input",seekToValue);
+  progress.addEventListener("change",()=>{seekToValue();seeking=false;persist()});
+  progress.addEventListener("pointerup",()=>{seekToValue();seeking=false;persist()});
+  progress.addEventListener("pointercancel",()=>{seeking=false});
+  progress.addEventListener("click",e=>{
+    if(!Number.isFinite(audio.duration)||audio.duration<=0)return;
+    const r=progress.getBoundingClientRect();
+    if(r.width>0){
+      progress.value=String(((e.clientX-r.left)/r.width)*audio.duration);
+      seekToValue();
+      seeking=false;
+      persist();
+    }
+  });
+  progress.addEventListener("keyup",e=>{
+    if(["ArrowLeft","ArrowRight","Home","End","PageUp","PageDown"].includes(e.key)){
+      seekToValue();seeking=false;persist();
+    }
+  });
 
   volume.oninput=()=>{
     audio.volume=+volume.value;
@@ -293,11 +341,8 @@ function mount(){
   };
 
   loop.onclick=()=>{
-    audio.loop=!audio.loop;
-    state.loop=audio.loop;
-    loop.classList.toggle("is-active",audio.loop);
-    loop.setAttribute("aria-pressed",String(audio.loop));
-    loop.title=audio.loop?"单曲循环：已开启":"单曲循环";
+    state.loopMode=state.loopMode==="single"?"list":"single";
+    renderLoopMode();
     persist();
   };
 
@@ -328,12 +373,40 @@ function mount(){
   };
 
   audio.onended=()=>{
-    if(!audio.loop){
+    if(state.loopMode==="single"){
       state.time=0;
       state.playing=true;
       persist(true);
-      load(state.track+1,true,0);
+      try{audio.currentTime=0;audio.play()}catch(e){}
+      return;
     }
+    state.time=0;
+    state.playing=true;
+    persist(true);
+    load(state.track+1,true,0);
+  };
+
+  document.querySelectorAll(".song-audio").forEach(fg=>{
+    fg.addEventListener("play",()=>{
+      if(!audio.paused)audio.pause();
+      state.playing=false;
+      persist(false);
+      status.textContent="背景音乐已暂停";
+    });
+  });
+
+  window.RPBackgroundMusic={
+    pause(){
+      if(!audio.paused)audio.pause();
+      state.playing=false;
+      persist(false);
+    },
+    play(){
+      pauseForegroundAudio();
+      state.playing=true;
+      return audio.play();
+    },
+    get mode(){return state.loopMode}
   };
 
   window.addEventListener("pagehide",()=>{
@@ -351,7 +424,7 @@ function mount(){
   title.textContent=tracks[state.track].title;
   artist.textContent=tracks[state.track].artist;
 
-  const shouldAutoplay=!hadState||state.playing;
+  const shouldAutoplay=firstEntryThisSession||!hadState||state.playing;
   load(state.track,shouldAutoplay,resumeTime());
 }
 

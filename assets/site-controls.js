@@ -76,6 +76,46 @@ function setupShare(){
   addEventListener("scroll",()=>{if(!menu.hidden)position()},{passive:true});
 }
 
-function init(){setupLanguage();setupShare()}
+function setupMenu(){
+  const btn=document.querySelector("[data-menu]");
+  const nav=document.querySelector(".mobile-nav");
+  if(!btn||!nav)return;
+
+  const render=()=>{
+    const open=!nav.hidden;
+    btn.textContent=open?"×":"☰";
+    btn.setAttribute("aria-expanded",String(open));
+    btn.setAttribute("aria-label",open?"关闭菜单":"打开菜单");
+    btn.title=open?"关闭菜单":"打开菜单";
+  };
+
+  const close=()=>{
+    nav.hidden=true;
+    render();
+  };
+
+  btn.onclick=(e)=>{
+    e.preventDefault();
+    e.stopPropagation();
+    nav.hidden=!nav.hidden;
+    render();
+  };
+
+  nav.addEventListener("click",e=>{
+    if(e.target.closest("a"))close();
+  });
+
+  document.addEventListener("click",e=>{
+    if(!nav.hidden&&!nav.contains(e.target)&&!btn.contains(e.target))close();
+  });
+
+  addEventListener("resize",()=>{
+    if(innerWidth>940&& !nav.hidden)close();
+  });
+
+  render();
+}
+
+function init(){setupLanguage();setupShare();setupMenu()}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();

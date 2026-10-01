@@ -121,3 +121,16 @@
   .topbar>.actions{gap:6px!important}
   .topbar>.mobile-nav{grid-template-columns:1fr!important}
 }
+
+/* mobile brand click fix */
+.topbar>.brand{position:relative!important;z-index:1205!important;pointer-events:auto!important}
+.topbar>.brand strong{pointer-events:none!important}
+@media(max-width:940px){
+  .topbar>.brand{
+    grid-column:1!important;grid-row:1!important;
+    display:flex!important;align-items:flex-start!important;justify-content:center!important;
+    min-height:46px!important;
+  }
+  .topbar>.actions{z-index:1204!important}
+  .topbar>.mobile-nav{position:relative!important;z-index:1200!important}
+}

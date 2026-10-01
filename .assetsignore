@@ -1,0 +1,15 @@
+# Cloudflare Workers static-assets ignore list
+# The site is deployed from the repository root in the current Worker setup.
+# Never upload Git/build metadata as public assets.
+.git/
+.git/**
+.github/
+.github/**
+.wrangler/
+.wrangler/**
+node_modules/
+node_modules/**
+dist/
+dist/**
+cloudflare-pages-build.sh
+.assetsignore

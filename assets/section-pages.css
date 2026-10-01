@@ -327,30 +327,19 @@ main{flex:1}.hero{min-height:250px;display:grid;place-items:center;text-align:ce
   overflow:hidden!important;
   width:100%!important;
   max-width:none!important;
-  min-height:320px!important;
+  min-height:230px!important;
   margin:0!important;
-  padding:58px 24px 52px!important;
+  padding:38px 24px 34px!important;
   display:grid!important;
   place-items:center!important;
   text-align:center!important;
   border-bottom:1px solid rgba(227,189,84,.16)!important;
   background:
-    radial-gradient(circle at 50% 24%,rgba(174,7,28,.22),transparent 31%),
+    radial-gradient(circle at 50% 42%,rgba(174,7,28,.24),transparent 38%),
     linear-gradient(180deg,#0b0507 0%,#060405 100%)!important;
 }
-.primary-hero:before{
-  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.34;
-  background:
-    linear-gradient(90deg,transparent 19%,rgba(150,10,27,.16) 19.2% 19.7%,transparent 19.9% 80%,rgba(150,10,27,.16) 80.2% 80.7%,transparent 80.9%),
-    repeating-linear-gradient(90deg,transparent 0 10%,rgba(226,18,38,.045) 10.2% 10.4%,transparent 10.6% 20%);
-}
-.primary-hero:after{
-  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 19% 118% at 18% 120%,transparent 98.05%,rgba(178,10,29,.21) 98.3% 98.58%,transparent 98.82%),
-    radial-gradient(ellipse 19% 118% at 50% 120%,transparent 98.05%,rgba(178,10,29,.21) 98.3% 98.58%,transparent 98.82%),
-    radial-gradient(ellipse 19% 118% at 82% 120%,transparent 98.05%,rgba(178,10,29,.21) 98.3% 98.58%,transparent 98.82%);
-}
+.primary-hero:before,
+.primary-hero:after{content:none!important;display:none!important}
 .primary-hero>*{position:relative;z-index:2}
 .primary-hero>div,
 .primary-hero>.gallery-hero-inner,
@@ -393,7 +382,7 @@ main{flex:1}.hero{min-height:250px;display:grid;place-items:center;text-align:ce
 }
 .primary-hero .arch{display:none!important}
 @media(max-width:760px){
-  .primary-hero{min-height:260px!important;padding:48px 20px 42px!important}
+  .primary-hero{min-height:190px!important;padding:32px 20px 28px!important}
   .primary-hero h1{font-size:clamp(36px,10vw,52px)!important}
   .primary-hero p{font-size:12px!important}
 }

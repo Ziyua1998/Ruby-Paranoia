@@ -116,6 +116,20 @@ function setupMenu(){
   render();
 }
 
-function init(){setupLanguage();setupShare();setupMenu()}
+function setupInternalLinks(){
+  document.querySelectorAll("a[href]").forEach(a=>{
+    const href=a.getAttribute("href")||"";
+    if(!href||href.startsWith("#")||href.startsWith("javascript:"))return;
+    let url;
+    try{url=new URL(href,location.href)}catch(e){return}
+    if(url.origin===location.origin){
+      a.removeAttribute("target");
+      a.removeAttribute("rel");
+      a.target="_self";
+    }
+  });
+}
+
+function init(){setupLanguage();setupShare();setupMenu();setupInternalLinks()}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();

@@ -492,3 +492,6 @@ body.chapter-toc-open{overflow:hidden}
  .chapter-toc-toggle{min-height:78px;width:38px}
 }
 @media(max-width:420px){.chapter-grid{grid-template-columns:1fr}}
+
+.chapter-scene-space{height:1.6em}
+@media(max-width:680px){.chapter-scene-space{height:1.35em}}

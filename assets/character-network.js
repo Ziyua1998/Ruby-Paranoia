@@ -94,6 +94,6 @@ nodes.forEach(n=>{n.el.addEventListener('click',()=>{if(!moved)showNode(n.id);mo
 n.el.addEventListener('pointerdown',e=>{drag=n;moved=false;n.el.setPointerCapture(e.pointerId);const p=point(e);n.ox=p.x-n.x;n.oy=p.y-n.y});
 n.el.addEventListener('pointermove',e=>{if(drag!==n)return;const p=point(e);if(Math.abs(p.x-n.x)>2||Math.abs(p.y-n.y)>2)moved=true;n.x=Math.max(35,Math.min(W-35,p.x-n.ox));n.y=Math.max(35,Math.min(H-35,p.y-n.oy));render()});
 n.el.addEventListener('pointerup',e=>{if(drag===n){drag=null;try{n.el.releasePointerCapture(e.pointerId)}catch(_){}}});});
-filters.forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.relationFilter;filters.forEach(x=>x.classList.toggle('is-active',x===b));showNode(active);render()}));
-if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){for(let i=0;i<120;i++){frames=190;step();}render();}else{step();}
+filters.forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.relationFilter;active=null;filters.forEach(x=>x.classList.toggle('is-active',x===b));showNode(null);render()}));
+if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){frames=190;render();}else{step();}
 })();

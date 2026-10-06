@@ -24,16 +24,19 @@ const nodes=[
 {id:'prisoner',name:'性感囚犯',en:'Puri-Puri Prisoner',group:'human',org:'hunter',href:'/characters/puri-puri-prisoner/'},
 {id:'sitch',name:'西奇',en:'Sitch',group:'human',org:'hunter',href:'/characters/sitch/'},
 {id:'genus',name:'基诺斯',en:'Dr. Genus',group:'order',org:'order',href:'/characters/genus/'},
+{id:'garou',name:'饿狼',en:'Garou',group:'human',org:'hunter',href:''},
+{id:'suiryu',name:'水龙',en:'Suiryu',group:'human',org:'human',href:''},
+{id:'bishop',name:'钱巨多主教',en:'Bishop Qianjuduo',group:'order',org:'order',href:''},
 {id:'s12',name:'12号',en:'Servant No.12',group:'human',org:'castle',href:'/characters/servant-12/'},
 {id:'s26',name:'26号',en:'Servant No.26',group:'human',org:'castle',href:'/characters/servant-26/'},
 {id:'s39',name:'39号',en:'Servant No.39',group:'human',org:'castle',href:'/characters/servant-39/'}
 ];
 const edges=[
-['amai','zbm','爱人','emotion'],
+['amai','zbm','？？？','emotion'],
 ['amai','webigaza','同僚','alliance'],
 ['zbm','webigaza','朋友','alliance'],
-['amai','mccoy','敌对','conflict'],
-['mccoy','psykos','同盟','conflict'],
+['amai','mccoy','上下级','faction'],
+['mccoy','psykos','合作','alliance'],
 ['amai','psykos','宿敌','conflict'],
 ['amai','dos','敌对','conflict'],
 ['amai','ugly','敌对','conflict'],
@@ -53,13 +56,22 @@ const edges=[
 ['bad','child','同伴','alliance'],
 ['bad','prisoner','同伴','alliance'],
 ['zbm','sitch','旧识','alliance'],
-['zbm','genus','委托','alliance'],
+['zbm','genus','？','alliance'],
 ['amai','s12','主仆','faction'],
 ['amai','s26','主仆','faction'],
 ['amai','s39','主仆','faction'],
 ['zbm','s26','同伴','alliance'],
-['zbm','s39','同盟','alliance'],
-['zbm','s12','旧识','alliance']
+['zbm','s39','同伴','alliance'],
+['zbm','s12','同伴','alliance'],
+['amai','saitama','偶遇','alliance'],
+['king','iaian','同僚','faction'],
+['homeless','blue','合作','alliance'],
+['bishop','blue','合作','alliance'],
+['prisoner','child','同伴','alliance'],
+['prisoner','zbm','同伴','alliance'],
+['bad','garou','朋友','alliance'],
+['garou','amai','敌对','conflict'],
+['mccoy','suiryu','合作','alliance']
 ].map((e,i)=>({id:'e'+i,source:e[0],target:e[1],label:e[2],type:e[3]}));
 const byId=Object.fromEntries(nodes.map(n=>[n.id,n]));
 const W=1000,H=620;
@@ -70,9 +82,10 @@ const cluster={
   night:[785,185],
   witch:[165,315],
   hunter:[245,485],
+  human:[500,520],
   order:[760,465]
 };
-const orbit={core:34,castle:82,vampire:72,night:96,witch:64,hunter:105,order:118};
+const orbit={core:34,castle:82,vampire:72,night:96,witch:64,hunter:112,human:80,order:126};
 const orgCounts={};
 nodes.forEach(n=>{orgCounts[n.org]=(orgCounts[n.org]||0)+1});
 const orgSeen={};

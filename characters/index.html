@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/section-pages.css?v=20261001-17">
+<link rel="stylesheet" href="/assets/section-pages.css?v=20261006-1">
 <link rel="stylesheet" href="/assets/music-player.css?v=20260930-2">
 <link rel="stylesheet" href="/assets/nav.css?v=20261001-3">
 </head>
@@ -96,6 +96,36 @@
     </div>
   </div>
 </section>
+
+<section class="relationship-network" data-relationship-network>
+  <div class="section-title"><h2>人物关系</h2><span>RELATIONSHIP NETWORK</span></div>
+  <p class="relationship-network-intro">以正文中已经明确出现或由角色档案直接支持的关系为基础整理。点击角色可查看其直接关系，拖动节点可以重新排布；也可以按关系类型筛选。</p>
+  <div class="relationship-toolbar" role="group" aria-label="关系类型筛选">
+    <button class="relationship-filter is-active" type="button" data-relation-filter="all">全部</button>
+    <button class="relationship-filter" type="button" data-relation-filter="emotion">情感 / 亲缘</button>
+    <button class="relationship-filter" type="button" data-relation-filter="faction">阵营 / 从属</button>
+    <button class="relationship-filter" type="button" data-relation-filter="mentor">师徒</button>
+    <button class="relationship-filter" type="button" data-relation-filter="alliance">合作 / 熟人</button>
+    <button class="relationship-filter" type="button" data-relation-filter="conflict">敌对 / 冲突</button>
+  </div>
+  <div class="relationship-network-shell">
+    <div class="relationship-canvas">
+      <svg viewBox="0 0 1000 620" role="img" aria-label="RUBY PARANOIA 角色关系网络图"></svg>
+    </div>
+    <aside class="relationship-detail" data-relation-detail>
+      <small>RELATIONSHIP MAP</small>
+      <h3>人物关系</h3>
+      <p>点击任意角色节点，查看与其直接相连的人物与关系；拖动节点可以重新整理布局。</p>
+      <div class="relationship-list"></div>
+    </aside>
+  </div>
+  <div class="relationship-legend" aria-label="角色类型图例">
+    <span><i style="color:#dfbd55"></i>核心角色</span>
+    <span><i style="color:#b7844c"></i>血族</span>
+    <span><i style="color:#8f2c48"></i>暗夜生物</span>
+    <span><i style="color:#8f855f"></i>人类</span>
+  </div>
+</section>
 </main>
 <footer class="footer"><span>RUBY PARANOIA / One Punch Man</span><span>Produced by Zenobia</span></footer>
 </div>
@@ -104,4 +134,5 @@
 </script>
 <script src="/assets/site-controls.js?v=20261001-1" defer></script>
 <script src="/assets/music-player.js?v=20261001-3" defer></script>
+<script src="/assets/character-network.js?v=20261006-1" defer></script>
 </body></html>

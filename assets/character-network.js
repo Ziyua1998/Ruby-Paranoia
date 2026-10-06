@@ -7,6 +7,7 @@ const nodes=[
 {id:'zbm',name:'僵尸男',en:'Zombieman / No.66',group:'core',org:'core',href:'/characters/zombieman/'},
 {id:'webigaza',name:'维比佳莎',en:'Webigaza',group:'vampire',org:'vampire',href:'/characters/webigaza/'},
 {id:'mccoy',name:'玛考伊',en:'McCoy',group:'vampire',org:'vampire',href:'/characters/mccoy/'},
+{id:'dracula',name:'德苦拉亲王',en:'Prince Dracula',group:'vampire',org:'vampire',href:''},
 {id:'psykos',name:'赛克斯',en:'Psykos',group:'night',org:'night',href:'/characters/psykos/'},
 {id:'dos',name:'弩S',en:'Do-S',group:'night',org:'night',href:'/characters/do-s/'},
 {id:'ugly',name:'丑陋大总统',en:'Fuhrer Ugly',group:'night',org:'night',href:'/characters/fuhrer-ugly/'},
@@ -33,7 +34,7 @@ const nodes=[
 ];
 const edges=[
 ['amai','zbm','？？？','emotion'],
-['amai','webigaza','同僚','alliance'],
+['amai','webigaza','同僚 / 师徒','alliance'],
 ['zbm','webigaza','朋友','alliance'],
 ['amai','mccoy','上下级','faction'],
 ['mccoy','psykos','合作','alliance'],
@@ -71,7 +72,11 @@ const edges=[
 ['prisoner','zbm','同伴','alliance'],
 ['bad','garou','朋友','alliance'],
 ['garou','amai','敌对','conflict'],
-['mccoy','suiryu','合作','alliance']
+['mccoy','suiryu','合作','alliance'],
+['webigaza','mccoy','继承','faction'],
+['amai','dracula','继承','faction'],
+['homeless','zbm','敌对','conflict'],
+['amai','blue','敌对','conflict']
 ].map((e,i)=>({id:'e'+i,source:e[0],target:e[1],label:e[2],type:e[3]}));
 const byId=Object.fromEntries(nodes.map(n=>[n.id,n]));
 const W=1000,H=620;

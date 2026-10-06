@@ -33,7 +33,7 @@ const nodes=[
 {id:'s39',name:'39号',en:'Servant No.39',group:'human',org:'castle',href:'/characters/servant-39/'}
 ];
 const edges=[
-['amai','zbm','？？？','emotion'],
+['amai','zbm','？？？','faction'],
 ['amai','webigaza','同僚 / 师徒','alliance'],
 ['zbm','webigaza','朋友','alliance'],
 ['amai','mccoy','上下级','faction'],
@@ -41,7 +41,7 @@ const edges=[
 ['amai','psykos','宿敌','conflict'],
 ['amai','dos','敌对','conflict'],
 ['amai','ugly','敌对','conflict'],
-['psykos','dos','上下级','emotion'],
+['psykos','dos','上下级','faction'],
 ['psykos','ugly','上下级','faction'],
 ['psykos','homeless','上下级','faction'],
 ['dos','ugly','同僚','faction'],
@@ -76,7 +76,8 @@ const edges=[
 ['webigaza','mccoy','继承','faction'],
 ['amai','dracula','继承','faction'],
 ['homeless','zbm','敌对','conflict'],
-['amai','blue','敌对','conflict']
+['amai','blue','敌对','conflict'],
+['amai','bishop','敌对','conflict']
 ].map((e,i)=>({id:'e'+i,source:e[0],target:e[1],label:e[2],type:e[3]}));
 const byId=Object.fromEntries(nodes.map(n=>[n.id,n]));
 const W=1000,H=620;

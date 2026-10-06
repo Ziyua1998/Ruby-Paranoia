@@ -687,10 +687,11 @@ body.chapter-toc-open{overflow:hidden}
 .relationship-node[data-group="vampire"] circle{stroke:#c9223e}
 .relationship-node[data-group="night"] circle{stroke:#8d55c7}
 .relationship-node[data-group="human"] circle{stroke:#d7b94b}
+.relationship-node[data-group="witch"] circle{stroke:#4faa63}
 .relationship-node[data-group="order"] circle{stroke:#f1eee5}
-.relationship-node[data-group="core"] circle{stroke:#dfbd55;stroke-width:2.8}
+.relationship-node[data-group="core"] circle{stroke:#c9223e;stroke-width:2.8}
 .relationship-node.is-active circle{fill:#3c0b14}
-.relationship-node[data-group="core"].is-active circle{stroke:#e9cb65;stroke-width:3.4}
+.relationship-node[data-group="core"].is-active circle{stroke:#e0435d;stroke-width:3.4}
 .relationship-node:not([data-group="core"]).is-active circle{stroke-width:1.6}
 .relationship-node.is-dimmed{opacity:.18}
 .relationship-node:hover circle{fill:#250b11}

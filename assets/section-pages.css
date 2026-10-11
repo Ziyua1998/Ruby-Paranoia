@@ -719,3 +719,7 @@ body.chapter-toc-open{overflow:hidden}
   .relationship-detail{padding:18px 16px}
   .relationship-filter{font-size:9px;padding:0 10px}
 }
+
+/* preserve intentional blank paragraphs from finalized manuscripts */
+.story-space{height:1.3em}
+@media(max-width:760px){.story-space{height:1.15em}}

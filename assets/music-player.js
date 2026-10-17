@@ -421,7 +421,10 @@ function mount(){
   title.textContent=tracks[state.track].title;
   artist.textContent=tracks[state.track].artist;
 
-  const shouldAutoplay=firstEntryThisSession||!hadState||state.playing;
+  // Embedded Bilibili players may start immediately. Keep site BGM silent on all film detail pages.
+  const isFilmDetail=/^\/film\/[^/]+\/?$/.test(location.pathname);
+  if(isFilmDetail){state.playing=false;persist(false)}
+  const shouldAutoplay=!isFilmDetail&&(firstEntryThisSession||!hadState||state.playing);
   load(state.track,shouldAutoplay,resumeTime());
 }
 

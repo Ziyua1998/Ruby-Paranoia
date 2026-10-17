@@ -13,7 +13,15 @@
 <link rel="stylesheet" href="/assets/nav.css?v=20261001-3">
 <style>
 /* Related original soundtrack — vinyl record link */
-.story-ost{max-width:760px;margin:54px auto 66px;padding:0 20px;text-align:center}
+.story-ost{max-width:900px;margin:54px auto 66px;padding:0 20px;text-align:center}
+.story-ost-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.story-ost-link{box-sizing:border-box}
+.story-ost-film{position:relative;display:block;flex:0 0 86px;width:86px;height:76px;border:2px solid #b58b79;border-radius:5px;background:linear-gradient(90deg,#2b1720 0 17%,#4e2330 17% 83%,#2b1720 83%);box-shadow:0 3px 9px #0008;overflow:hidden}
+.story-ost-film:before,.story-ost-film:after{content:"";position:absolute;top:6px;bottom:6px;width:9px;background:repeating-linear-gradient(to bottom,#b58b79 0 7px,transparent 7px 15px)}
+.story-ost-film:before{left:4px}.story-ost-film:after{right:4px}
+.story-ost-film-play{position:absolute;left:36px;top:24px;width:0;height:0;border-top:13px solid transparent;border-bottom:13px solid transparent;border-left:20px solid #d4ad83}
+@media(max-width:700px){.story-ost-grid{grid-template-columns:1fr}.story-ost-link{width:min(100%,420px)}}
+@media(max-width:480px){.story-ost-film{flex-basis:70px;width:70px;height:66px}.story-ost-film-play{left:29px;top:20px;border-top-width:11px;border-bottom-width:11px;border-left-width:17px}}
 .story-ost-label{font:500 10px Cinzel,serif;letter-spacing:.23em;color:#9b7d7f;margin-bottom:18px}
 .story-ost-link{display:flex;align-items:center;justify-content:center;gap:23px;width:min(100%,420px);margin:auto;padding:19px 24px;text-decoration:none;color:#eee3dd;border:1px solid rgba(170,112,116,.35);border-radius:12px;background:linear-gradient(130deg,rgba(50,23,31,.76),rgba(17,11,16,.95));transition:transform .2s,border-color .2s,box-shadow .2s}
 .story-ost-link:hover,.story-ost-link:focus-visible{transform:translateY(-3px);border-color:#b27a81;box-shadow:0 8px 28px rgba(0,0,0,.35)}
@@ -240,12 +248,18 @@
 <div class="story-space" aria-hidden="true"></div>
 <p>至于那场教士堂的屠杀案，流传下来的故事却说，吸血鬼垂涎教士之女的美色，杀死了阻拦自己的教士，将她掳去做了被囚禁的新娘。没有人知道，她曾拿着银刀走进他的卧室。</p>
 </article>
-<section class="story-ost" aria-label="关联原创音乐">
-<div class="story-ost-label">RELATED ORIGINAL SOUNDTRACK</div>
+<section class="story-ost" aria-label="关联作品">
+<div class="story-ost-label">RELATED WORKS · 关联作品</div>
+<div class="story-ost-grid">
 <a class="story-ost-link" href="/music/itsuwari-no-hanayome/" aria-label="聆听《井中的新娘》关联原创音乐《偽りの花嫁》">
 <span class="story-ost-disc" aria-hidden="true"></span>
-<span class="story-ost-copy"><span class="story-ost-kicker">ORIGINAL SONG · TRACK 06</span><span class="story-ost-title">偽りの花嫁</span><span class="story-ost-sub">本篇关联原创音乐 · 点击聆听 ↗</span></span>
+<span class="story-ost-copy"><span class="story-ost-kicker">ORIGINAL SONG · TRACK 06</span><span class="story-ost-title">偽りの花嫁</span><span class="story-ost-sub">原创音乐及双语歌词 ↗</span></span>
 </a>
+<a class="story-ost-link" href="/film/itsuwari-no-hanayome/" aria-label="观看《井中的新娘》关联歌曲MV《伪装的新娘》">
+<span class="story-ost-film" aria-hidden="true"><span class="story-ost-film-play"></span></span>
+<span class="story-ost-copy"><span class="story-ost-kicker">MUSIC VIDEO · FILM</span><span class="story-ost-title">伪装的新娘</span><span class="story-ost-sub">观看关联歌曲MV ↗</span></span>
+</a>
+</div>
 </section>
 </main>
 <footer class="footer"><span>RUBY PARANOIA / One Punch Man</span><span>Produced by Zenobia</span></footer>

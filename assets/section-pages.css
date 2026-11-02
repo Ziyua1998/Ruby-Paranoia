@@ -723,3 +723,24 @@ body.chapter-toc-open{overflow:hidden}
 /* preserve intentional blank paragraphs from finalized manuscripts */
 .story-space{height:1.3em}
 @media(max-width:760px){.story-space{height:1.15em}}
+
+/* Compact fixed chapter directory tab: keep it clear of reading text at narrow widths. */
+.chapter-toc-toggle{
+  width:28px;
+  min-height:0;
+  height:64px;
+  top:50%;
+  transform:translateY(-50%);
+  padding:6px 4px;
+  border-radius:6px 0 0 6px;
+  box-shadow:-3px 3px 12px rgba(0,0,0,.22);
+}
+.chapter-toc-toggle span{font-size:11px;letter-spacing:.06em;line-height:1.1}
+@media(max-width:680px){
+  .chapter-toc-toggle{width:24px;height:54px;padding:5px 2px}
+  .chapter-toc-toggle span{font-size:10px;letter-spacing:0}
+  .chapter-body{width:min(800px,89vw,calc(100vw - 72px))}
+}
+@media(max-width:380px){
+  .chapter-toc-toggle{width:22px;height:50px}
+}

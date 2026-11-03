@@ -33,7 +33,7 @@ const sceneBreakAnchors={
 "22":["演出落幕后，后台的空气很快被香槟、鲜","很快，66号被带到一处位于S市的地下","然而，骑士团没有取得进展，并不意味着","布鲁与居合退到审讯室之外，谁也没有立","之后，关于阿麦·马斯克收留血族同党的"]
 };
 const norm=s=>(s||"").replace(/\\s+/g,"");
-const anchors=sceneBreakAnchors[String(current)]||[];
+const anchors=document.body.dataset.wordOriginalSpacing==="true" ? [] : (sceneBreakAnchors[String(current)]||[]);
 if(anchors.length){
   const paragraphs=[...document.querySelectorAll(".chapter-body p")];
   anchors.forEach(anchor=>{

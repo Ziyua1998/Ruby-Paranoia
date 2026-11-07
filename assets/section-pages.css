@@ -746,9 +746,9 @@ body.chapter-toc-open{overflow:hidden}
 }
 
 /* Bilingual text archive: prevent longer English chapter names from truncating. */
-html[lang="en"] .chapter-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+
 html[lang="en"] .chapter-chip{min-height:68px;padding:10px 14px}
 html[lang="en"] .chapter-chip strong{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.4;font-size:12px}
 html[lang="en"] .extra-entry strong{white-space:normal;overflow-wrap:break-word}
-@media(max-width:860px){html[lang="en"] .chapter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:540px){html[lang="en"] .chapter-grid{grid-template-columns:1fr}html[lang="en"] .chapter-chip{min-height:56px}}
+
+@media(max-width:540px){html[lang="en"] .chapter-chip{min-height:56px}}

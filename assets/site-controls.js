@@ -66,10 +66,10 @@ function setupLanguage(){
         }
       });
       document.querySelectorAll(".chapter-prev-next .chapter-nav-disabled").forEach((el,i)=>{
-        text(el,i===0?"← Previous Chapter":"Next Chapter →");
+        text(el,(original.get(el)||el.textContent).trim().startsWith("←")?"← Previous Chapter":"Next Chapter →");
       });
       document.querySelectorAll(".chapter-toc").forEach(toc=>{
-        text(toc.querySelector(".chapter-toc-toggle span"),"Contents");
+        text(toc.querySelector(".chapter-toc-toggle span"),"TOC");
         text(toc.querySelector(".chapter-toc-head strong"),"Chapter List");
         text(toc.querySelector(".chapter-toc-all"),"Back to Texts");
         toc.querySelectorAll(".chapter-toc-list a").forEach(a=>{

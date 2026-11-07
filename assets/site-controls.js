@@ -29,7 +29,7 @@ function setupLanguage(){
     return EXTRAS[href]||null;
   };
   const render=()=>{
-    btn.textContent=lang==="zh"?"中":"EN";
+    btn.textContent=lang==="zh"?"EN":"中";
     btn.setAttribute("aria-pressed",String(lang==="en"));
     btn.setAttribute("aria-label",lang==="zh"?"当前为中文，点击切换英文":"Currently English. Switch to Chinese");
     btn.title=lang==="zh"?"Switch to English":"切换为中文";

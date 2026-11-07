@@ -134,3 +134,14 @@
   .topbar>.actions{z-index:1204!important}
   .topbar>.mobile-nav{position:relative!important;z-index:1200!important}
 }
+
+/* English labels are longer than the Chinese navigation labels. */
+@media(min-width:941px){
+  html[lang="en"] .topbar>.nav{font-size:13px!important;gap:12px!important;letter-spacing:.025em!important}
+}
+@media(min-width:941px) and (max-width:1260px){
+  html[lang="en"] .topbar>.nav{font-size:11.5px!important;gap:9px!important;letter-spacing:0!important}
+}
+@media(min-width:941px) and (max-width:1080px){
+  html[lang="en"] .topbar>.nav{font-size:10px!important;gap:7px!important}
+}

@@ -3,17 +3,96 @@
 function setupLanguage(){
   const btn=document.querySelector("[data-lang]");
   if(!btn)return;
+  const NAV={"/":"Home","/world/":"World","/characters/":"Characters","/texts/":"Texts","/music/":"Music","/film/":"Film","/gallery/":"Gallery","/extras/":"Extras","/author/":"About"};
+  const MAIN=["The Embrace","Violence and Peace","Into the Night","The Vampire's Mask","Underground","Undercurrents","Nightmares","Tempering","A Father's Love","The Great Artist","Curiosity Killed the Cat","Profane Communion","The Impostor","The Troublesome Succubus","What Makes a Home","Scars","The Purpose of a Whore","The Vampire Society","The City Streets","The Scales of Justice","The Trial","A Turn at the Theater"];
+  const PREQUEL=["The Ruby Dagger","A Winter Night's Pact","Night of Impalement","Legacy of the Dead","Lydia","The Music Teacher","The Lady's Elopement"];
+  const EXTRAS={"/texts/diary/":"Duke Amai's Diary","/texts/first-battle/":"The First Battle","/texts/bride/":"The Bride in the Well","/texts/monk/":"The Bald Nun of the Monastery","/texts/phantom/":"The Phantom of the Opera","/texts/star/":"The Star"};
+  const ZH={
+    "Home":"首页","World":"世界","Characters":"角色","Texts":"文本","Music":"音乐","Film":"影片","Gallery":"画廊","Extras":"附录","About":"作者"
+  };
+  const original=new WeakMap();
+  const startingTitle=document.title;
+  const pathname=location.pathname.replace(/index\.html$/,"").replace(/\/?$/,"/");
   let lang="zh";
-  try{lang=localStorage.getItem("rp_ui_lang")||"zh"}catch(e){}
+  try{lang=localStorage.getItem("rp_ui_lang")==="en"?"en":"zh"}catch(e){}
+  const text=(el,english)=>{
+    if(!el)return;
+    if(!original.has(el))original.set(el,el.textContent);
+    const value=lang==="en"?english:original.get(el);
+    if(el.textContent!==value)el.textContent=value;
+  };
+  const chapterTitle=(href)=>{
+    const main=href.match(/^\/texts\/chapter-(\d+)\/$/);
+    if(main)return MAIN[Number(main[1])-1]||null;
+    const prequel=href.match(/^\/texts\/prequel-(\d+)\/$/);
+    if(prequel)return PREQUEL[Number(prequel[1])-1]||null;
+    return EXTRAS[href]||null;
+  };
   const render=()=>{
     btn.textContent=lang==="zh"?"中":"EN";
     btn.setAttribute("aria-pressed",String(lang==="en"));
-    btn.setAttribute("aria-label",lang==="zh"?"语言：中文（点击切换英文）":"Language: English placeholder (click for Chinese)");
-    btn.title=lang==="zh"?"中文 / English":"English version coming soon";
+    btn.setAttribute("aria-label",lang==="zh"?"当前为中文，点击切换英文":"Currently English. Switch to Chinese");
+    btn.title=lang==="zh"?"Switch to English":"切换为中文";
     document.documentElement.lang=lang==="zh"?"zh-CN":"en";
+    document.querySelectorAll(".topbar .nav a, .topbar .mobile-nav a").forEach(a=>text(a,NAV[a.getAttribute("href")]||a.textContent));
+    if(pathname==="/texts/"){
+      text(document.querySelector(".primary-hero h1"),"Texts");
+      text(document.querySelector(".primary-hero p"),"The main story, prequel, extra stories, and personal records.");
+      document.querySelectorAll(".content .section-title h2").forEach((el,i)=>text(el,["Main Story","Prequel: The Fiend Amai Mask","Extra Stories"][i]||el.textContent));
+      document.querySelectorAll(".chapter-chip, .extra-entry").forEach(a=>{
+        const title=chapterTitle(a.getAttribute("href")||"");
+        if(title)text(a.querySelector("strong"),title);
+      });
+      const diary=document.querySelector(".diary-entry");
+      if(diary){
+        text(diary.querySelector("h3"),"Duke Amai's Diary");
+        text(diary.querySelector("p"),"Personal notes · Read as an interactive diary");
+        text(diary.querySelector(".diary-entry-mark"),"OPEN DIARY →");
+      }
+      document.title=lang==="en"?"Texts — RUBY PARANOIA / One Punch Man":startingTitle;
+    }
+    const match=pathname.match(/^\/texts\/(chapter|prequel)-(\d+)\/$/);
+    if(match){
+      const n=Number(match[2]);
+      const heading=match[1]==="chapter"?MAIN[n-1]:PREQUEL[n-1];
+      if(heading)text(document.querySelector(".chapter-head h1"),heading);
+      text(document.querySelector(".chapter-back"),"← Back to Texts");
+      document.querySelectorAll(".chapter-prev-next a").forEach(a=>{
+        const title=chapterTitle(a.getAttribute("href")||"");
+        if(title){
+          const prev=a.textContent.trim().startsWith("←");
+          const num=(a.getAttribute("href")||"").match(/(\d+)\/$/)?.[1]||"";
+          text(a,(prev?"← ":"")+(num?Number(num)+". ":"")+title+(prev?"":" →"));
+        }
+      });
+      document.querySelectorAll(".chapter-prev-next .chapter-nav-disabled").forEach((el,i)=>{
+        text(el,i===0?"← Previous Chapter":"Next Chapter →");
+      });
+      document.querySelectorAll(".chapter-toc").forEach(toc=>{
+        text(toc.querySelector(".chapter-toc-toggle span"),"Contents");
+        text(toc.querySelector(".chapter-toc-head strong"),"Chapter List");
+        text(toc.querySelector(".chapter-toc-all"),"Back to Texts");
+        toc.querySelectorAll(".chapter-toc-list a").forEach(a=>{
+          const title=chapterTitle(a.getAttribute("href")||"");
+          if(title)text(a.querySelector("b"),title);
+        });
+      });
+      document.title=lang==="en"?(match[1]==="chapter"?"Chapter ":"Prequel Chapter ")+n+" · "+heading+" — RUBY PARANOIA":startingTitle;
+    }
   };
-  btn.onclick=()=>{lang=lang==="zh"?"en":"zh";try{localStorage.setItem("rp_ui_lang",lang)}catch(e){}render()};
+  btn.addEventListener("click",()=>{
+    lang=lang==="zh"?"en":"zh";
+    try{localStorage.setItem("rp_ui_lang",lang)}catch(e){}
+    render();
+  });
   render();
+  // Chapter TOC is mounted by a separate deferred script, after site controls.
+  if(pathname.startsWith("/texts/")&&pathname!=="/texts/"){
+    const observer=new MutationObserver(records=>{
+      if(records.some(r=>Array.from(r.addedNodes).some(n=>n.nodeType===1&&(n.matches?.(".chapter-toc")||n.querySelector?.(".chapter-toc")))))render();
+    });
+    observer.observe(document.body,{childList:true,subtree:true});
+  }
 }
 
 function setupShare(){

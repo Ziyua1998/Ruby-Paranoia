@@ -38,7 +38,7 @@ function setupLanguage(){
     if(pathname==="/texts/"){
       text(document.querySelector(".primary-hero h1"),"Texts");
       text(document.querySelector(".primary-hero p"),"The main story, prequel, extra stories, and personal records.");
-      document.querySelectorAll(".content .section-title h2").forEach((el,i)=>text(el,["Main Story","Prequel: The Fiend Amai Mask","Extra Stories"][i]||el.textContent));
+      document.querySelectorAll(".content .section-title h2").forEach((el,i)=>text(el,["Main Story","Extra Stories","Prequel: The Fiend Amai Mask"][i]||el.textContent));
       document.querySelectorAll(".chapter-chip, .extra-entry").forEach(a=>{
         const title=chapterTitle(a.getAttribute("href")||"");
         if(title)text(a.querySelector("strong"),title);

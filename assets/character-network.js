@@ -5,6 +5,8 @@ const svg=root.querySelector('svg'), detail=root.querySelector('[data-relation-d
 const nodes=[
 {id:'amai',name:'甜美公爵',en:'Amai Mask',group:'core',org:'core',href:'/characters/amai-mask/'},
 {id:'zbm',name:'僵尸男',en:'Zombieman / No.66',group:'core',org:'core',href:'/characters/zombieman/'},
+{id:'elena',name:'艾莲娜',en:'Elena',group:'human',org:'human',href:'/characters/elena/'},
+{id:'lydia',name:'莉迪亚',en:'Lydia',group:'human',org:'human',href:'/characters/lydia/'},
 {id:'webigaza',name:'维比佳莎',en:'Webigaza',group:'vampire',org:'vampire',href:'/characters/webigaza/'},
 {id:'mccoy',name:'玛考伊',en:'McCoy',group:'vampire',org:'vampire',href:'/characters/mccoy/'},
 {id:'dracula',name:'德苦拉亲王',en:'Prince Dracula',group:'vampire',org:'vampire',href:''},
@@ -35,6 +37,11 @@ const nodes=[
 const edges=[
 ['amai','zbm','？？？','faction'],
 ['amai','webigaza','同僚 / 师徒','alliance'],
+['amai','elena','昔日恋人','emotion'],
+['amai','elena','音乐师生','mentor'],
+['amai','elena','资助 / 推荐','alliance'],
+['amai','lydia','昔日恋人','emotion'],
+['amai','lydia','刺杀 / 冲突','conflict'],
 ['zbm','webigaza','朋友','alliance'],
 ['amai','mccoy','上下级','faction'],
 ['mccoy','psykos','合作','alliance'],

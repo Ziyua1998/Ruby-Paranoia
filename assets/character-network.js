@@ -36,7 +36,7 @@ const nodes=[
 ];
 const edges=[
 ['amai','zbm','？？？','faction'],
-['amai','webigaza','同僚 / 师徒','alliance'],
+['amai','webigaza','同僚','alliance'],
 ['amai','elena','昔日恋人','emotion'],
 ['amai','elena','音乐师生','mentor'],
 ['amai','elena','资助 / 推荐','alliance'],
@@ -84,7 +84,27 @@ const edges=[
 ['amai','dracula','继承','faction'],
 ['homeless','zbm','敌对','conflict'],
 ['amai','blue','敌对','conflict'],
-['amai','bishop','敌对','conflict']
+['amai','bishop','敌对','conflict'],
+['amai','webigaza','指导 / 师徒','mentor'],
+['amai','zbm','指导 / 师徒','mentor'],
+['tatsumaki','fubuki','合作 / 熟人','alliance'],
+['webigaza','mccoy','合作','alliance'],
+['psykos','dos','合作','alliance'],
+['psykos','ugly','合作','alliance'],
+['psykos','homeless','合作','alliance'],
+['child','bofoi','合作 / 熟人','alliance'],
+['blue','iaian','合作 / 熟人','alliance'],
+['saitama','king','熟人','alliance'],
+['amai','dracula','敌对 / 冲突','conflict'],
+['amai','mccoy','冲突','conflict'],
+['amai','zbm','对立 / 冲突','conflict'],
+['amai','homeless','敌对','conflict'],
+['amai','dos','单恋：弩S → 甜美公爵','emotion'],
+['amai','zbm','情感纠葛','emotion'],
+['amai','s12','单恋：12号 → 甜美公爵','emotion'],
+['amai','s26','单恋：26号 → 甜美公爵','emotion'],
+['saitama','genos','单恋：杰诺斯 → 埼玉','emotion'],
+['bad','garou','情感牵绊','emotion']
 ].map((e,i)=>({id:'e'+i,source:e[0],target:e[1],label:e[2],type:e[3]}));
 const byId=Object.fromEntries(nodes.map(n=>[n.id,n]));
 const W=1000,H=620;

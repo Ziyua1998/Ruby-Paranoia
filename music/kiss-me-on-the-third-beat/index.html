@@ -12,6 +12,27 @@
 <link rel="stylesheet" href="/assets/music-player.css?v=20260930-2">
 <link rel="stylesheet" href="/assets/nav.css?v=20261107-1">
 
+<style>
+.film-related{margin:40px auto 12px;max-width:880px;padding:0 4px}
+.film-related-heading{text-align:center;font:500 11px Cinzel,serif;letter-spacing:.2em;color:#a78681;margin-bottom:19px}
+.film-related-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.film-related-card{display:flex;align-items:center;gap:18px;min-height:132px;padding:22px;border:1px solid rgba(170,112,116,.35);border-radius:12px;background:linear-gradient(130deg,rgba(50,23,31,.76),rgba(17,11,16,.95));text-decoration:none;color:#eee3dd;transition:transform .2s,border-color .2s,box-shadow .2s}
+.film-related-card:hover,.film-related-card:focus-visible{transform:translateY(-3px);border-color:#b27a81;box-shadow:0 8px 28px rgba(0,0,0,.35)}
+.film-related-disc{position:relative;flex:0 0 78px;width:78px;height:78px;border-radius:50%;background:repeating-radial-gradient(circle at center,#161317 0,#161317 2px,#30282e 3px,#171419 4px,#0b0b0d 6px);box-shadow:0 2px 10px #0008,inset 0 0 0 2px #51424a}
+.film-related-disc:before{content:"";position:absolute;inset:24px;border-radius:50%;background:radial-gradient(circle,#742b38,#4c1726);border:2px solid #aa727b}
+.film-related-disc:after{content:"";position:absolute;left:36px;top:36px;width:6px;height:6px;border-radius:50%;background:#ddd2ca}
+.film-related-book{position:relative;flex:0 0 78px;width:78px;height:78px;display:grid;place-items:center}
+.film-related-book svg{width:75px;height:75px;filter:drop-shadow(2px 4px 4px #0008)}
+.film-related-copy{display:flex;flex-direction:column;align-items:flex-start;gap:7px;min-width:0;text-align:left}
+.film-related-kicker{font:500 10px Cinzel,serif;letter-spacing:.1em;color:#b78e95}
+.film-related-title{font:600 19px "Noto Serif SC",serif}
+.film-related-sub{font-size:12px;color:#a99b9b}
+@media(max-width:680px){.film-related-grid{grid-template-columns:1fr}.film-related-card{min-height:112px;padding:17px}}
+@media(prefers-reduced-motion:reduce){.film-related-card{transition:none}}
+
+.film-related-video{flex:0 0 78px;width:78px;height:78px;display:grid;place-items:center;border:1px solid #77505b;border-radius:9px;background:linear-gradient(145deg,#4e2330,#161016);color:#d6ab9f;font:32px/1 Georgia,serif}
+.film-related-title{overflow-wrap:anywhere}
+</style>
 </head>
 <body>
 <div class="site">
@@ -93,6 +114,19 @@
 <div class="lyric-pair"><p class="lyric-cn">呐，艾莲娜，请再吻我一次！</p><p class="lyric-jp">ねえ　エレーナ　キスをして！</p></div>
 <div class="lyric-pair"><p class="lyric-cn">今晚也真是一堂美妙的课程</p><p class="lyric-jp">今夜も素敵なレッスンでした</p></div>
 <div class="lyric-pair"><p class="lyric-cn">……可是，我还不想回去呢。</p><p class="lyric-jp">……でも、まだ帰りたくないな。</p></div>
+</section>
+<section class="film-related" aria-label="关联作品">
+<div class="film-related-heading">RELATED WORKS · 关联作品</div>
+<div class="film-related-grid">
+<a class="film-related-card" href="/texts/prequel-06/" aria-label="阅读前传第06章《音乐教师》">
+<span class="film-related-book" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><path d="M11 13 Q27 9 39 18 L39 66 Q27 58 11 61Z" fill="#4e2330" stroke="#b58b79" stroke-width="2"/><path d="M41 18 Q54 9 69 13 L69 61 Q54 58 41 66Z" fill="#662e39" stroke="#b58b79" stroke-width="2"/><path d="M40 17 V67" stroke="#d4ad83" stroke-width="2"/><path d="M17 26 Q28 24 34 29 M17 35 Q28 33 34 38 M47 29 Q56 24 63 26 M47 38 Q56 33 63 35" fill="none" stroke="#bb9b88" stroke-width="1.5" stroke-linecap="round"/><path d="M8 16 V66 Q24 62 39 70 Q55 62 72 66 V16" fill="none" stroke="#8b5b61" stroke-width="2"/></svg></span>
+<span class="film-related-copy"><span class="film-related-kicker">PREQUEL · CHAPTER 06</span><span class="film-related-title">音乐教师</span><span class="film-related-sub">阅读关联前传小说 ↗</span></span>
+</a>
+<a class="film-related-card" href="/film/kiss-me-on-the-third-beat/" aria-label="观看 Kiss Me on the Third Beat 歌曲MV">
+<span class="film-related-video" aria-hidden="true">▶</span>
+<span class="film-related-copy"><span class="film-related-kicker">MUSIC VIDEO · MV</span><span class="film-related-title">Kiss Me on the Third Beat</span><span class="film-related-sub">观看歌曲 MV ↗</span></span>
+</a>
+</div>
 </section>
 </main>
 <footer class="footer"><span>RUBY PARANOIA / One Punch Man</span><span>Produced by Zenobia</span></footer>
